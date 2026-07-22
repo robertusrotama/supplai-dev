@@ -1,0 +1,303 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { BarChart2, Map, GitCommit, Bell, ArrowUpRight, ShieldAlert, CheckCircle } from "lucide-react";
+
+const featuresData = [
+    {
+        id: "dashboard",
+        tabLabel: "Dashboard Prediksi",
+        title: "Dashboard Analitik & Prediksi Harga Pangan",
+        desc: "Antarmuka interaktif yang memproyeksikan pergerakan harga komoditas pangan pokok dalam rentang 14 hari ke depan sebagai basis kebijakan strategis.",
+        icon: BarChart2,
+        mockup: (
+            <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-6 shadow-sm">
+                <div className="flex items-center justify-between border-b border-brand-border pb-4">
+                    <div className="space-y-1">
+                        <span className="text-[10px] font-mono font-bold text-brand-primary uppercase">Analytics View</span>
+                        <h4 className="text-base font-bold text-brand-textMain">Tren Harga Beras Premium (Nasional)</h4>
+                    </div>
+                    <span className="text-xs font-mono bg-brand-bgSubtle px-2.5 py-1 rounded-md text-brand-textMuted border border-brand-border font-semibold">14 Days Window</span>
+                </div>
+
+                {/* Metrik Grid Atas */}
+                <div className="grid grid-cols-3 gap-4">
+                    {[
+                        { label: "Harga Hari Ini", val: "Rp14.500", diff: "0.0%", color: "text-brand-textMuted" },
+                        { label: "Prediksi H+7", val: "Rp14.850", diff: "+2.4%", color: "text-amber-600" },
+                        { label: "Prediksi H+14", val: "Rp15.200", diff: "+4.8%", color: "text-rose-600" }
+                    ].map((card) => (
+                        <div key={card.label} className="p-4 bg-brand-bgSubtle rounded-xl border border-brand-border space-y-1">
+                            <span className="text-[11px] text-brand-textMuted font-medium">{card.label}</span>
+                            <p className="text-lg font-black text-brand-textMain">{card.val}</p>
+                            <span className={`text-[10px] font-mono font-bold ${card.color}`}>{card.diff}</span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* ================================================================= */}
+                {/* REPLICATED SMOOTH LINE CHART (SVG INTERACTIVE VERSION)            */}
+                {/* ================================================================= */}
+                <div className="h-32 bg-brand-bgSubtle/40 rounded-xl border border-brand-border p-4 relative flex flex-col justify-between overflow-hidden">
+
+                    {/* Garis Grid Horizontal Tipis Belakang */}
+                    <div className="absolute inset-0 flex flex-col justify-between p-4 pointer-events-none opacity-40">
+                        <div className="w-full border-b border-brand-border" />
+                        <div className="w-full border-b border-brand-border" />
+                        <div className="w-full border-b border-brand-border" />
+                    </div>
+
+                    {/* Grafik Utama */}
+                    <div className="w-full h-full relative z-10">
+                        <svg className="w-full h-full" viewBox="0 0 500 100" preserveAspectRatio="none">
+
+                            {/* 1. Jalur Biru: Harga Aktual (Sisi Kiri Hingga Tengah) */}
+                            <motion.path
+                                d="M 0 60 Q 60 55 120 52 T 250 45"
+                                fill="none"
+                                stroke="#2563eb"
+                                strokeWidth="2.5"
+                                strokeLinecap="round"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                            />
+
+                            {/* Titik Pembatas Tengah Antara Aktual & Prediksi */}
+                            <circle cx="250" cy="45" r="4" fill="#2563eb" className="animate-pulse" />
+
+                            {/* 2. Jalur Oranye Putus-putus: Harga Prediksi Model ML (Sisi Kanan) */}
+                            <motion.path
+                                d="M 250 45 Q 310 40 370 36 T 500 30"
+                                fill="none"
+                                stroke="#f97316"
+                                strokeWidth="2.5"
+                                strokeDasharray="4 4"
+                                strokeLinecap="round"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            />
+                        </svg>
+
+                        {/* Tooltip Mini Yang Melayang di Titik Tengah (Replikasi Gambar 1) */}
+                        <div className="absolute left-[40%] top-[10%] bg-brand-card border border-brand-border shadow-md rounded-lg px-2 py-1 text-[9px] font-mono font-bold text-brand-textMain pointer-events-none flex flex-col">
+                            <span className="text-brand-textMuted text-[8px]">16/03 (Hari Ini)</span>
+                            <span className="text-blue-600">● Aktual: Rp14.500</span>
+                        </div>
+                    </div>
+
+                    {/* Label Aksis Bawah (JetBrains Mono) */}
+                    <div className="flex justify-between items-center text-[9px] font-mono font-bold text-brand-textMuted/60 pt-2 border-t border-brand-border relative z-10">
+                        <span>06/03</span>
+                        <span>12/03</span>
+                        <span>16/03</span>
+                        <span>22/03</span>
+                        <span>30/03</span>
+                    </div>
+
+                </div>
+
+                {/* Legenda Grafik */}
+                <div className="flex justify-center items-center gap-6 font-mono text-[10px] font-bold">
+                    <div className="flex items-center gap-1.5 text-blue-600">
+                        <span className="w-3 h-0.5 bg-blue-600 inline-block" />
+                        <span>Harga Aktual</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-orange-500">
+                        <span className="w-3 h-0.5 bg-orange-500 border-t border-dashed inline-block" />
+                        <span>Harga Prediksi</span>
+                    </div>
+                </div>
+
+            </div>
+        )
+    },
+    {
+        id: "heatmap",
+        tabLabel: "Heatmap",
+        title: "Peta Disparitas & Pemetaan Spasial Makro",
+        desc: "Pemetaan geografis riil untuk memantau wilayah mana saja yang sedang mengalami lonjakan harga ekstrem (merah) atau kelebihan pasokan (hijau).",
+        icon: Map,
+        mockup: (
+            <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-brand-textMain">Live Supply Distribution Mapping</h4>
+                    <span className="flex items-center gap-1.5 text-xs text-brand-primary font-bold bg-brand-primary/10 px-2 py-0.5 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" />
+                        Live Sync
+                    </span>
+                </div>
+                <div className="h-44 bg-brand-bgSubtle rounded-xl border border-brand-border relative overflow-hidden flex items-center justify-center p-4">
+                    <div className="absolute inset-0 bg-emerald-50/40 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]" />
+                    <div className="relative w-full space-y-2">
+                        <div className="p-3 bg-white/90 border border-brand-border rounded-xl flex justify-between items-center text-xs shadow-sm">
+                            <span className="font-semibold text-brand-textMain">Zona Merah (Defisit Parah)</span>
+                            <span className="px-2 py-0.5 bg-rose-100 text-rose-700 font-bold rounded">Surabaya</span>
+                        </div>
+                        <div className="p-3 bg-white/90 border border-brand-border rounded-xl flex justify-between items-center text-xs shadow-sm">
+                            <span className="font-semibold text-brand-textMain">Zona Hijau (Surplus Berlebih)</span>
+                            <span className="px-2 py-0.5 bg-emerald-100 text-brand-accentDark font-bold rounded">Kediri</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    {
+        id: "redistribution",
+        tabLabel: "Rute Distribusi",
+        title: "Algoritma Pencocokan Rute Logistik Pintar",
+        desc: "Menghitung volume ideal alokasi logistik pangan dari daerah surplus menuju wilayah defisit guna menekan biaya angkut serendah mungkin.",
+        icon: GitCommit,
+        mockup: (
+            <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-4 shadow-sm font-mono text-xs text-brand-textMuted">
+                <div className="flex items-center justify-between border-b border-brand-border pb-3">
+                    <span className="font-bold text-brand-textMain">Matchmaking Optimization Log</span>
+                    <span className="text-brand-primary font-bold">Linear Solver OK</span>
+                </div>
+                <div className="space-y-2">
+                    <div className="p-2.5 bg-brand-bgSubtle rounded-lg border border-brand-border flex justify-between">
+                        <span className="text-brand-textMain font-semibold">Origin Supply:</span>
+                        <span>Subang Rice Hub (150 Tons)</span>
+                    </div>
+                    <div className="p-2.5 bg-brand-bgSubtle rounded-lg border border-brand-border flex justify-between">
+                        <span className="text-brand-textMain font-semibold">Target Demand:</span>
+                        <span>Bandung Core Market (120 Tons)</span>
+                    </div>
+                    <div className="p-2.5 bg-brand-primary/5 border border-brand-primary/20 rounded-lg flex justify-between text-brand-accentDark font-bold">
+                        <span>Optimized Cost:</span>
+                        <span>Saved ~18.4% vs Manual Route</span>
+                    </div>
+                </div>
+            </div>
+        )
+    },
+    {
+        id: "ews",
+        tabLabel: "Early Warning System",
+        title: "Early Warning System & Broadcast Alert Center",
+        desc: "Pusat peringatan otomatis yang langsung mengirimkan alarm push-notification sesaat sebelum harga pasar melampaui ambang batas aman nasional.",
+        icon: Bell,
+        mockup: (
+            <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-bold text-brand-textMain">Alert Broadcast Center</h4>
+                    <span className="text-[10px] font-mono bg-rose-50 border border-rose-200 text-rose-600 px-2 py-0.5 rounded-md font-bold">CRITICAL RISK</span>
+                </div>
+                <div className="border border-rose-100 bg-rose-50/30 rounded-xl p-4 flex gap-4 items-start">
+                    <div className="p-2 rounded-lg bg-rose-500 text-white flex-shrink-0">
+                        <ShieldAlert className="w-4 h-4" />
+                    </div>
+                    <div className="space-y-1 text-xs">
+                        <p className="font-bold text-brand-textMain">Anomali Lonjakan Harga Terdeteksi</p>
+                        <p className="text-brand-textMuted leading-relaxed">Komoditas Bawang Merah di Kluster Wilayah Cirebon melampaui HAP sebesar 14.2%.</p>
+                    </div>
+                </div>
+                <div className="flex gap-2 justify-end text-[11px] font-mono font-bold">
+                    <span className="px-2.5 py-1 bg-brand-bgSubtle rounded border border-brand-border text-brand-textMuted">Ignore</span>
+                    <span className="px-2.5 py-1 bg-brand-primary rounded text-white shadow-sm cursor-pointer flex items-center gap-1">
+                        Dispatch TPID Action <ArrowUpRight className="w-3 h-3" />
+                    </span>
+                </div>
+            </div>
+        )
+    }
+];
+
+export function FeaturesSection() {
+    const [activeTab, setActiveTab] = useState(featuresData[0]);
+
+    return (
+        <section id="features" className="py-24 px-6 md:px-12 bg-brand-card border-t border-brand-border relative">
+            <div className="max-w-7xl mx-auto space-y-16 flex flex-col items-center">
+
+                {/* Header Text */}
+                <div className="text-center max-w-3xl space-y-3">
+                    <span className="font-mono text-xs font-bold tracking-widest text-brand-primary uppercase">
+                        Our Features
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-brand-textMain">
+                        SupplAi in Action
+                    </h2>
+                    <p className="text-brand-textMuted text-base font-normal">
+                        Lihat bagaimana SupplAi mempermudah pengawasan, analisis, dan eksekusi ketahanan pangan.
+                    </p>
+                </div>
+
+                {/* 1. HORIZONTAL CAPSULE TAB BAR (Gaya Openlayer) */}
+                <div className="bg-brand-bgSubtle/80 border border-brand-border p-1.5 rounded-full flex flex-wrap md:flex-nowrap justify-center items-center gap-1 shadow-inner max-w-4xl w-full">
+                    {featuresData.map((tab) => {
+                        const isActive = activeTab.id === tab.id;
+                        return (
+                            <button
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab)}
+                                className={`relative px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 cursor-pointer w-full md:w-auto text-center ${isActive ? "text-brand-textMain" : "text-brand-textMuted/60 hover:text-brand-textMain"
+                                    }`}
+                            >
+                                {/* Gelembung Latar Belakang Putih (Pill Highlight Animation) */}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="activeHorizontalTab"
+                                        className="absolute inset-0 bg-white border border-brand-border/40 shadow-sm rounded-full -z-0"
+                                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                                    />
+                                )}
+                                <span className="relative z-10 flex items-center justify-center gap-2">
+                                    <tab.icon className={`w-3.5 h-3.5 ${isActive ? "text-brand-primary" : ""}`} />
+                                    {tab.tabLabel}
+                                </span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {/* 2. PREVIEW CONTAINER (Wadah Dashboard & Info Detail Halaman) */}
+                <div className="w-full bg-brand-bg/40 border border-brand-border rounded-3xl p-6 md:p-10 lg:p-12 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-12 items-center max-w-6xl mt-6 relative overflow-hidden">
+
+                    {/* Detail Teks Sebelah Kiri */}
+                    <div className="lg:col-span-5 space-y-5">
+                        <div className="inline-flex p-2.5 rounded-xl bg-brand-card border border-brand-border text-brand-primary shadow-sm">
+                            <activeTab.icon className="w-5 h-5" />
+                        </div>
+                        <div className="space-y-3">
+                            <h3 className="text-2xl font-black tracking-tight text-brand-textMain">
+                                {activeTab.title}
+                            </h3>
+                            <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
+                                {activeTab.desc}
+                            </p>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs font-mono font-bold text-brand-primary">
+                            <CheckCircle className="w-4 h-4" /> Terintegrasi Nasional (514 Kabupaten/Kota)
+                        </div>
+                    </div>
+
+                    {/* Mini Version Dashboard Sebelah Kanan (Dengan Animasi Fade-In) */}
+                    <div className="lg:col-span-7 w-full flex items-center justify-center relative">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/5 to-transparent blur-3xl pointer-events-none" />
+
+                        <div className="w-full relative z-10">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTab.id}
+                                    initial={{ opacity: 0, scale: 0.97, y: 15 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.97, y: -15 }}
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    className="w-full"
+                                >
+                                    {activeTab.mockup}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    );
+}

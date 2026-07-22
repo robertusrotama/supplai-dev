@@ -1,0 +1,113 @@
+"use client";
+
+import { motion } from "motion/react";
+import { Gauge, BarChart3, Handshake, Database, Zap, Rocket, CheckCircle2 } from "lucide-react";
+
+export function OurGoalsSection() {
+    return (
+        <section id="our-goals" className="py-24 px-6 md:px-12 bg-brand-bg font-sans text-brand-textMain">
+            <div className="max-w-7xl mx-auto space-y-32">
+
+                {/* ================================================================= */}
+                {/* BAGIAN A: OUR STRATEGIC VISION (3 CARDS HORIZONTAL)               */}
+                {/* ================================================================= */}
+                <div className="space-y-12">
+                    {/* Header Konten */}
+                    <div className="max-w-4xl space-y-3 relative">
+                        <span className="font-mono text-xs font-bold tracking-widest text-brand-accentDark uppercase">
+                            OUR GOALS
+                        </span>
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight max-w-3xl leading-tight">
+                            Mengubah pendekatan pengendalian inflasi pangan <span className="text-brand-primary">reaktif menjadi prediktif</span>.
+                        </h2>
+                    </div>
+
+                    {/* Grid 3 Kartu Visi */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+
+                        {/* Kartu 1: Efisiensi Birokrasi */}
+                        <motion.div
+                            whileHover={{ y: -4 }}
+                            className="bg-brand-card border border-brand-border rounded-2xl p-8 flex flex-col justify-between shadow-sm min-h-[300px]"
+                        >
+                            <div className="space-y-6">
+                                <div className="w-12 h-12 rounded-xl bg-brand-bgSubtle flex items-center justify-center text-brand-accentDark">
+                                    <Gauge className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-1">
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block">
+                                        EFISIENSI BIROKRASI
+                                    </span>
+                                    <div className="flex items-baseline gap-2 mt-2">
+                                        <span className="text-5xl font-black tracking-tight">2-3</span>
+                                        <span className="text-xl font-medium text-brand-textMuted">Hari</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border-t border-brand-border pt-6 mt-6">
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
+                                    Memangkas birokrasi koordinasi dari semula 1-4 minggu secara signifikan.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Kartu 2: Akurasi Prediksi (Warna Hijau Pekat Kontras Ditengah) */}
+                        <motion.div
+                            whileHover={{ y: -4 }}
+                            className="bg-brand-accentDark text-white rounded-2xl p-8 flex flex-col justify-between shadow-md min-h-[300px]"
+                        >
+                            <div className="space-y-6">
+                                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-brand-primary">
+                                    <BarChart3 className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-1">
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-primary/90 uppercase block">
+                                        AKURASI PREDIKSI
+                                    </span>
+                                    <div className="flex items-baseline gap-2 mt-2">
+                                        <span className="text-5xl font-black tracking-tight">&lt; 10%</span>
+                                        <span className="text-xl font-medium text-brand-primary">Error</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border-t border-white/10 pt-6 mt-6">
+                                <p className="text-white/80 text-sm font-light leading-relaxed">
+                                    Prediksi harga dan stok akurat di seluruh 514 kabupaten/kota di Indonesia.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Kartu 3: Kemitraan Strategis */}
+                        <motion.div
+                            whileHover={{ y: -4 }}
+                            className="bg-brand-card border border-brand-border rounded-2xl p-8 flex flex-col justify-between shadow-sm min-h-[300px]"
+                        >
+                            <div className="space-y-6">
+                                <div className="w-12 h-12 rounded-xl bg-brand-bgSubtle flex items-center justify-center text-brand-accentDark">
+                                    <Handshake className="w-6 h-6" />
+                                </div>
+                                <div className="space-y-1">
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block">
+                                        KEMITRAAN STRATEGIS
+                                    </span>
+                                    <div className="flex items-baseline gap-2 mt-2">
+                                        <span className="text-5xl font-black tracking-tight">335</span>
+                                        <span className="text-xl font-medium text-brand-textMuted">Triliun</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="border-t border-brand-border pt-6 mt-6">
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
+                                    Target potensi serapan melalui 32.000+ satuan pendidikan nasional.
+                                </p>
+                            </div>
+                        </motion.div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    );
+}

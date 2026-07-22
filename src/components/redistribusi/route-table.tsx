@@ -1,0 +1,93 @@
+"use client";
+
+import { useState } from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
+import type { RedistributionRoute } from "@/lib/types"
+import { formatRupiah, formatNumber } from "@/lib/format"
+import { ChevronsUpDown } from "lucide-react";
+
+type SortKey = "from" | "to" | "volume" | "distance" | "cost" | "priority";
+
+const PRIORITY_ORDER: Record<RedistributionRoute["priority"], number> = { high: 0, medium: 1, low: 2 };
+const COMMODITY_LABELS: Record<string, string> = { beras: "Beras", "bawang-merah": "Bawang Merah", "cabai-rawit": "Cabai Rawit", "minyak-goreng": "Minyak Goreng" };
+
+interface RouteTableProps {
+  routes: RedistributionRoute[];
+  loading: boolean;
+}
+
+export function RouteTable({ routes, loading }: RouteTableProps) {
+  const [sortKey, setSortKey] = useState<SortKey>("priority");
+  const [sortAsc, setSortAsc] = useState(true);
+
+  if (loading) {
+    return (
+      <div className="space-y-2">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Skeleton key={i} className="h-10 w-full rounded-xl" />
+        ))}
+      </div>
+    );
+  }
+
+  if (routes.length === 0) {
+    return <div className="py-12 text-center text-xs font-medium text-slate-400 italic">Tidak tersedia rute distribusi untuk komoditas ini.</div>;
+  }
+
+  const sorted = [...routes].sort((a, b) => {
+    let aVal = sortKey === "priority" ? PRIORITY_ORDER[a.priority] : a[sortKey];
+    let bVal = sortKey === "priority" ? PRIORITY_ORDER[b.priority] : b[sortKey];
+
+    if (typeof aVal === "string" && typeof bVal === "string") {
+      return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    }
+    return sortAsc ? (aVal as number) - (bVal as number) : (bVal as number) - (aVal as number);
+  });
+
+  const toggleSort = (key: SortKey) => {
+    setSortAsc(sortKey === key ? !sortAsc : true);
+    setSortKey(key);
+  };
+
+  return (
+    <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+      <Table className="text-xs">
+        <TableHeader className="bg-slate-50">
+          <TableRow className="hover:bg-transparent">
+            {(["from", "to", "volume", "distance", "cost", "priority"] as const).map((col) => (
+              <TableHead
+                key={col}
+                onClick={() => toggleSort(col)}
+                className="cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
+              >
+                <div className="flex items-center gap-1 capitalize">
+                  {col === "from" ? "Asal" : col === "to" ? "Tujuan" : col === "cost" ? "Est. Biaya" : col}
+                  {/* Mengubah nama komponen di bawah ini */}
+                  <ChevronsUpDown className={`w-3 h-3 ${sortKey === col ? "text-[#006c4a]" : "text-slate-300"}`} />
+                </div>
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {sorted.map((route, i) => (
+            <TableRow key={i} className="hover:bg-slate-50/50 transition-colors border-b border-slate-100">
+              <TableCell className="font-bold text-slate-800">{route.from}</TableCell>
+              <TableCell className="font-medium text-slate-600">{route.to}</TableCell>
+              <TableCell className="font-mono font-semibold text-slate-700">{formatNumber(route.volume)} t</TableCell>
+              <TableCell className="font-medium text-slate-500">{formatNumber(route.distance)} km</TableCell>
+              <TableCell className="font-mono font-bold text-slate-800">{formatRupiah(route.cost)}</TableCell>
+              <TableCell>
+                {route.priority === "high" && <Badge className="bg-rose-500 hover:bg-rose-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Tinggi</Badge>}
+                {route.priority === "medium" && <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Sedang</Badge>}
+                {route.priority === "low" && <Badge className="bg-slate-400 hover:bg-slate-500 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Rendah</Badge>}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
