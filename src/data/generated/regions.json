@@ -1,0 +1,240 @@
+[
+ {
+  "id": "aceh",
+  "name": "Aceh",
+  "province": "Aceh",
+  "lat": 4.964556107954546,
+  "lng": 96.21045809659091
+ },
+ {
+  "id": "bali",
+  "name": "Bali",
+  "province": "Bali",
+  "lat": -8.393908045977012,
+  "lng": 115.15206374085683
+ },
+ {
+  "id": "banten",
+  "name": "Banten",
+  "province": "Banten",
+  "lat": -6.115025603511339,
+  "lng": 106.3067008046818
+ },
+ {
+  "id": "bengkulu",
+  "name": "Bengkulu",
+  "province": "Bengkulu",
+  "lat": -3.8114727722772277,
+  "lng": 102.28659653465346
+ },
+ {
+  "id": "di-yogyakarta",
+  "name": "DI Yogyakarta",
+  "province": "DI Yogyakarta",
+  "lat": -7.789889224572003,
+  "lng": 110.37
+ },
+ {
+  "id": "dki-jakarta",
+  "name": "DKI Jakarta",
+  "province": "DKI Jakarta",
+  "lat": -6.255979680696662,
+  "lng": 106.85702467343978
+ },
+ {
+  "id": "gorontalo",
+  "name": "Gorontalo",
+  "province": "Gorontalo",
+  "lat": 0.5572653061224491,
+  "lng": 123.05216326530612
+ },
+ {
+  "id": "jambi",
+  "name": "Jambi",
+  "province": "Jambi",
+  "lat": -1.5401789587852495,
+  "lng": 102.8738557483731
+ },
+ {
+  "id": "jawa-barat",
+  "name": "Jawa Barat",
+  "province": "Jawa Barat",
+  "lat": -6.792840083712914,
+  "lng": 107.61356518527637
+ },
+ {
+  "id": "jawa-tengah",
+  "name": "Jawa Tengah",
+  "province": "Jawa Tengah",
+  "lat": -7.411940058870751,
+  "lng": 110.35167870841137
+ },
+ {
+  "id": "jawa-timur",
+  "name": "Jawa Timur",
+  "province": "Jawa Timur",
+  "lat": -7.798055651374037,
+  "lng": 112.95045532942393
+ },
+ {
+  "id": "kalimantan-barat",
+  "name": "Kalimantan Barat",
+  "province": "Kalimantan Barat",
+  "lat": 0.24919515885022694,
+  "lng": 109.66037518910741
+ },
+ {
+  "id": "kalimantan-selatan",
+  "name": "Kalimantan Selatan",
+  "province": "Kalimantan Selatan",
+  "lat": -3.0063657817109144,
+  "lng": 115.16189380530973
+ },
+ {
+  "id": "kalimantan-tengah",
+  "name": "Kalimantan Tengah",
+  "province": "Kalimantan Tengah",
+  "lat": -2.346970248937462,
+  "lng": 113.51373406193078
+ },
+ {
+  "id": "kalimantan-timur",
+  "name": "Kalimantan Timur",
+  "province": "Kalimantan Timur",
+  "lat": -0.5610832424572882,
+  "lng": 117.14297709923665
+ },
+ {
+  "id": "kalimantan-utara",
+  "name": "Kalimantan Utara",
+  "province": "Kalimantan Utara",
+  "lat": 3.0870835702103467,
+  "lng": 117.48709494030699
+ },
+ {
+  "id": "kepulauan-bangka-belitung",
+  "name": "Kepulauan Bangka Belitung",
+  "province": "Kepulauan Bangka Belitung",
+  "lat": -2.4291181273816003,
+  "lng": 106.86556886227544
+ },
+ {
+  "id": "kepulauan-riau",
+  "name": "Kepulauan Riau",
+  "province": "Kepulauan Riau",
+  "lat": 1.0167323556370302,
+  "lng": 104.18109074243813
+ },
+ {
+  "id": "lampung",
+  "name": "Lampung",
+  "province": "Lampung",
+  "lat": -5.269602364320257,
+  "lng": 105.28921010209565
+ },
+ {
+  "id": "maluku",
+  "name": "Maluku",
+  "province": "Maluku",
+  "lat": -4.67,
+  "lng": 130.46
+ },
+ {
+  "id": "maluku-utara",
+  "name": "Maluku Utara",
+  "province": "Maluku Utara",
+  "lat": 0.7804481132075473,
+  "lng": 127.38522405660378
+ },
+ {
+  "id": "nusa-tenggara-barat",
+  "name": "Nusa Tenggara Barat",
+  "province": "Nusa Tenggara Barat",
+  "lat": -8.543703703703704,
+  "lng": 116.9209419295839
+ },
+ {
+  "id": "nusa-tenggara-timur",
+  "name": "Nusa Tenggara Timur",
+  "province": "Nusa Tenggara Timur",
+  "lat": -9.518324279147514,
+  "lng": 122.23090681153364
+ },
+ {
+  "id": "papua",
+  "name": "Papua",
+  "province": "Papua",
+  "lat": -4.508701809598741,
+  "lng": 139.49474167322316
+ },
+ {
+  "id": "papua-barat",
+  "name": "Papua Barat",
+  "province": "Papua Barat",
+  "lat": -0.8726537216828479,
+  "lng": 132.57905070118662
+ },
+ {
+  "id": "riau",
+  "name": "Riau",
+  "province": "Riau",
+  "lat": 0.6149296551724137,
+  "lng": 101.78973517241378
+ },
+ {
+  "id": "sulawesi-barat",
+  "name": "Sulawesi Barat",
+  "province": "Sulawesi Barat",
+  "lat": -3.043319377990431,
+  "lng": 118.98138755980861
+ },
+ {
+  "id": "sulawesi-selatan",
+  "name": "Sulawesi Selatan",
+  "province": "Sulawesi Selatan",
+  "lat": -4.442733248515691,
+  "lng": 119.9530576759966
+ },
+ {
+  "id": "sulawesi-tengah",
+  "name": "Sulawesi Tengah",
+  "province": "Sulawesi Tengah",
+  "lat": -0.9133986287952988,
+  "lng": 120.23779627815865
+ },
+ {
+  "id": "sulawesi-tenggara",
+  "name": "Sulawesi Tenggara",
+  "province": "Sulawesi Tenggara",
+  "lat": -4.6744450519409515,
+  "lng": 122.55833788955714
+ },
+ {
+  "id": "sulawesi-utara",
+  "name": "Sulawesi Utara",
+  "province": "Sulawesi Utara",
+  "lat": 1.2057048312375909,
+  "lng": 124.64224354731965
+ },
+ {
+  "id": "sumatera-barat",
+  "name": "Sumatera Barat",
+  "province": "Sumatera Barat",
+  "lat": -0.6129190600522193,
+  "lng": 100.37279895561358
+ },
+ {
+  "id": "sumatera-selatan",
+  "name": "Sumatera Selatan",
+  "province": "Sumatera Selatan",
+  "lat": -3.0774055595153245,
+  "lng": 104.14916607270135
+ },
+ {
+  "id": "sumatera-utara",
+  "name": "Sumatera Utara",
+  "province": "Sumatera Utara",
+  "lat": 2.543746598639456,
+  "lng": 98.73657653061224
+ }
+]
