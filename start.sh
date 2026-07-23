@@ -2,10 +2,10 @@
 # start.sh — start the SupplAi dashboard (Next.js front-end).
 #
 # Usage:
-#   ./start.sh              start the dev server (default) on http://localhost:3000
+#   ./start.sh              start the dev server (default) on http://localhost:8080
 #   ./start.sh --prod       production build, then start
 #   ./start.sh --refresh    regenerate data from ../artifacts before starting
-#   ./start.sh --port 4000  use a different port
+#   ./start.sh --port 5000  use a different port
 #   ./start.sh --help       show this help
 #
 # The dashboard reads real model data from committed JSON (src/data/generated),
@@ -17,7 +17,7 @@ cd "$(dirname "$0")"
 
 MODE="dev"
 REFRESH=0
-PORT=3000
+PORT=8080
 while [ $# -gt 0 ]; do
   case "$1" in
     --prod) MODE="prod" ;;
@@ -56,7 +56,7 @@ echo
 
 if [ "$MODE" = "prod" ]; then
   npm run build
-  npm run start
+  npm run start -- -p "$PORT"
 else
-  npm run dev
+  npm run dev -- -p "$PORT"
 fi
