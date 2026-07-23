@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { HeatmapResponse } from "@/lib/types";
+import { commodities } from "@/data/commodities";
 import { PriceMatrix } from "@/components/heatmap/price-matrix";
 import { TopCritical } from "@/components/heatmap/top-critical";
 import { CityFilterModal } from "@/components/heatmap/city-filter-modal";
@@ -55,7 +56,7 @@ export default function HeatmapPage() {
         <div>
           <h1 className="text-3xl font-extrabold text-[#065F46] tracking-tight">Heatmap Prediksi Harga per Wilayah</h1>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
-            Prediksi Perubahan Harga 7 hari ke depan di Seluruh Indonesia.
+            Prediksi perubahan harga 1–3 bulan ke depan di seluruh Indonesia.
           </p>
         </div>
 
@@ -66,9 +67,9 @@ export default function HeatmapPage() {
               onChange={(e) => setCommodity(e.target.value)}
               className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#065F46] outline-none appearance-none cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all pr-8"
             >
-              <option value="beras">Beras (Premium)</option>
-              <option value="cabai">Cabai Merah</option>
-              <option value="bawang">Bawang Merah</option>
+              {commodities.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
             </select>
             <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
               <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -118,7 +119,7 @@ export default function HeatmapPage() {
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5 mt-4">
             <Info className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
             <p className="text-[10px] text-slate-500 leading-relaxed font-medium">
-              Penetapan status kritis mengacu pada deviasi harga &gt; 10% dari Harga Eceran Tertinggi (HET) nasional dalam kurun waktu 7 hari terakhir.
+              Penetapan status kritis mengacu pada deviasi harga &gt; 10% dari Harga Eceran Tertinggi (HET) nasional dalam kurun waktu 12 bulan terakhir.
             </p>
           </div>
         </div>

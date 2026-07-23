@@ -12,17 +12,15 @@ interface ElasticDatePickerProps {
 
 export function ElasticDatePicker({ 
   onRangeChange, 
-  defaultLabel = "Last 14 days" 
+  defaultLabel = "12 bulan terakhir"
 }: ElasticDatePickerProps) {
   const [dateRangeText, setDateRangeText] = useState(defaultLabel);
 
   const presets = [
-    { label: "Today", days: 1 },
-    { label: "Last 24 hours", days: 1 },
-    { label: "Last 7 days", days: 7 },
-    { label: "Last 14 days", days: 14 },
-    { label: "Last 30 days", days: 30 },
-    { label: "Last 90 days", days: 90 },
+    { label: "1 bulan", days: 1 },
+    { label: "3 bulan", days: 3 },
+    { label: "6 bulan", days: 6 },
+    { label: "12 bulan terakhir", days: 12 },
   ];
 
   const handlePresetClick = (label: string, days: number) => {
