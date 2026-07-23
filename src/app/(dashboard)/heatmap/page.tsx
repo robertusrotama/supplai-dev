@@ -10,23 +10,16 @@ import { TopCritical } from "@/components/heatmap/top-critical";
 import { CityFilterModal } from "@/components/heatmap/city-filter-modal";
 import { ElasticDatePicker } from "@/components/layout/elastic-date-picker";
 import { NationalHeatmap } from "@/components/heatmap/national-heatmap";
+import { ALL_PROVINCES } from "@/data/province-groups";
 import { Button } from "@/components/ui/button";
 import { MapPin, SlidersHorizontal, Info, ChevronDown } from "lucide-react";
 
-const REGIONAL_GROUPS = {
-  "Jabodetabek": ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"],
-  "Pulau Jawa": ["Bandung", "Yogyakarta", "Semarang", "Surabaya", "Malang"],
-  "Pulau Sumatera": ["Medan", "Palembang", "Padang", "Bandar Lampung"],
-  "Sulawesi & Kawasan Timur": ["Manado", "Makassar", "Jayapura", "Ambon"]
-};
-
 export default function HeatmapPage() {
   const [commodity, setCommodity] = useState("beras");
-  const [range, setRange] = useState(14);
+  const [range, setRange] = useState(12);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
-  const allInitialCities = useMemo(() => Object.values(REGIONAL_GROUPS).flat(), []);
-  const [appliedCities, setAppliedCities] = useState<string[]>(allInitialCities);
+  const [appliedCities, setAppliedCities] = useState<string[]>(ALL_PROVINCES);
 
   // PERBAIKAN: Menambahkan type assertion eksplisit agar `refetch` dikenali oleh TypeScript
   const { data, loading, refetch } = useApi<HeatmapResponse>(
@@ -97,7 +90,7 @@ export default function HeatmapPage() {
               className="flex items-center gap-2 font-bold border-slate-300 bg-white hover:bg-slate-50 rounded-xl shadow-xs text-xs h-9 py-0 cursor-pointer"
             >
               <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
-              <span>Filter Kota ({appliedCities.length})</span>
+              <span>Filter Wilayah ({appliedCities.length})</span>
             </Button>
           </div>
 
