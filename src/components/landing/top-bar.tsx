@@ -2,20 +2,20 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation"; // 1. Tambah useRouter untuk navigasi manual
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Globe, LayoutDashboard, Menu, X } from "lucide-react";
-import { TransitionOverlay } from "@/components/ui/transition-overlay"; // 2. Impor overlay transisi baru Anda
+import { TransitionOverlay } from "@/components/ui/transition-overlay";
 
 export function TopBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [lang, setLang] = useState("ID");
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false); // 3. State pengontrol splash screen
-  
+  const [isRedirecting, setIsRedirecting] = useState(false);
+
   const pathname = usePathname();
-  const router = useRouter(); // 4. Inisialisasi router internal Next.js
-  
+  const router = useRouter();
+
   const toggleLanguage = () => {
     setLang((prev) => (prev === "ID" ? "EN" : "ID"));
   };
@@ -39,104 +39,94 @@ export function TopBar() {
     }
   };
 
-  // 5. Fungsi Interseptor sebelum pindah ke Dashboard
   const handleDashboardAccess = () => {
-    setIsOpen(false); // Tutup menu mobile jika sedang terbuka
-    setIsRedirecting(true); // Picu splash screen loading muncul
-    router.push("/login"); // Langsung arahkan ke halaman login
+    setIsOpen(false);
+    setIsRedirecting(true);
+    router.push("/login");
   };
 
   return (
     <>
-      {/* 6. WADAH RENDER SCREEN OVERLAY APABILA TOMBOL DI-KLIK */}
       <AnimatePresence mode="wait">
         {isRedirecting && (
-          <TransitionOverlay 
+          <TransitionOverlay
             onAnimationComplete={() => {
-              // Pindah rute ke halaman dashboard secara instan saat lingkaran putih memenuhi layar penuh
-              router.push("/dashboard"); 
-            }} 
+              router.push("/dashboard");
+            }}
           />
         )}
       </AnimatePresence>
 
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
-          isScrolled
-            ? "bg-brand-card/95 backdrop-blur-md border-brand-border shadow-sm py-3"
-            : "bg-transparent border-transparent py-5"
-        }`}
+        /* PERBAIKAN: Menghapus garis border-b saat isScrolled === false */
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled
+            ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3"
+            : "bg-gradient-to-b from-slate-950/70 via-slate-900/30 to-transparent border-none py-5"
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 transition-all duration-300">
 
-            {/* ================= LOGO BRAND ================= */}
+            {/* LOGO BRAND */}
             <Link href="/" onClick={scrollToTop} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer">
-              <img 
-                src="/images/logo.png" 
-                alt="supplAi Logo" 
-                className="w-20 h-20 object-contain group-hover:scale-105 transition-transform" 
+              <img
+                src="/images/logo.png"
+                alt="supplAi Logo"
+                className="w-20 h-20 object-contain group-hover:scale-105 transition-transform"
               />
             </Link>
 
-            {/* ================= MENU NAVIGASI ================= */}
+            {/* MENU NAVIGASI */}
             <div className="hidden md:flex items-center gap-8">
               {[
                 { name: "Our Goals", href: "#our-goals" },
                 { name: "Features", href: "#features" },
-                { name: "FAQ", href: "#faq" },      
+                { name: "FAQ", href: "#faq" },
                 { name: "Contact Us", href: "#contact-us" }
               ].map((menu) => (
                 <a
                   key={menu.name}
                   href={menu.href}
-                  className={`text-sm font-semibold transition-colors duration-300 cursor-pointer ${
-                    isScrolled
-                      ? "text-brand-textMuted hover:text-[#10B981]"
-                      : "text-brand-textMuted hover:text-brand-textMain"
-                  }`}
+                  className={`text-sm font-bold transition-all duration-300 cursor-pointer ${isScrolled
+                      ? "text-slate-700 hover:text-[#10B981]"
+                      : "text-white hover:text-[#10B981] drop-shadow-sm"
+                    }`}
                 >
                   {menu.name}
                 </a>
               ))}
             </div>
 
-            {/* ================= SEBELAH KANAN (TOMBOL DESKTOP) ================= */}
+            {/* SEBELAH KANAN */}
             <div className="hidden md:flex items-center gap-4">
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleLanguage}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold cursor-pointer transition-all duration-300 ${
-                  isScrolled
-                    ? "border-brand-border text-brand-textMuted hover:bg-brand-bgSubtle"
-                    : "border-white/10 text-slate-300 hover:text-white hover:bg-white/10"
-                }`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold cursor-pointer transition-all duration-300 ${isScrolled
+                    ? "border-slate-200 text-slate-700 hover:bg-slate-50"
+                    : "border-white/30 text-white hover:bg-white/10 backdrop-blur-xs"
+                  }`}
               >
                 <Globe className="w-3.5 h-3.5 text-[#10B981]" />
                 <span>{lang}</span>
               </motion.button>
 
-              {/* 7. UBAH DENGAN MENGHAPUS <Link> DAN MENGGUNAKAN onClick={handleDashboardAccess} */}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleDashboardAccess}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer shadow-sm transition-all duration-300 ${
-                  isScrolled
-                    ? "bg-[#10B981] text-white hover:bg-[#0e9f6e]"
-                    : "bg-brand-card text-brand-textMain hover:bg-brand-bgSubtle border border-brand-border"
-                }`}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer shadow-md bg-[#10B981] text-white hover:bg-[#0e9f6e] transition-all duration-300"
               >
                 <LayoutDashboard className="w-3.5 h-3.5" />
                 Access to Dashboard
               </motion.button>
             </div>
-            
+
             {/* Hamburger Menu Mobile */}
             <div className="flex md:hidden">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`transition-colors duration-300 ${isScrolled ? "text-slate-800" : "text-slate-400"}`}
+                className={`transition-colors duration-300 ${isScrolled ? "text-slate-800" : "text-white"}`}
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -152,7 +142,8 @@ export function TopBar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className={`md:hidden overflow-hidden border-t mt-2 ${isScrolled ? "bg-white border-slate-200" : "bg-[#0f172a] border-slate-800"}`}
+              className={`md:hidden overflow-hidden border-t mt-2 ${isScrolled ? "bg-white border-slate-200" : "bg-slate-900/95 backdrop-blur-md border-slate-800"
+                }`}
             >
               <div className="px-4 pt-2 pb-6 space-y-3 flex flex-col">
                 {["Our Goals", "Features", "FAQ", "Contact Us"].map((item) => (
@@ -160,15 +151,13 @@ export function TopBar() {
                     key={item}
                     href={`#${item.toLowerCase().replace(" ", "-")}`}
                     onClick={() => setIsOpen(false)}
-                    className={`text-sm py-2 font-medium cursor-pointer transition-colors ${
-                      isScrolled ? "text-slate-700 hover:text-[#10B981]" : "text-slate-300 hover:text-white"
-                    }`}
+                    className={`text-sm py-2 font-bold cursor-pointer transition-colors ${isScrolled ? "text-slate-700 hover:text-[#10B981]" : "text-white hover:text-[#10B981]"
+                      }`}
                   >
                     {item}
                   </a>
                 ))}
-                
-                {/* Tombol Akses di Mobile juga diberikan fungsi splash screen */}
+
                 <button
                   onClick={handleDashboardAccess}
                   className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#10B981] text-white cursor-pointer shadow-sm w-full mt-2"

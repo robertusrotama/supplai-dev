@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { motion } from "motion/react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { HeatmapResponse } from "@/lib/types";
 import { commodities } from "@/data/commodities";
@@ -12,7 +12,7 @@ import { ElasticDatePicker } from "@/components/layout/elastic-date-picker";
 import { NationalHeatmap } from "@/components/heatmap/national-heatmap";
 import { ALL_PROVINCES } from "@/data/province-groups";
 import { Button } from "@/components/ui/button";
-import { MapPin, SlidersHorizontal, Info, ChevronDown } from "lucide-react";
+import { MapPin, SlidersHorizontal, Info, ChevronDown, Search, Check } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,9 +43,13 @@ export default function HeatmapPage() {
   const [range, setRange] = useState(12);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
+  // ================= STATE CUSTOM SEARCHABLE DROPDOWN =================
+  const [isCommodityOpen, setIsCommodityOpen] = useState(false);
+  const [commoditySearch, setCommoditySearch] = useState("");
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const [appliedCities, setAppliedCities] = useState<string[]>(ALL_PROVINCES);
 
-  // PERBAIKAN: Menambahkan type assertion eksplisit agar `refetch` dikenali oleh TypeScript
   const { data, loading, refetch } = useApi<HeatmapResponse>(
     `/api/heatmap?commodity=${commodity}&range=${range}`
   ) as { data: HeatmapResponse | null; loading: boolean; refetch: () => void };
@@ -56,10 +60,32 @@ export default function HeatmapPage() {
     return () => window.removeEventListener("global-refresh", handleGlobalRefresh);
   }, [refetch]);
 
+  // Handle click outside dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsCommodityOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const filteredMatrix = useMemo(() => {
     if (!data?.matrix) return [];
     return data.matrix.filter(row => appliedCities.includes(row.region));
   }, [data, appliedCities]);
+
+  // Filter daftar komoditas berdasarkan keyword search
+  const filteredCommodities = useMemo(() => {
+    return commodities.filter((c) =>
+      c.name.toLowerCase().includes(commoditySearch.toLowerCase())
+    );
+  }, [commoditySearch]);
+
+  const selectedCommodityLabel = useMemo(() => {
+    return commodities.find((c) => c.id === commodity)?.name ?? "Pilih Komoditas";
+  }, [commodity]);
 
   return (
     <motion.div
@@ -79,19 +105,73 @@ export default function HeatmapPage() {
         </div>
 
         <div className="flex items-center gap-3 self-end lg:self-auto">
-          <div className="relative group min-w-[160px]">
-            <select
-              value={commodity}
-              onChange={(e) => setCommodity(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#065F46] outline-none appearance-none cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all pr-8"
+
+          {/* ================= SEARCHABLE COMMODITY DROPDOWN ================= */}
+          <div className="relative min-w-[200px]" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsCommodityOpen(!isCommodityOpen)}
+              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#065F46] outline-none flex items-center justify-between cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all"
             >
-              {commodities.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-              <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
-            </div>
+              <span className="truncate">{selectedCommodityLabel}</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isCommodityOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            <AnimatePresence>
+              {isCommodityOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                  transition={{ duration: 0.12 }}
+                  className="absolute right-0 mt-1.5 w-60 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-2 text-slate-800 overflow-hidden"
+                >
+                  {/* SEARCH INPUT FIELD */}
+                  <div className="relative mb-1.5">
+                    <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={commoditySearch}
+                      onChange={(e) => setCommoditySearch(e.target.value)}
+                      placeholder="Cari komoditas..."
+                      className="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium outline-none focus:bg-white focus:border-[#006c4a] transition-all"
+                      autoFocus
+                    />
+                  </div>
+
+                  {/* LIST COMMODITIES */}
+                  <div className="max-h-48 overflow-y-auto space-y-0.5">
+                    {filteredCommodities.length === 0 ? (
+                      <div className="p-3 text-center text-xs text-slate-400 font-medium">
+                        Komoditas tidak ditemukan
+                      </div>
+                    ) : (
+                      filteredCommodities.map((c) => {
+                        const isSelected = c.id === commodity;
+                        return (
+                          <button
+                            key={c.id}
+                            type="button"
+                            onClick={() => {
+                              setCommodity(c.id);
+                              setIsCommodityOpen(false);
+                              setCommoditySearch("");
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold text-left transition-colors cursor-pointer ${isSelected
+                                ? "bg-emerald-50 text-[#006c4a]"
+                                : "text-slate-700 hover:bg-slate-50"
+                              }`}
+                          >
+                            <span>{c.name}</span>
+                            {isSelected && <Check className="w-3.5 h-3.5 text-[#006c4a]" />}
+                          </button>
+                        );
+                      })
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <ElasticDatePicker onRangeChange={(days) => setRange(days)} />

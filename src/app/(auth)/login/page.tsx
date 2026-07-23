@@ -34,16 +34,16 @@ export default function AuthPage() {
       {/* OVERLAY TRANSISE LINGKARAN MEMBESAR SAAT TOMBOL LOG IN DIKLIK */}
       <AnimatePresence mode="wait">
         {isRedirecting && (
-          <TransitionOverlay 
+          <TransitionOverlay
             onAnimationComplete={() => {
-              router.push("/dashboard"); // Pindah ke dashboard setelah lingkaran penuh
-            }} 
+              router.push("/executive-summary"); // Pindah ke dashboard setelah lingkaran penuh
+            }}
           />
         )}
       </AnimatePresence>
 
       <div className="min-h-screen w-full bg-brand-bg font-sans relative flex items-center justify-center px-6 overflow-hidden">
-        
+
         {/* MESH AMBIENT BACKGROUND GLOW */}
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-primary/10 blur-[120px] rounded-full pointer-events-none transform -translate-x-1/4 -translate-y-1/4" />
         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-teal-500/5 blur-[100px] rounded-full pointer-events-none transform translate-x-1/4 -translate-y-1/4" />
@@ -52,24 +52,24 @@ export default function AuthPage() {
         {/* LOGO ATAS KIRI */}
         <div className="absolute top-10 left-6 md:left-12 z-20">
           <Link href="/" className="flex items-center gap-3 group">
-            <img 
-              src="/images/logo-dashboard.png" 
-              alt="supplAi Logo" 
-              className="w-42 h-24 object-contain group-hover:scale-105 transition-transform" 
+            <img
+              src="/images/logo-dashboard.png"
+              alt="supplAi Logo"
+              className="w-42 h-24 object-contain group-hover:scale-105 transition-transform"
             />
           </Link>
         </div>
 
         {/* MAIN CARD CONTAINER */}
         <div className="w-full max-w-[420px] relative z-10 pt-16 pb-8 flex flex-col items-center">
-          
+
           <div className="text-center space-y-2 mb-8">
             <h2 className="text-xl font-bold text-brand-textMain tracking-tight">
               {isLogin ? "Log in to your account" : "Create your account"}
             </h2>
             <p className="text-xs text-brand-textMuted font-medium">
               {isLogin ? "Belum punya akses?" : "Sudah memiliki akun?"}{" "}
-              <button 
+              <button
                 type="button"
                 onClick={() => setIsLogin(!isLogin)}
                 className="text-brand-primary font-bold hover:underline cursor-pointer"
@@ -103,7 +103,7 @@ export default function AuthPage() {
 
           {/* INPUT FORM */}
           <form onSubmit={handleSubmit} className="w-full space-y-3.5 mt-4">
-            
+
             <div className="relative w-full flex items-center">
               <Mail className="w-4 h-4 absolute left-4 text-brand-textMuted/50" />
               <input
@@ -135,14 +135,14 @@ export default function AuthPage() {
 
             <AnimatePresence>
               {isLogin && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   className="text-center pt-1"
                 >
-                  <Link 
-                    href="#" 
+                  <Link
+                    href="#"
                     className="text-xs font-semibold text-brand-primary/80 hover:text-brand-primary hover:underline"
                   >
                     Forgot your password?
