@@ -3,33 +3,37 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { LayoutDashboard, Grid3X3, Map, Bell } from "lucide-react"
-
-const navItems = [
-  {
-    icon: LayoutDashboard,
-    label: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    icon: Grid3X3,
-    label: "Heatmap",
-    href: "/heatmap",
-  },
-  {
-    icon: Map,
-    label: "Redistribusi",
-    href: "/redistribusi",
-  },
-  {
-    icon: Bell,
-    label: "Alerts",
-    href: "/alerts",
-    badge: 3,
-  },
-]
+import { useApi } from "@/hooks/use-api"
+import type { AlertResponse } from "@/lib/types"
 
 export function BottomNav() {
   const pathname = usePathname()
+  const { data } = useApi<AlertResponse>("/api/alerts")
+  const alertCount = data?.alerts ? data.alerts.length : 0
+
+  const navItems = [
+    {
+      icon: LayoutDashboard,
+      label: "Prediction",
+      href: "/dashboard",
+    },
+    {
+      icon: Grid3X3,
+      label: "Heatmap",
+      href: "/heatmap",
+    },
+    {
+      icon: Map,
+      label: "Redistribution",
+      href: "/redistribusi",
+    },
+    {
+      icon: Bell,
+      label: "Alerts",
+      href: "/alerts",
+      badge: alertCount,
+    },
+  ]
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200">

@@ -8,28 +8,28 @@ export function ShortcutCards() {
 
   const shortcuts = [
     {
-      title: "Engine Prediksi Harga",
+      title: "Prediction",
       desc: "Analisis proyeksi pergerakan harga komoditas 1–3 bulan ke depan.",
       path: "/dashboard",
       icon: BarChart2,
       color: "bg-emerald-50 text-emerald-700 border-emerald-100",
     },
     {
-      title: "Peta Risiko Nasional",
+      title: "Heatmap",
       desc: "Pantau sebaran spasial suplai dan deteksi wilayah defisit.",
       path: "/heatmap",
       icon: Map,
       color: "bg-sky-50 text-sky-700 border-sky-100",
     },
     {
-      title: "Optimasi Redistribusi",
+      title: "Redistribution",
       desc: "Kelola rute logistik armada pengiriman antar wilayah.",
       path: "/redistribusi",
       icon: ShieldAlert,
       color: "bg-amber-50 text-amber-700 border-amber-100",
     },
     {
-      title: "Alert Center Pasokan",
+      title: "Alerts",
       desc: "Tindak lanjuti warkat peringatan dini krisis pangan.",
       path: "/alerts",
       icon: Settings,

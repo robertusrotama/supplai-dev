@@ -17,6 +17,10 @@ export default function AuthPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (email.trim()) {
+      sessionStorage.setItem("userEmail", email.trim());
+      localStorage.setItem("userEmail", email.trim());
+    }
     if (isLogin) {
       setIsRedirecting(true); // Jika login, picu splash screen & circle reveal statis
     } else {

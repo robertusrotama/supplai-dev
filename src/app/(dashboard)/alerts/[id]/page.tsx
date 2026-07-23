@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { getAlertById, getAlerts } from "@/data/alerts";
@@ -19,12 +19,14 @@ import {
   CheckCircle2,
   X,
   FileSpreadsheet,
+  Download,
   Send,
   Lightbulb,
   Info,
   Gauge,
   BarChart3,
   Target,
+  Printer
 } from "lucide-react";
 
 const SEVERITY = {
@@ -52,12 +54,201 @@ export default function AlertDetailPage() {
   const [officer, setOfficer] = useState("Tim TPID");
   const [savedLogs, setSavedLogs] = useState<{ officer: string; text: string; time: string } | null>(null);
 
+  useEffect(() => {
+    const savedEmail = sessionStorage.getItem("userEmail") || localStorage.getItem("userEmail");
+    if (savedEmail) {
+      const namePart = savedEmail.includes("@") ? savedEmail.split("@")[0] : savedEmail;
+      const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+      setOfficer(formattedName);
+    }
+  }, []);
+
   const handleSubmitAction = (e: React.FormEvent) => {
     e.preventDefault();
     if (!note.trim()) return;
     setIsExecuted(true);
     setSavedLogs({ officer, text: note, time: "Baru saja direspon" });
     setIsModalOpen(false);
+  };
+
+  // ================= HANDLER GENERATE FULL PDF REPORT =================
+  const handleDownloadReport = () => {
+    if (!alert) return;
+
+    const commodityObj = commodities.find((c) => c.id === alert.commodity);
+    const commodityTitle = commodityObj?.name ?? titleCase(alert.commodity);
+    const unitName = commodityObj?.unit ?? "kg";
+    const d = alert.detail;
+    const up = alert.change >= 0;
+    const snapshotDate = new Date(alert.timestamp).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) return;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html lang="id">
+      <head>
+        <meta charset="UTF-8">
+        <title>Laporan Intervensi - ${alert.id}</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+          @page {
+            size: A4 portrait;
+            margin: 12mm;
+          }
+          body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          .page-break-inside-avoid {
+            break-inside: avoid;
+            page-break-inside: avoid;
+          }
+        </style>
+      </head>
+      <body class="p-4 space-y-5">
+        
+        <!-- HEADER DOKUMEN -->
+        <div class="border-b border-slate-200 pb-4 flex justify-between items-start">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="bg-emerald-700 text-white font-mono text-[10px] font-black px-2 py-0.5 rounded">
+                ${isExecuted ? "DITANGANI" : alert.severity.toUpperCase()}
+              </span>
+              <span class="font-mono text-xs text-slate-400 font-bold">${alert.id}</span>
+              <span class="text-xs text-slate-400">• Snapshot: ${snapshotDate}</span>
+            </div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">
+              ${commodityTitle} — <span class="text-[#065F46]">${alert.region}</span>
+            </h1>
+          </div>
+
+          <!-- METRIK HEADER -->
+          <div class="flex gap-4 border border-slate-200 rounded-xl p-2.5 bg-slate-50">
+            <div>
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Proyeksi 3 Bln</p>
+              <p class="text-lg font-black ${up ? "text-rose-600" : "text-emerald-600"}">
+                ${up ? "+" : ""}${alert.change.toFixed(1)}%
+              </p>
+            </div>
+            <div class="w-px bg-slate-200"></div>
+            <div>
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Keyakinan</p>
+              <p class="text-lg font-black text-slate-800">${alert.confidence}%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOG INTERVENSI -->
+        ${
+          savedLogs
+            ? `
+          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-1 page-break-inside-avoid">
+            <div class="flex justify-between items-center text-xs font-bold text-emerald-800 mb-1">
+              <span>✓ Catatan Intervensi Petugas</span>
+              <span class="font-mono text-[10px] text-slate-400">${savedLogs.time}</span>
+            </div>
+            <p class="text-xs text-slate-700 font-bold">Petugas/Unit: ${savedLogs.officer}</p>
+            <p class="text-xs text-slate-600">Tindakan: "${savedLogs.text}"</p>
+          </div>
+          `
+            : ""
+        }
+
+        <!-- RINGKASAN MODEL -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-2 page-break-inside-avoid">
+          <h3 class="text-xs font-black font-mono uppercase text-slate-400">Ringkasan Analisis Model</h3>
+          <p class="text-xs text-slate-700 leading-relaxed text-justify">${d.recommendation}</p>
+        </div>
+
+        <!-- SINYAL MODEL -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-3 page-break-inside-avoid">
+          <h3 class="text-xs font-black font-mono uppercase text-slate-400">Sinyal & Indikator Model</h3>
+          
+          <div class="grid grid-cols-4 gap-3">
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Harga Kini</p>
+              <p class="text-sm font-black text-slate-800">${rupiah(d.hargaKini)}/${unitName}</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Prediksi 3 Bln</p>
+              <p class="text-sm font-black text-slate-800">${rupiah(d.hargaPrediksi)}/${unitName}</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Persentil Historis</p>
+              <p class="text-sm font-black text-slate-800">${d.persentilHistoris.toFixed(0)}%</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Akurasi Model</p>
+              <p class="text-sm font-black text-slate-800">${(100 - d.mapeKomoditas).toFixed(1)}%</p>
+            </div>
+          </div>
+
+          <div class="flex gap-2 pt-1">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}">
+              ${d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
+            </span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}">
+              ${d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
+            </span>
+          </div>
+        </div>
+
+        <!-- REKOMENDASI REDISTRIBUSI -->
+        <div class="border border-emerald-200 rounded-2xl p-5 bg-emerald-50/30 space-y-3 page-break-inside-avoid">
+          <h3 class="text-xs font-black font-mono uppercase text-emerald-800">Rekomendasi Rute Redistribusi — ${commodityTitle}</h3>
+          
+          ${
+            routes.length > 0
+              ? `
+            <div class="space-y-2">
+              ${routes
+                .map(
+                  (r) => `
+                <div class="flex justify-between items-center bg-white border border-emerald-100 p-3 rounded-xl text-xs">
+                  <div>
+                    <span class="font-black text-slate-800">${r.volume.toLocaleString("id-ID")} ton</span> dari 
+                    <span class="font-bold">${r.from}</span> → <span class="font-bold">${r.to}</span>
+                    <span class="text-slate-400 font-normal"> (${r.distance.toLocaleString("id-ID")} km · ${rupiah(r.cost)})</span>
+                  </div>
+                  <span class="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 border">
+                    ${r.priority}
+                  </span>
+                </div>
+              `
+                )
+                .join("")}
+            </div>
+          `
+              : `<p class="text-xs text-slate-500">Tidak ada rute redistribusi yang diusulkan.</p>`
+          }
+        </div>
+
+        <!-- FOOTER DOKUMEN -->
+        <div class="pt-6 border-t border-slate-200 text-center text-[10px] text-slate-400 font-mono">
+          Dokumen Laporan Resmi Sistem SupplAi • Dicetak Otomatis pada ${new Date().toLocaleString("id-ID")}
+        </div>
+
+      </body>
+      </html>
+    `;
+
+    printWindow.document.open();
+    printWindow.document.write(htmlContent);
+    printWindow.document.close();
+
+    setTimeout(() => {
+      printWindow.focus();
+      printWindow.print();
+    }, 350);
   };
 
   // ================= NOT FOUND =================
@@ -78,7 +269,7 @@ export default function AlertDetailPage() {
     );
   }
 
-  // ================= DERIVED (REAL) =================
+  // ================= DERIVED =================
   const sev = SEVERITY[alert.severity];
   const commodity = commodities.find((c) => c.id === alert.commodity);
   const commodityName = commodity?.name ?? titleCase(alert.commodity);
@@ -90,9 +281,7 @@ export default function AlertDetailPage() {
     day: "2-digit", month: "short", year: "numeric",
   });
 
-  // Real logistics: redistribution routes the LP proposes for this commodity.
   const routes = getRedistributionData(alert.commodity).routes.slice(0, 4);
-  // Other real alerts for the same commodity.
   const relatedAlerts = getAlerts({ commodity: alert.commodity }).alerts
     .filter((a) => a.id !== alert.id)
     .slice(0, 5);
@@ -154,21 +343,22 @@ export default function AlertDetailPage() {
               </div>
             </div>
 
-            <button
-              onClick={() => setIsModalOpen(true)}
-              disabled={isExecuted}
-              className={`px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer ${
-                isExecuted
-                  ? "bg-emerald-50 border border-emerald-200 text-emerald-700 cursor-not-allowed"
-                  : "bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
-              }`}
-            >
-              {isExecuted ? (
-                <><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Selesai Ditangani</>
-              ) : (
-                <><FileSpreadsheet className="w-4 h-4" /> Tindak Lanjuti</>
-              )}
-            </button>
+            {/* TOMBOL AKSI */}
+            {isExecuted ? (
+              <button
+                onClick={handleDownloadReport}
+                className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
+              >
+                <Download className="w-4 h-4" /> Download Report (PDF)
+              </button>
+            ) : (
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
+              >
+                <FileSpreadsheet className="w-4 h-4" /> Tindak Lanjuti
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -189,9 +379,17 @@ export default function AlertDetailPage() {
               </div>
               <span className="font-mono font-medium text-slate-400">{savedLogs.time}</span>
             </div>
-            <div className="text-xs text-slate-600 bg-white/80 border border-emerald-100 p-3 rounded-xl leading-relaxed">
-              <p className="font-bold text-slate-700 mb-0.5">Petugas: {savedLogs.officer}</p>
-              <p className="font-medium">Tindakan: &quot;{savedLogs.text}&quot;</p>
+            <div className="text-xs text-slate-600 bg-white/80 border border-emerald-100 p-3 rounded-xl leading-relaxed flex items-center justify-between gap-4">
+              <div>
+                <p className="font-bold text-slate-700 mb-0.5">Petugas: {savedLogs.officer}</p>
+                <p className="font-medium">Tindakan: &quot;{savedLogs.text}&quot;</p>
+              </div>
+              <button
+                onClick={handleDownloadReport}
+                className="text-[11px] font-bold text-[#006c4a] hover:underline flex items-center gap-1 shrink-0 cursor-pointer"
+              >
+                <Printer className="w-3.5 h-3.5" /> Cetak / Simpan PDF
+              </button>
             </div>
           </motion.div>
         )}
@@ -201,7 +399,6 @@ export default function AlertDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT (8 COLS) */}
         <div className="lg:col-span-8 space-y-6">
-          {/* Executive summary — the model's real reasoning */}
           <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs">
             <h3 className="text-sm font-black font-mono uppercase tracking-wider text-slate-400 mb-2.5">Ringkasan Model</h3>
             <p className="text-xs text-slate-600 font-medium leading-relaxed text-justify">
@@ -209,7 +406,6 @@ export default function AlertDetailPage() {
             </p>
           </div>
 
-          {/* Model signal — real metrics (replaces the fabricated "root cause") */}
           <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
@@ -252,7 +448,6 @@ export default function AlertDetailPage() {
             </div>
           </div>
 
-          {/* Real logistics recommendations from the redistribution LP */}
           <div className="bg-gradient-to-br from-emerald-50/50 to-teal-50/30 border border-emerald-200 rounded-[24px] p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-emerald-100 pb-3">
               <Lightbulb className="w-5 h-5 text-emerald-600" />
@@ -282,7 +477,7 @@ export default function AlertDetailPage() {
           </div>
         </div>
 
-        {/* RIGHT (4 COLS) — other real alerts, same commodity */}
+        {/* RIGHT (4 COLS) */}
         <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <MapPin className="w-4 h-4 text-[#006c4a]" />
@@ -323,7 +518,7 @@ export default function AlertDetailPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, height: 0, y: 15 }}
-            className="bg-sky-50/70 border border-sky-200 text-slate-700 rounded-[24px] p-6 shadow-sm space-y-5 relative overflow-hidden"
+            className="bg-sky-50/70 border border-sky-200 text-slate-700 rounded-[24px] p-6 shadow-sm space-y-5 relative overflow-hidden mt-6"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-sky-200/20 rounded-full blur-3xl pointer-events-none" />
             <div className="flex items-center justify-between gap-4 border-b border-sky-100 pb-4">
@@ -366,7 +561,7 @@ export default function AlertDetailPage() {
         )}
       </AnimatePresence>
 
-      {/* ================= ACTION MODAL (local intervention log) ================= */}
+      {/* ================= ACTION MODAL ================= */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">

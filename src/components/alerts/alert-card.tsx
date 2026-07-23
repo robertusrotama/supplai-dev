@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { AlertTriangle, MapPin, ArrowUpRight, X } from "lucide-react";
 
 export interface AlertData {
   id: string | number;
@@ -26,63 +27,85 @@ export function AlertCard({ alert, onDismiss }: AlertCardProps) {
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.98 }}
-      transition={{ duration: 0.2 }}
-      className={`border rounded-[24px] p-5 flex flex-col justify-between min-h-[220px] relative transition-all bg-white shadow-3xs hover:border-slate-300 ${isCritical ? "border-rose-200" : isWarning ? "border-amber-200" : "border-slate-200"
+      /* Hapus prop `layout` agar tidak memaksa reflow vertical yang kasar */
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -30 }}
+      transition={{ duration: 0.18, ease: "easeOut" }}
+      className={`border rounded-2xl p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 transition-colors bg-white hover:border-slate-300 shadow-3xs ${isCritical ? "border-rose-200/80 bg-rose-50/10" : isWarning ? "border-amber-200/80 bg-amber-50/10" : "border-slate-200"
         }`}
     >
-      <div>
-        {/* Status Label Line Row */}
-        <span className={`text-[9px] font-black tracking-wider uppercase font-mono px-2 py-0.5 rounded-md ${isCritical ? "bg-rose-50 text-rose-600" : isWarning ? "bg-amber-50 text-amber-600" : "bg-slate-100 text-slate-500"
-          }`}>
-          {alert.severity} • {alert.type}
-        </span>
+      {/* SISI KIRI: Icon, Badge, Judul, & Lokasi */}
+      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+        {/* Status Icon Indicator */}
+        <div
+          className={`p-2.5 rounded-xl shrink-0 ${isCritical ? "bg-rose-100 text-rose-600" : isWarning ? "bg-amber-100 text-amber-600" : "bg-slate-100 text-slate-600"
+            }`}
+        >
+          <AlertTriangle className="w-4 h-4" />
+        </div>
 
-        {/* Title & Wilayah Kluster Realtime */}
-        <h4 className="text-xl font-black tracking-tight text-slate-800 mt-2.5">
-          {alert.title}
-        </h4>
-        <p className="text-xs text-slate-400 font-bold mt-0.5">
-          {alert.location}
-        </p>
+        <div className="min-w-0 space-y-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Severity Badge */}
+            <span
+              className={`text-[9px] font-black tracking-wider uppercase font-mono px-2 py-0.5 rounded-md ${isCritical ? "bg-rose-100/80 text-rose-700" : isWarning ? "bg-amber-100/80 text-amber-700" : "bg-slate-100 text-slate-600"
+                }`}
+            >
+              {alert.severity} • {alert.type}
+            </span>
+            <span className="text-[10px] text-slate-400 font-mono">Updated: {alert.updated}</span>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap">
+            <h4 className="text-sm font-black text-slate-800 leading-snug truncate">
+              {alert.title}
+            </h4>
+            <span className="text-slate-300 hidden sm:inline">•</span>
+            <p className="text-xs text-slate-500 font-medium flex items-center gap-1 shrink-0">
+              <MapPin className="w-3 h-3 text-slate-400" />
+              {alert.location}
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* Metrik Delta Informasi */}
-      <div className="flex justify-between items-end mt-4 pt-4 border-t border-slate-100">
-        <div>
-          <span className="text-[10px] text-slate-400 font-bold font-mono block uppercase">Price Delta</span>
-          <span className={`text-2xl font-black font-mono tracking-tight ${isCritical ? "text-rose-600" : isWarning ? "text-amber-600" : "text-emerald-600"
-            }`}>
+      {/* SISI KANAN: Price Delta & Tombol Aksi */}
+      <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 shrink-0">
+        {/* Price Delta */}
+        <div className="text-left sm:text-right pr-2">
+          <span className="text-[9px] text-slate-400 font-bold font-mono block uppercase leading-none mb-0.5">Price Delta</span>
+          <span
+            className={`text-base font-black font-mono leading-none ${isCritical ? "text-rose-600" : isWarning ? "text-amber-600" : "text-emerald-600"
+              }`}
+          >
             {alert.delta}
           </span>
         </div>
-        <div className="text-right">
-          <span className="text-[10px] text-slate-400 font-bold font-mono block uppercase">Last Updated</span>
-          <span className="text-xs font-extrabold text-slate-700">{alert.updated}</span>
-        </div>
-      </div>
 
-      {/* Action Buttons: Mengaktifkan rute parameter navigasi dinamis */}
-      <div className="flex items-center gap-2 mt-4 w-full">
-        <Button
-          onClick={() => router.push(`/alerts/${alert.id}`)} // PERBAIKAN: Mengubah /alert/ menjadi /alerts/
-          className="flex-1 text-[11px] font-black bg-[#006c4a] hover:bg-[#005237] text-white rounded-xl h-10 shadow-3xs cursor-pointer active:scale-97 transition-all"
-        >
-          INVESTIGATE
-        </Button>
-        <Button
-          variant="outline"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDismiss?.(alert.id);
-          }}
-          className="text-[11px] font-bold border-slate-200 text-slate-500 hover:bg-slate-50 rounded-xl h-10 cursor-pointer"
-        >
-          DISMISS
-        </Button>
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1.5">
+          <Button
+            onClick={() => router.push(`/alerts/${alert.id}`)}
+            className="text-[11px] font-bold bg-[#006c4a] hover:bg-[#005237] text-white rounded-xl h-8 px-3 shadow-3xs cursor-pointer active:scale-97 transition-all flex items-center gap-1"
+          >
+            Investigate
+            <ArrowUpRight className="w-3 h-3" />
+          </Button>
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={(e) => {
+              e.stopPropagation();
+              onDismiss?.(alert.id);
+            }}
+            title="Sembunyikan Peringatan"
+            className="text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl h-8 w-8 cursor-pointer shrink-0"
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
     </motion.div>
   );

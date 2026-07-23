@@ -1,58 +1,98 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { Search, Bell, User, LogOut, LogIn, Bot, RefreshCw, AlertTriangle, ArrowRight, ChevronLeft, ArrowUpRight, Menu } from "lucide-react";
+
+// Import hook API & tipe yang sama dengan Alert Center
+import { useApi } from "@/hooks/use-api";
+import { AlertResponse } from "@/lib/types";
 
 interface HeaderProps {
     onToggleAgent: () => void;
 }
 
-const MOCK_NOTIFICATIONS = [
-    {
-        id: "warn-1",
-        commodity: "Bawang Merah",
-        title: "Naik +12% dalam 10 hari",
-        severity: "critical",
-        date: "Baru saja",
-        reasons: ["Curah hujan tinggi di wilayah sentra Brebes", "Pasokan pasar domestik turun drastis"],
-        slug: "bawang-merah"
-    },
-    {
-        id: "warn-2",
-        commodity: "Cabai Rawit",
-        title: "Lonjakan Harga +24.8%",
-        severity: "critical",
-        date: "2 menit yang lalu",
-        reasons: ["Gagal panen massal akibat hama kutu kebul", "Hambatan logistik penyeberangan antarpulau"],
-        slug: "cabai-rawit"
-    },
-    {
-        id: "warn-3",
-        commodity: "Gula Pasir",
-        title: "Penurunan Stok Kritis -18.2%",
-        severity: "warning",
-        date: "15 menit yang lalu",
-        reasons: ["Keterlambatan giling pabrik tebu regional", "Kenaikan biaya kontainer kargo laut"],
-        slug: "gula-pasir"
-    }
-];
+// Tipe data internal untuk notifikasi di Header
+interface HeaderNotification {
+    id: string;
+    commodity: string;
+    title: string;
+    severity: "critical" | "warning" | "info";
+    date: string;
+    reasons: string[];
+    slug: string;
+}
 
 export function Header({ onToggleAgent }: HeaderProps) {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [activeView, setActiveView] = useState<"list" | "detail">("list");
-    const [selectedAlert, setSelectedAlert] = useState<typeof MOCK_NOTIFICATIONS[0] | null>(null);
+    const [selectedAlert, setSelectedAlert] = useState<HeaderNotification | null>(null);
 
     const [isLoggedIn, setIsLoggedIn] = useState(true);
     const [isGlobalRefreshing, setIsGlobalRefreshing] = useState(false);
+
+    const [userDisplay, setUserDisplay] = useState<{ name: string; email: string }>({
+        name: "Tim PP0703",
+        email: "Administrator",
+    });
+
+    useEffect(() => {
+        const savedEmail = sessionStorage.getItem("userEmail") || localStorage.getItem("userEmail");
+        if (savedEmail) {
+            const namePart = savedEmail.includes("@") ? savedEmail.split("@")[0] : savedEmail;
+            const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+            setUserDisplay({
+                name: formattedName,
+                email: savedEmail,
+            });
+        }
+    }, []);
 
     const searchInputRef = useRef<HTMLInputElement>(null);
     const profileDropdownRef = useRef<HTMLDivElement>(null);
     const notificationDropdownRef = useRef<HTMLDivElement>(null);
 
     const router = useRouter();
+
+    // ================= PANGGIL DATA BACKEND SAMAN DENGAN ALERT CENTER =================
+    const { data: apiData, loading: apiLoading } = useApi<AlertResponse>("/api/alerts");
+
+    // Mapping data dari backend API ke format tampilan Header
+    const notifications: HeaderNotification[] = useMemo(() => {
+        if (!apiData?.alerts) return [];
+
+        const severityMap: Record<string, "critical" | "warning" | "info"> = {
+            kritis: "critical",
+            tinggi: "warning",
+            sedang: "info",
+            rendah: "info",
+        };
+
+        return apiData.alerts.map((a) => {
+            const commodityName = a.commodity
+                .split("-")
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(" ");
+
+            const changeText = `${a.change >= 0 ? "+" : ""}${a.change.toFixed(1)}%`;
+            const titleText = a.change >= 0 ? `Lonjakan Harga ${changeText}` : `Penurunan Pasokan ${changeText}`;
+
+            return {
+                id: String(a.id),
+                commodity: commodityName,
+                title: `${titleText} (${a.region})`,
+                severity: severityMap[a.severity] ?? "info",
+                date: "Snapshot",
+                reasons: [
+                    `Perubahan harga/stok sebesar ${changeText} di wilayah ${a.region}`,
+                    `Tingkat keparahan terdeteksi: ${a.severity.toUpperCase()}`
+                ],
+                slug: a.commodity,
+            };
+        });
+    }, [apiData]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -86,18 +126,16 @@ export function Header({ onToggleAgent }: HeaderProps) {
         if (isGlobalRefreshing) return;
 
         setIsGlobalRefreshing(true);
-
-        // 1. Pancarkan event start agar halaman tahu harus merubah UI menjadi Skeleton
         window.dispatchEvent(new CustomEvent("global-refresh-start"));
+        router.refresh();
 
         setTimeout(() => {
-            // 2. Pancarkan event finish untuk merefresh data API asli
             window.dispatchEvent(new Event("global-refresh"));
             setIsGlobalRefreshing(false);
-        }, 1200); // Durasi loading skeleton (1.2 detik)
+        }, 800);
     };
 
-    const openAlertDetail = (alertItem: typeof MOCK_NOTIFICATIONS[0]) => {
+    const openAlertDetail = (alertItem: HeaderNotification) => {
         setSelectedAlert(alertItem);
         setActiveView("detail");
     };
@@ -106,12 +144,13 @@ export function Header({ onToggleAgent }: HeaderProps) {
         setShowNotificationMenu(false);
         setActiveView("list");
         setSelectedAlert(null);
-        router.push(`/alerts/${id}`);
+        router.push(`/alerts`);
     };
 
-    // HANDLER SIGN OUT & REDIRECT KE LANDING PAGE ROUTE
     const handleAuthAction = () => {
         if (isLoggedIn) {
+            sessionStorage.removeItem("userEmail");
+            localStorage.removeItem("userEmail");
             setIsLoggedIn(false);
             setShowProfileMenu(false);
             router.push("/");
@@ -124,9 +163,8 @@ export function Header({ onToggleAgent }: HeaderProps) {
     return (
         <header className="h-16 border-b border-slate-200 bg-white px-4 sm:px-6 flex items-center justify-between sticky top-0 z-40 shadow-[0_1px_3px_0_rgba(0,0,0,0.05)] gap-3">
 
-            {/* ================= AREA KIRI: BURGER (MOBILE ONLY) & GLOBAL SEARCH ================= */}
+            {/* AREA KIRI */}
             <div className="flex items-center gap-2 flex-1 max-w-md">
-                {/* Tombol burger menu pemicu drawer khusus mobile */}
                 <button
                     onClick={() => window.dispatchEvent(new Event("toggle-mobile-sidebar"))}
                     className="lg:hidden p-2 text-slate-500 hover:bg-slate-100 rounded-xl shrink-0 cursor-pointer"
@@ -148,10 +186,9 @@ export function Header({ onToggleAgent }: HeaderProps) {
                 </div>
             </div>
 
-            {/* ================= AREA KANAN: CONTROLS & PROFILE ================= */}
+            {/* AREA KANAN */}
             <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
 
-                {/* Universal Refresh Button */}
                 <button
                     onClick={triggerGlobalRefresh}
                     className="p-2 text-slate-500 hover:text-emerald-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer flex items-center justify-center"
@@ -160,14 +197,16 @@ export function Header({ onToggleAgent }: HeaderProps) {
                     <RefreshCw className={`w-4 h-4 ${isGlobalRefreshing ? "animate-spin text-emerald-600" : ""}`} />
                 </button>
 
-                {/* Notifikasi Cepat Center */}
+                {/* Dropdown Alert Center */}
                 <div className="relative" ref={notificationDropdownRef}>
                     <button
                         onClick={() => setShowNotificationMenu(!showNotificationMenu)}
                         className={`p-2 rounded-xl transition-all relative cursor-pointer ${showNotificationMenu ? "bg-slate-100 text-[#006c4a]" : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"}`}
                     >
                         <Bell className="w-4 h-4" />
-                        <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white animate-pulse" />
+                        {notifications.length > 0 && (
+                            <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white animate-pulse" />
+                        )}
                     </button>
 
                     <AnimatePresence>
@@ -181,7 +220,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
                             >
                                 <div className="relative overflow-hidden w-full min-h-[380px]">
 
-                                    {/* VIEW 1: LIST NOTIFIKASI */}
+                                    {/* VIEW 1: LIST NOTIFIKASI SAMA DENGAN BACKEND */}
                                     {activeView === "list" && (
                                         <motion.div
                                             key="list-view"
@@ -190,38 +229,52 @@ export function Header({ onToggleAgent }: HeaderProps) {
                                             className="absolute inset-0 flex flex-col h-full"
                                         >
                                             <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Alert Center ({MOCK_NOTIFICATIONS.length})</span>
-                                                <span className="text-[10px] font-mono bg-rose-100 text-rose-700 font-bold px-1.5 py-0.5 rounded-sm">Live Monitoring</span>
+                                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                                    Alert Center ({notifications.length})
+                                                </span>
+                                                <span className="text-[10px] font-mono bg-rose-100 text-rose-700 font-bold px-1.5 py-0.5 rounded-sm">
+                                                    Live Monitoring
+                                                </span>
                                             </div>
 
                                             <div className="flex-1 overflow-y-auto p-2 space-y-1.5 max-h-[350px]">
-                                                {MOCK_NOTIFICATIONS.map((item) => (
-                                                    <div
-                                                        key={item.id}
-                                                        className="p-3 bg-white border border-slate-100 hover:border-slate-200/80 rounded-xl hover:shadow-xs transition-all flex flex-col justify-between gap-2"
-                                                    >
-                                                        <div className="flex items-start justify-between gap-4">
-                                                            <div className="flex gap-2.5 items-start">
-                                                                <div className={`p-1.5 rounded-lg text-white mt-0.5 shrink-0 ${item.severity === "critical" ? "bg-rose-500" : "bg-amber-500"}`}>
-                                                                    <AlertTriangle className="w-3.5 h-3.5" />
-                                                                </div>
-                                                                <div className="space-y-0.5">
-                                                                    <h5 className="text-xs font-black text-slate-800">{item.commodity}</h5>
-                                                                    <p className="text-[11px] font-semibold text-slate-600 leading-snug">{item.title}</p>
-                                                                </div>
-                                                            </div>
-                                                            <span className="text-[9px] font-medium text-slate-400 whitespace-nowrap">{item.date}</span>
-                                                        </div>
-
-                                                        <button
-                                                            onClick={() => openAlertDetail(item)}
-                                                            className="self-end text-[10px] font-bold text-[#006c4a] hover:text-[#005238] flex items-center gap-0.5 transition-colors cursor-pointer"
-                                                        >
-                                                            Lihat Selengkapnya
-                                                            <ArrowUpRight className="w-3 h-3" />
-                                                        </button>
+                                                {apiLoading ? (
+                                                    <div className="p-4 text-center text-xs text-slate-400">
+                                                        Memuat alert terbaru...
                                                     </div>
-                                                ))}
+                                                ) : notifications.length === 0 ? (
+                                                    <div className="p-4 text-center text-xs text-slate-400">
+                                                        Tidak ada alert aktif.
+                                                    </div>
+                                                ) : (
+                                                    notifications.map((item) => (
+                                                        <div
+                                                            key={item.id}
+                                                            className="p-3 bg-white border border-slate-100 hover:border-slate-200/80 rounded-xl hover:shadow-xs transition-all flex flex-col justify-between gap-2"
+                                                        >
+                                                            <div className="flex items-start justify-between gap-4">
+                                                                <div className="flex gap-2.5 items-start">
+                                                                    <div className={`p-1.5 rounded-lg text-white mt-0.5 shrink-0 ${item.severity === "critical" ? "bg-rose-500" : item.severity === "warning" ? "bg-amber-500" : "bg-blue-500"}`}>
+                                                                        <AlertTriangle className="w-3.5 h-3.5" />
+                                                                    </div>
+                                                                    <div className="space-y-0.5">
+                                                                        <h5 className="text-xs font-black text-slate-800">{item.commodity}</h5>
+                                                                        <p className="text-[11px] font-semibold text-slate-600 leading-snug">{item.title}</p>
+                                                                    </div>
+                                                                </div>
+                                                                <span className="text-[9px] font-medium text-slate-400 whitespace-nowrap">{item.date}</span>
+                                                            </div>
+
+                                                            <button
+                                                                onClick={() => openAlertDetail(item)}
+                                                                className="self-end text-[10px] font-bold text-[#006c4a] hover:text-[#005238] flex items-center gap-0.5 transition-colors cursor-pointer"
+                                                            >
+                                                                Lihat Selengkapnya
+                                                                <ArrowUpRight className="w-3 h-3" />
+                                                            </button>
+                                                        </div>
+                                                    ))
+                                                )}
                                             </div>
                                         </motion.div>
                                     )}
@@ -250,15 +303,15 @@ export function Header({ onToggleAgent }: HeaderProps) {
                                             <div className="p-4 flex-1 flex flex-col justify-between space-y-4">
                                                 <div className="space-y-2.5">
                                                     <div>
-                                                        <span className={`inline-block text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md text-white mb-1.5 ${selectedAlert.severity === "critical" ? "bg-rose-500" : "bg-amber-500"}`}>
-                                                            {selectedAlert.severity === "critical" ? "Critical Spike" : "Warning System"}
+                                                        <span className={`inline-block text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md text-white mb-1.5 ${selectedAlert.severity === "critical" ? "bg-rose-500" : selectedAlert.severity === "warning" ? "bg-amber-500" : "bg-blue-500"}`}>
+                                                            {selectedAlert.severity.toUpperCase()}
                                                         </span>
                                                         <h4 className="text-base font-black text-slate-800 leading-none">{selectedAlert.commodity}</h4>
                                                         <p className="text-xs font-mono font-bold text-rose-500 mt-1">{selectedAlert.title}</p>
                                                     </div>
 
                                                     <div className="text-[11px] text-slate-500 space-y-1.5 bg-slate-50 p-3 rounded-xl border border-slate-100/80">
-                                                        <p className="font-bold text-slate-700">Faktor Pemicu Risiko:</p>
+                                                        <p className="font-bold text-slate-700">Detail Ringkasan Backend:</p>
                                                         <ul className="list-disc list-inside space-y-1 font-medium leading-relaxed">
                                                             {selectedAlert.reasons.map((reason, idx) => (
                                                                 <li key={idx}>{reason}</li>
@@ -294,7 +347,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
 
                 <div className="h-6 w-px bg-slate-200" />
 
-                {/* User Profile Dropdown */}
+                {/* User Profile */}
                 <div className="relative" ref={profileDropdownRef}>
                     <button
                         onClick={() => setShowProfileMenu(!showProfileMenu)}
@@ -303,10 +356,9 @@ export function Header({ onToggleAgent }: HeaderProps) {
                         <div className="w-8 h-8 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-[#006c4a] font-medium shadow-xs shrink-0">
                             <User className="w-4 h-4" />
                         </div>
-                        {/* Menyembunyikan teks nama administrator di mobile agar tidak memotong layout */}
                         <div className="hidden md:flex flex-col pr-1">
-                            <span className="text-slate-700 font-semibold text-xs leading-none">Tim PP0703</span>
-                            <span className="text-[10px] text-slate-400 mt-0.5">Administrator</span>
+                            <span className="text-slate-700 font-semibold text-xs leading-none">{userDisplay.name}</span>
+                            <span className="text-[10px] text-slate-400 mt-0.5">{userDisplay.email}</span>
                         </div>
                     </button>
 
@@ -345,5 +397,4 @@ export function Header({ onToggleAgent }: HeaderProps) {
     );
 }
 
-// Fallback ekspor ganda untuk kompatibilitas kompilasi Turbopack Next.js 16
 export default Header;

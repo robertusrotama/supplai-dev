@@ -7,7 +7,7 @@ import { BarChart2, Map, GitCommit, Bell, ArrowUpRight, ShieldAlert, CheckCircle
 const featuresData = [
     {
         id: "dashboard",
-        tabLabel: "Dashboard Prediksi",
+        tabLabel: "Prediction",
         title: "Dashboard Analitik & Prediksi Harga Pangan",
         desc: "Antarmuka interaktif yang memproyeksikan pergerakan harga komoditas pangan pokok dalam rentang 1–3 bulan ke depan sebagai basis kebijakan strategis.",
         icon: BarChart2,
@@ -121,33 +121,111 @@ const featuresData = [
         desc: "Pemetaan geografis riil untuk memantau wilayah mana saja yang sedang mengalami lonjakan harga ekstrem (merah) atau kelebihan pasokan (hijau).",
         icon: Map,
         mockup: (
-            <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-bold text-brand-textMain">Live Supply Distribution Mapping</h4>
-                    <span className="flex items-center gap-1.5 text-xs text-brand-primary font-bold bg-brand-primary/10 px-2 py-0.5 rounded-full">
+            <div className="w-full bg-white p-5 rounded-2xl border border-brand-border space-y-3 shadow-sm">
+                {/* Header Bar */}
+                <div className="flex items-center justify-between border-b border-brand-border pb-3">
+                    <div className="flex items-center gap-2">
+                        <div className="w-2 h-5 bg-brand-primary rounded-full" />
+                        <h4 className="text-sm font-bold text-brand-textMain">National Supply Density Heatmap</h4>
+                    </div>
+                    <span className="flex items-center gap-1.5 text-[10px] text-brand-primary font-bold bg-brand-primary/10 px-2 py-0.5 rounded-full">
                         <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" />
                         Live Sync
                     </span>
                 </div>
-                <div className="h-44 bg-brand-bgSubtle rounded-xl border border-brand-border relative overflow-hidden flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-emerald-50/40 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px]" />
-                    <div className="relative w-full space-y-2">
-                        <div className="p-3 bg-white/90 border border-brand-border rounded-xl flex justify-between items-center text-xs shadow-sm">
-                            <span className="font-semibold text-brand-textMain">Zona Merah (Defisit Parah)</span>
-                            <span className="px-2 py-0.5 bg-rose-100 text-rose-700 font-bold rounded">Surabaya</span>
+
+                {/* Map Container */}
+                <div className="relative w-full rounded-xl border border-brand-border overflow-hidden bg-brand-bgSubtle">
+                    {/* Indonesia Map Base */}
+                    <img
+                        src="/indonesia.svg"
+                        alt="Peta Indonesia"
+                        className="w-full h-auto opacity-50 pointer-events-none select-none"
+                        draggable={false}
+                    />
+
+                    {/* SVG Heatmap Overlay */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 792.5 316.7" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            {/* Critical / Red gradient */}
+                            <radialGradient id="landing-heat-red" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stopColor="rgba(239, 68, 68, 0.8)" />
+                                <stop offset="35%" stopColor="rgba(249, 115, 22, 0.45)" />
+                                <stop offset="70%" stopColor="rgba(234, 179, 8, 0.15)" />
+                                <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                            </radialGradient>
+                            {/* Surplus / Green gradient */}
+                            <radialGradient id="landing-heat-green" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stopColor="rgba(16, 185, 129, 0.7)" />
+                                <stop offset="45%" stopColor="rgba(52, 211, 153, 0.3)" />
+                                <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                            </radialGradient>
+                            {/* Stable / Blue gradient */}
+                            <radialGradient id="landing-heat-blue" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stopColor="rgba(59, 130, 246, 0.5)" />
+                                <stop offset="50%" stopColor="rgba(147, 197, 253, 0.2)" />
+                                <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+                            </radialGradient>
+                        </defs>
+
+                        {/* Critical zones — Java, Surabaya cluster */}
+                        <circle cx="310" cy="245" r="38" fill="url(#landing-heat-red)" />
+                        <circle cx="255" cy="237" r="32" fill="url(#landing-heat-red)" />
+
+                        {/* Surplus zones — Kalimantan, Sumatera */}
+                        <circle cx="290" cy="155" r="40" fill="url(#landing-heat-green)" />
+                        <circle cx="110" cy="130" r="35" fill="url(#landing-heat-green)" />
+                        <circle cx="155" cy="175" r="28" fill="url(#landing-heat-green)" />
+
+                        {/* Stable zones — Sulawesi, Bali, Papua */}
+                        <circle cx="450" cy="165" r="30" fill="url(#landing-heat-blue)" />
+                        <circle cx="350" cy="260" r="22" fill="url(#landing-heat-blue)" />
+                        <circle cx="650" cy="190" r="35" fill="url(#landing-heat-blue)" />
+
+                        {/* Dot markers for key provinces */}
+                        {[
+                            { x: 60, y: 72, label: "Aceh" },
+                            { x: 95, y: 108, label: "Medan" },
+                            { x: 220, y: 232, label: "Jakarta" },
+                            { x: 265, y: 242, label: "Bandung" },
+                            { x: 310, y: 250, label: "Surabaya" },
+                            { x: 290, y: 140, label: "Pontianak" },
+                            { x: 370, y: 135, label: "Samarinda" },
+                            { x: 450, y: 150, label: "Manado" },
+                            { x: 650, y: 195, label: "Papua" },
+                        ].map((p) => (
+                            <g key={p.label}>
+                                <circle cx={p.x} cy={p.y} r="2.5" fill="#0f172a" />
+                                <text x={p.x + 5} y={p.y + 3} fontSize="7" fontWeight="600" fill="#0f172a" style={{ textShadow: "0 0 3px white" }}>{p.label}</text>
+                            </g>
+                        ))}
+                    </svg>
+                </div>
+
+                {/* Legend Bar */}
+                <div className="flex items-center justify-between bg-brand-bgSubtle border border-brand-border rounded-xl px-4 py-2.5">
+                    <div className="flex items-center gap-3 text-[10px] font-bold font-mono text-brand-textMuted">
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                            <span>Surplus</span>
                         </div>
-                        <div className="p-3 bg-white/90 border border-brand-border rounded-xl flex justify-between items-center text-xs shadow-sm">
-                            <span className="font-semibold text-brand-textMain">Zona Hijau (Surplus Berlebih)</span>
-                            <span className="px-2 py-0.5 bg-emerald-100 text-brand-accentDark font-bold rounded">Kediri</span>
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                            <span>Stabil</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                            <span>Defisit</span>
                         </div>
                     </div>
+                    <span className="text-[9px] font-mono font-bold text-brand-textMuted">34 Provinsi Terpantau</span>
                 </div>
             </div>
         )
     },
     {
         id: "redistribution",
-        tabLabel: "Rute Distribusi",
+        tabLabel: "Redistribution",
         title: "Algoritma Pencocokan Rute Logistik Pintar",
         desc: "Menghitung volume ideal alokasi logistik pangan dari daerah surplus menuju wilayah defisit guna menekan biaya angkut serendah mungkin.",
         icon: GitCommit,
@@ -176,7 +254,7 @@ const featuresData = [
     },
     {
         id: "ews",
-        tabLabel: "Early Warning System",
+        tabLabel: "Alerts",
         title: "Early Warning System & Broadcast Alert Center",
         desc: "Pusat peringatan otomatis yang langsung mengirimkan alarm push-notification sesaat sebelum harga pasar melampaui ambang batas aman nasional.",
         icon: Bell,

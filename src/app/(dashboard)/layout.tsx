@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { AgentPanel } from "@/components/agent/agent-panel";
 import { AnimatePresence, motion } from "motion/react";
+import DashboardLoading from "@/app/(dashboard)/dashboard/loading";
 
 export default function DashboardLayout({
   children,
@@ -12,6 +13,20 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [isAgentOpen, setIsAgentOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    const handleStart = () => setIsRefreshing(true);
+    const handleEnd = () => setIsRefreshing(false);
+
+    window.addEventListener("global-refresh-start", handleStart);
+    window.addEventListener("global-refresh", handleEnd);
+
+    return () => {
+      window.removeEventListener("global-refresh-start", handleStart);
+      window.removeEventListener("global-refresh", handleEnd);
+    };
+  }, []);
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-50 font-sans">
@@ -23,7 +38,29 @@ export default function DashboardLayout({
         <Header onToggleAgent={() => setIsAgentOpen(!isAgentOpen)} />
 
         <main className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
-          {children}
+          <AnimatePresence mode="wait">
+            {isRefreshing ? (
+              <motion.div
+                key="skeleton"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <DashboardLoading />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="content"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {children}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </main>
       </div>
 

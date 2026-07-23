@@ -15,19 +15,24 @@ import {
   Settings,
   X
 } from "lucide-react";
-
-const menuItems = [
-  { name: "Executive Summary", href: "/executive-summary", icon: LayoutDashboard },
-  { name: "Dashboard Prediksi", href: "/dashboard", icon: BarChart2 },
-  { name: "Heatmap", href: "/heatmap", icon: Map },
-  { name: "Redistribusi", href: "/redistribusi", icon: GitCommit },
-  { name: "Alert Center", href: "/alerts", icon: Bell, badge: 3 },
-];
+import { useApi } from "@/hooks/use-api";
+import { AlertResponse } from "@/lib/types";
 
 export function Sidebar() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const { data: alertData } = useApi<AlertResponse>("/api/alerts");
+  const alertBadgeCount = alertData?.alerts ? alertData.alerts.length : 0;
+
+  const menuItems = [
+    { name: "Executive Summary", href: "/executive-summary", icon: LayoutDashboard },
+    { name: "Prediction", href: "/dashboard", icon: BarChart2 },
+    { name: "Heatmap", href: "/heatmap", icon: Map },
+    { name: "Redistribution", href: "/redistribusi", icon: GitCommit },
+    { name: "Alerts", href: "/alerts", icon: Bell, badge: alertBadgeCount },
+  ];
 
   useEffect(() => {
     const openMobileSidebar = () => setIsMobileOpen(true);

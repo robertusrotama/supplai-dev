@@ -20,7 +20,9 @@ import {
   MessageSquare,
   Calendar,
   ChevronDown,
-  MapPin
+  MapPin,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 const liveTransmissionLogs = [
@@ -38,12 +40,41 @@ const tpidPerformance = [
   { rank: "#542", name: "TPID North Maluku", lead: "Regional Lead: Abdul Ghani Kasuba", alerts: 14, response: "4h 12m 30s", rate: 42, status: "CRITICAL LAG" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 15,
+    },
+  },
+} as const;
+
+const ITEMS_PER_PAGE = 5; // Jumlah alert per halaman
+
 export default function AlertsPage() {
   const [severity, setSeverity] = useState<string | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [commodity, setCommodity] = useState<string | null>(null);
 
-  // Fungsionalitas State Dropdown Filter Tanggal TPID Performance
+  // State Pagination
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // State Dropdown Filter Tanggal TPID
   const [isTpidRangeOpen, setIsTpidRangeOpen] = useState(false);
   const [tpidSelectedRange, setTpidSelectedRange] = useState("7");
   const tpidRanges = [
@@ -53,13 +84,19 @@ export default function AlertsPage() {
     { id: "90", label: "Triwulan Berjalan (3 Bulan)" }
   ];
 
-  // Real data: the API filters by commodity id. Severity is filtered
-  // client-side below because the filter UI uses uppercase labels
-  // (CRITICAL/WARNING/INFO) while the API uses kritis/tinggi/sedang.
   const query = commodity ? `?commodity=${commodity}` : "";
-  const { data, loading } = useApi<AlertResponse>(`/api/alerts${query}`);
+  const { data, loading, refetch } = useApi<AlertResponse>(`/api/alerts${query}`) as {
+    data: AlertResponse | null;
+    loading: boolean;
+    refetch: () => void;
+  };
 
-  // Map the real API alerts into the card's display shape.
+  useEffect(() => {
+    const handleGlobalRefresh = () => refetch?.();
+    window.addEventListener("global-refresh", handleGlobalRefresh);
+    return () => window.removeEventListener("global-refresh", handleGlobalRefresh);
+  }, [refetch]);
+
   const [alertsList, setAlertsList] = useState<AlertData[]>([]);
 
   useEffect(() => {
@@ -83,24 +120,40 @@ export default function AlertsPage() {
     );
   }, [data]);
 
-  // Severity is filtered client-side; commodity is already filtered by the API.
+  // Reset ke halaman 1 setiap kali filter berubah
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [severity, status, commodity]);
+
+  // Filter client-side berdasarkan severity
   const displayedAlerts = useMemo(
     () => alertsList.filter((item) => !severity || item.severity === severity),
     [alertsList, severity]
   );
 
-  // Fungsional Ril Dismiss Card: Menghapus item dari antrean state internal
+  // Kalkulasi Pagination
+  const totalPages = Math.ceil(displayedAlerts.length / ITEMS_PER_PAGE) || 1;
+  const paginatedAlerts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return displayedAlerts.slice(start, start + ITEMS_PER_PAGE);
+  }, [displayedAlerts, currentPage]);
+
   const handleDismissAlert = (id: string | number) => {
     setAlertsList(prev => prev.filter(alert => alert.id !== id));
     toast.info(`Peringatan #${id} berhasil disembunyikan dari antrean.`);
   };
 
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto font-sans text-slate-800 pb-12">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className="space-y-6 max-w-[1600px] mx-auto font-sans text-slate-800 pb-12"
+    >
       {/* ================= HEADER SECTION ================= */}
-      <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 border-b border-slate-200/50 pb-4">
+      <motion.div variants={itemVariants} className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6 border-b border-slate-200/50 pb-4">
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-[#065F46]">Alert Center</h1>
+          <h1 className="text-3xl font-black tracking-tight text-[#065F46]">Alerts</h1>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
             Real-time early warning system monitoring strategic food commodities across regions.
           </p>
@@ -117,10 +170,10 @@ export default function AlertsPage() {
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* ================= SUMMARY STATS ROW ================= */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div variants={itemVariants} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
           { label: "Alert Aktif", value: displayedAlerts.length, color: "text-rose-600", icon: Bell },
           { label: "Alert Bulan Ini", value: data?.summary.thisMonth ?? 182, color: "text-slate-800", icon: AlertTriangle },
@@ -146,10 +199,10 @@ export default function AlertsPage() {
             </CardContent>
           </Card>
         ))}
-      </div>
+      </motion.div>
 
       {/* ================= FILTERS SECTION ================= */}
-      <div className="space-y-1.5">
+      <motion.div variants={itemVariants} className="space-y-1.5">
         <h2 className="text-xs font-bold tracking-wider text-slate-400 font-mono uppercase">Filter Peringatan</h2>
         <AlertFilters
           severity={severity}
@@ -159,34 +212,94 @@ export default function AlertsPage() {
           onStatusChange={setStatus}
           onCommodityChange={setCommodity}
         />
-      </div>
+      </motion.div>
 
       {/* ================= MAIN GRID ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        {/* SISI KIRI: LIST EMERGENCY CARDS */}
+      <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        {/* SISI KIRI: LIST EMERGENCY CARDS WITH PAGINATION */}
         <div className="lg:col-span-8">
-          <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-h-[480px]">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-6">
-              <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
-              <h3 className="text-lg font-bold text-slate-800">Active Emergency Alerts</h3>
+          <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-h-[520px] flex flex-col justify-between overflow-hidden">
+            <div>
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
+                  <h3 className="text-lg font-bold text-slate-800">Active Emergency Alerts</h3>
+                </div>
+                <span className="text-xs font-mono font-bold text-slate-400">
+                  Total: {displayedAlerts.length} Item
+                </span>
+              </div>
+
+              {paginatedAlerts.length === 0 ? (
+                <div className="text-center py-16 text-slate-400 font-medium text-xs">
+                  Tidak ada alert darurat aktif untuk filter ini.
+                </div>
+              ) : (
+                /* KUNCI SMOOTH: Gunakan mode="wait" agar halaman lama selesai slide-out dulu baru halaman baru slide-in */
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentPage} // Menggunakan currentPage sebagai key agar animasi ter-trigger saat ganti page
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="flex flex-col gap-3"
+                  >
+                    {paginatedAlerts.map((alertItem) => (
+                      <AlertCard
+                        key={alertItem.id}
+                        alert={alertItem}
+                        onDismiss={handleDismissAlert}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              )}
             </div>
 
-            {displayedAlerts.length === 0 ? (
-              <div className="text-center py-16 text-slate-400 font-medium text-xs">
-                Tidak ada alert darurat aktif untuk filter ini.
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <AnimatePresence mode="popLayout">
-                  {displayedAlerts.map((alertItem) => (
-                    <AlertCard 
-                      key={alertItem.id} 
-                      alert={alertItem} 
-                      onDismiss={handleDismissAlert} 
-                    />
+
+            {/* BARIS KONTROL PAGINATION */}
+            {displayedAlerts.length > 0 && (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 mt-6 border-t border-slate-100">
+                <span className="text-xs font-medium text-slate-500 font-mono">
+                  Menampilkan <span className="font-bold text-slate-800">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> - <span className="font-bold text-slate-800">{Math.min(currentPage * ITEMS_PER_PAGE, displayedAlerts.length)}</span> dari <span className="font-bold text-slate-800">{displayedAlerts.length}</span> alert
+                </span>
+
+                <div className="flex items-center gap-1.5">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="h-8 w-8 rounded-xl border-slate-200 cursor-pointer disabled:opacity-40"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </Button>
+
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`h-8 min-w-[32px] px-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${currentPage === pageNum
+                        ? "bg-[#006c4a] text-white shadow-xs"
+                        : "bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200"
+                        }`}
+                    >
+                      {pageNum}
+                    </button>
                   ))}
-                </AnimatePresence>
+
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="h-8 w-8 rounded-xl border-slate-200 cursor-pointer disabled:opacity-40"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
             )}
           </div>
@@ -268,10 +381,10 @@ export default function AlertsPage() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
 
-      {/* ================= BOTTOM SECTION: PERFORMANCE PANEL W/ MULTI RANGES ================= */}
-      <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs">
+      {/* ================= BOTTOM SECTION: PERFORMANCE PANEL ================= */}
+      <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5 mb-5">
           <div>
             <h3 className="text-lg font-bold text-slate-800 tracking-tight">TPID Response Performance</h3>
@@ -279,10 +392,9 @@ export default function AlertsPage() {
               Time from system notification to market operation confirmation.
             </p>
           </div>
-          
-          {/* PEMBARUAN: Dropdown Filter Tanggal TPID Multi Pilihan Fungsional */}
+
           <div className="relative">
-            <div 
+            <div
               onClick={() => setIsTpidRangeOpen(!isTpidRangeOpen)}
               className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-600 cursor-pointer hover:border-slate-300 transition-all"
             >
@@ -292,14 +404,14 @@ export default function AlertsPage() {
             </div>
             <AnimatePresence>
               {isTpidRangeOpen && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 4 }} 
-                  animate={{ opacity: 1, y: 0 }} 
+                <motion.div
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 4 }}
                   className="absolute right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl w-64 p-1 z-50 space-y-0.5"
                 >
                   {tpidRanges.map(range => (
-                    <div 
+                    <div
                       key={range.id}
                       onClick={() => { setTpidSelectedRange(range.id); setIsTpidRangeOpen(false); }}
                       className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer ${tpidSelectedRange === range.id ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"}`}
@@ -350,21 +462,20 @@ export default function AlertsPage() {
                     <div className="space-y-1">
                       <span className="font-mono text-[10px] block font-bold text-slate-400">{row.rate}%</span>
                       <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full rounded-full ${row.rate >= 90 ? "bg-[#006c4a]" : "bg-red-600"}`} 
-                          style={{ width: `${row.rate}%` }} 
+                        <div
+                          className={`h-full rounded-full ${row.rate >= 90 ? "bg-[#006c4a]" : "bg-red-600"}`}
+                          style={{ width: `${row.rate}%` }}
                         />
                       </div>
                     </div>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <span className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-black font-mono tracking-wider ${
-                      row.status === "EXEMPLARY" 
-                        ? "bg-emerald-50 text-emerald-700 border border-emerald-200" 
-                        : row.status === "STANDARD"
+                    <span className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-black font-mono tracking-wider ${row.status === "EXEMPLARY"
+                      ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                      : row.status === "STANDARD"
                         ? "bg-slate-50 text-slate-700 border border-slate-200"
                         : "bg-red-50 text-red-700 border border-red-200"
-                    }`}>
+                      }`}>
                       {row.status}
                     </span>
                   </td>
@@ -373,7 +484,7 @@ export default function AlertsPage() {
             </tbody>
           </table>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

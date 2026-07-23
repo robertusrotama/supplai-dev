@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useMemo, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { commodities } from "@/data/commodities";
 import type { RedistributionResponse } from "@/lib/types";
@@ -11,7 +11,7 @@ import { SurplusPanel, MethodPanel } from "@/components/redistribusi/info-panels
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatRupiah } from "@/lib/format";
-import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet } from "lucide-react";
+import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet, Search } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -39,6 +39,27 @@ const itemVariants = {
 
 export default function RedistribusiPage() {
   const [commodity, setCommodity] = useState("beras");
+  const [searchComm, setSearchComm] = useState("");
+  const [isCommOpen, setIsCommOpen] = useState(false);
+  const commDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (commDropdownRef.current && !commDropdownRef.current.contains(event.target as Node)) {
+        setIsCommOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const filteredCommodities = useMemo(() => {
+    return commodities.filter(c => c.name.toLowerCase().includes(searchComm.toLowerCase()));
+  }, [searchComm]);
+
+  const currentCommodityName = useMemo(() => {
+    return commodities.find(c => c.id === commodity)?.name ?? "Beras Medium";
+  }, [commodity]);
 
   // PERBAIKAN 1: Menambahkan asersi tipe manual pada kembalian hook untuk memastikan Turbopack mengenali fungsi 'refetch'
   const { data, loading, refetch } = useApi<RedistributionResponse>(
@@ -67,22 +88,56 @@ export default function RedistribusiPage() {
         </div>
 
         <div className="flex items-center gap-3 self-end lg:self-auto lg:mt-1">
-          <div className="relative group min-w-[180px]">
+          <div className="relative min-w-[200px]" ref={commDropdownRef}>
             <span className="absolute -top-2 left-3 bg-white px-1 text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider z-10">
               Komoditas
             </span>
-            <select
-              value={commodity}
-              onChange={(e) => setCommodity(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none appearance-none cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all pr-8"
+            <div
+              onClick={() => setIsCommOpen(!isCommOpen)}
+              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none cursor-pointer hover:border-slate-400 shadow-xs h-10 transition-all flex items-center justify-between"
             >
-              {commodities.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-              <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>{currentCommodityName}</span>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 stroke-[2.5]" />
             </div>
+
+            <AnimatePresence>
+              {isCommOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 space-y-2"
+                >
+                  <div className="relative flex items-center">
+                    <Search className="absolute left-2.5 w-3.5 h-3.5 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Cari komoditas..."
+                      value={searchComm}
+                      onChange={(e) => setSearchComm(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs outline-none focus:border-[#006c4a] font-bold text-slate-700"
+                    />
+                  </div>
+                  <div className="max-h-48 overflow-y-auto space-y-0.5">
+                    {filteredCommodities.map((c) => (
+                      <div
+                        key={c.id}
+                        onClick={() => {
+                          setCommodity(c.id);
+                          setIsCommOpen(false);
+                          setSearchComm("");
+                        }}
+                        className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${
+                          c.id === commodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"
+                        }`}
+                      >
+                        {c.name}
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           <button

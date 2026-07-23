@@ -14,6 +14,30 @@ import { ALL_PROVINCES } from "@/data/province-groups";
 import { Button } from "@/components/ui/button";
 import { MapPin, SlidersHorizontal, Info, ChevronDown } from "lucide-react";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.06,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 120,
+      damping: 15,
+    },
+  },
+} as const;
+
 export default function HeatmapPage() {
   const [commodity, setCommodity] = useState("beras");
   const [range, setRange] = useState(12);
@@ -39,13 +63,14 @@ export default function HeatmapPage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
       className="space-y-6 max-w-[1600px] mx-auto font-sans pb-12 text-slate-800"
     >
 
       {/* ================= ROW 1: CONTROLS & HEADER ================= */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200/60 pb-4">
+      <motion.div variants={itemVariants} className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200/60 pb-4">
         <div>
           <h1 className="text-3xl font-extrabold text-[#065F46] tracking-tight">Heatmap Prediksi Harga per Wilayah</h1>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
@@ -71,13 +96,13 @@ export default function HeatmapPage() {
 
           <ElasticDatePicker onRangeChange={(days) => setRange(days)} />
         </div>
-      </div>
+      </motion.div>
 
       {/* ================= ROW 2: DATA UTAMA (MATRIKS & WILAYAH KRITIS) ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
 
         {/* HEATMAP PRICE MATRIX (8 COLS) */}
-        <div className="lg:col-span-8 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-w-0 overflow-hidden">
+        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-w-0 overflow-hidden">
           <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4 gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
@@ -97,10 +122,10 @@ export default function HeatmapPage() {
           <div className="w-full overflow-x-auto">
             <PriceMatrix matrix={filteredMatrix} loading={loading} />
           </div>
-        </div>
+        </motion.div>
 
         {/* TOP 5 CRITICAL PANEL (4 COLS) */}
-        <div className="lg:col-span-4 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs flex flex-col justify-between">
+        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
               <MapPin className="w-4 h-4 text-rose-600" />
@@ -115,13 +140,13 @@ export default function HeatmapPage() {
               Penetapan status kritis mengacu pada deviasi harga &gt; 10% dari Harga Eceran Tertinggi (HET) nasional dalam kurun waktu 12 bulan terakhir.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* ================= ROW 3: PETA HIGH-DENSITY ================= */}
-      <div className="border border-slate-200 bg-white rounded-[24px] p-2 shadow-xs">
+      <motion.div variants={itemVariants} className="border border-slate-200 bg-white rounded-[24px] p-2 shadow-xs">
         <NationalHeatmap />
-      </div>
+      </motion.div>
 
       {/* LAUNCH CITY FILTER MODAL */}
       <CityFilterModal
