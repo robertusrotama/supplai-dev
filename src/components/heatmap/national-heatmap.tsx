@@ -2,26 +2,36 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { regionalComparisonMaster } from "@/data/regional-data";
+import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { commodities } from "@/data/commodities";
 import { Sliders, Search, AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
 
-const CITY_COORDINATES: Record<string, { x: number; y: number }> = {
-  "Medan": { x: 120, y: 140 },
-  "Padang": { x: 160, y: 220 },
-  "Palembang": { x: 240, y: 280 },
-  "Bandung": { x: 300, y: 390 },
-  "Semarang": { x: 370, y: 390 },
-  "Yogyakarta": { x: 390, y: 410 },
-  "Surabaya": { x: 440, y: 390 },
-  "Pontianak": { x: 310, y: 210 },
-  "Banjarmasin": { x: 410, y: 270 },
-  "Balikpapan": { x: 440, y: 240 },
-  "Makassar": { x: 530, y: 290 },
-  "Palu": { x: 530, y: 210 },
-  "Kupang": { x: 590, y: 430 },
-  "Sorong": { x: 740, y: 190 },
-  "Merauke": { x: 910, y: 380 },
+// Canvas coordinates (calibrated to /indonesia-map.svg) keyed by the province
+// whose main market sits there. 15 anchor provinces span the archipelago.
+const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
+  "Sumatera Utara": { x: 120, y: 140 },
+  "Sumatera Barat": { x: 160, y: 220 },
+  "Sumatera Selatan": { x: 240, y: 280 },
+  "Jawa Barat": { x: 300, y: 390 },
+  "Jawa Tengah": { x: 370, y: 390 },
+  "DI Yogyakarta": { x: 390, y: 410 },
+  "Jawa Timur": { x: 440, y: 390 },
+  "Kalimantan Barat": { x: 310, y: 210 },
+  "Kalimantan Selatan": { x: 410, y: 270 },
+  "Kalimantan Timur": { x: 440, y: 240 },
+  "Sulawesi Selatan": { x: 530, y: 290 },
+  "Sulawesi Tengah": { x: 530, y: 210 },
+  "Nusa Tenggara Timur": { x: 590, y: 430 },
+  "Papua Barat": { x: 740, y: 190 },
+  "Papua": { x: 910, y: 380 },
+};
+
+type MapPoint = {
+  region: string;
+  price: number;
+  status: "CRITICAL" | "STABLE" | "SURPLUS";
+  change: number;
+  coord: { x: number; y: number };
 };
 
 export function NationalHeatmap() {
@@ -56,6 +66,29 @@ export function NationalHeatmap() {
     return commodities.find(c => c.id === selectedCommodity)?.name || "Beras Medium";
   }, [selectedCommodity]);
 
+  // Real per-province price + 3-month projection for the selected commodity,
+  // derived from the monthly series (current month vs last forecast month).
+  const provinceData = useMemo<MapPoint[]>(() => {
+    const series = generatedTimeSeriesMaster[selectedCommodity] || {};
+    const out: MapPoint[] = [];
+    for (const [prov, coord] of Object.entries(PROVINCE_COORDINATES)) {
+      const arr = series[prov];
+      if (!arr || arr.length === 0) continue;
+      const today = arr.find(p => p.isToday) ?? arr[0];
+      const last = arr[arr.length - 1];
+      const change = today.price ? ((last.price - today.price) / today.price) * 100 : 0;
+      const status: MapPoint["status"] =
+        change > 3 ? "CRITICAL" : change < -3 ? "SURPLUS" : "STABLE";
+      out.push({ region: prov, price: today.price, status, change, coord });
+    }
+    return out;
+  }, [selectedCommodity]);
+
+  const criticalCount = useMemo(
+    () => provinceData.filter(p => p.status === "CRITICAL").length,
+    [provinceData]
+  );
+
   // LOGIKA MOUSE HOVER CANVAS TOOLTIP
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -67,9 +100,8 @@ export function NationalHeatmap() {
 
     let foundCity: any = null;
 
-    regionalComparisonMaster.forEach((item) => {
-      const coord = CITY_COORDINATES[item.region];
-      if (!coord) return;
+    provinceData.forEach((item) => {
+      const coord = item.coord;
 
       const distance = Math.sqrt(Math.pow(mouseX - coord.x, 2) + Math.pow(mouseY - coord.y, 2));
       if (distance < 16) {
@@ -109,11 +141,10 @@ export function NationalHeatmap() {
       ctx.globalAlpha = 1.0; 
 
       // Render Thermal Gradien Blur
-      regionalComparisonMaster.forEach((item) => {
-        const coord = CITY_COORDINATES[item.region];
-        if (!coord) return;
+      provinceData.forEach((item) => {
+        const coord = item.coord;
 
-        const radius = intensity; 
+        const radius = intensity;
         const gradient = ctx.createRadialGradient(coord.x, coord.y, 2, coord.x, coord.y, radius);
 
         if (item.status === "CRITICAL") {
@@ -138,9 +169,8 @@ export function NationalHeatmap() {
       });
 
       // Render Titik Anchor Kota & Teks Label
-      regionalComparisonMaster.forEach((item) => {
-        const coord = CITY_COORDINATES[item.region];
-        if (!coord) return;
+      provinceData.forEach((item) => {
+        const coord = item.coord;
 
         ctx.fillStyle = item.status === "CRITICAL" ? "#ef4444" : "#1e293b";
         ctx.beginPath();
@@ -157,10 +187,10 @@ export function NationalHeatmap() {
         ctx.fillStyle = "#64748b";
         ctx.fillText(`Rp${item.price.toLocaleString()}`, coord.x + 8, coord.y + 12);
         
-        ctx.shadowBlur = 0; 
+        ctx.shadowBlur = 0;
       });
     };
-  }, [selectedCommodity, intensity]);
+  }, [provinceData, intensity]);
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto font-sans pb-4 p-2 text-slate-800">
@@ -268,7 +298,7 @@ export function NationalHeatmap() {
             </span>
             <div className="flex items-center gap-2 text-[10px] font-bold font-mono text-slate-500">
               <AlertTriangle className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
-              Brebes Cluster Critical Peak
+              {criticalCount} Wilayah Status Kritis
             </div>
           </div>
           
@@ -305,9 +335,8 @@ export function NationalHeatmap() {
                     </span>
                   </div>
                   <div className="space-y-0.5 font-mono text-[10px]">
-                    <div className="flex justify-between"><span className="text-slate-400">Harga Retail:</span><span className="font-bold text-emerald-300">Rp{hoveredCity.price.toLocaleString()}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Volume Stok:</span><span className="font-bold text-slate-100">140 Ton</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Rasio Pangan:</span><span className="font-bold text-amber-300">88.4%</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Harga Kini:</span><span className="font-bold text-emerald-300">Rp{hoveredCity.price.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Proyeksi 3 Bln:</span><span className={`font-bold ${hoveredCity.change >= 0 ? "text-rose-300" : "text-emerald-300"}`}>{hoveredCity.change >= 0 ? "+" : ""}{hoveredCity.change.toFixed(1)}%</span></div>
                   </div>
                 </motion.div>
               )}
