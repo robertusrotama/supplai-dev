@@ -82,6 +82,7 @@ export interface Alert {
   timestamp: string
   status: "aktif" | "ditangani" | "selesai"
   confidence: number
+  change: number
   detail: {
     recommendation: string
     history: { status: string; timestamp: string }[]
