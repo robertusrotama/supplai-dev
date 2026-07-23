@@ -120,8 +120,8 @@ export function SummaryCards({ summary, loading }: SummaryCardsProps) {
         </p>
       </SummaryCard>
 
-      {/* Prediksi 14 Hari */}
-      <SummaryCard label="Prediksi 14 Hari">
+      {/* Prediksi 3 Bulan */}
+      <SummaryCard label="Prediksi 3 Bulan">
         <p className="text-2xl font-bold text-[#1e293b]">
           {formatRupiah(predictedPrice)}
           <span className="text-sm font-normal text-muted-foreground">/kg</span>

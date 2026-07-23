@@ -9,7 +9,7 @@ const featuresData = [
         id: "dashboard",
         tabLabel: "Dashboard Prediksi",
         title: "Dashboard Analitik & Prediksi Harga Pangan",
-        desc: "Antarmuka interaktif yang memproyeksikan pergerakan harga komoditas pangan pokok dalam rentang 14 hari ke depan sebagai basis kebijakan strategis.",
+        desc: "Antarmuka interaktif yang memproyeksikan pergerakan harga komoditas pangan pokok dalam rentang 1–3 bulan ke depan sebagai basis kebijakan strategis.",
         icon: BarChart2,
         mockup: (
             <div className="w-full bg-white p-6 rounded-2xl border border-brand-border space-y-6 shadow-sm">

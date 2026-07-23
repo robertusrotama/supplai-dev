@@ -1,0 +1,172 @@
+[
+ {
+  "region": "Aceh",
+  "price": 15350,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Bali",
+  "price": 14950,
+  "status": "STABLE"
+ },
+ {
+  "region": "Banten",
+  "price": 15500,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Bengkulu",
+  "price": 16075,
+  "status": "STABLE"
+ },
+ {
+  "region": "DI Yogyakarta",
+  "price": 14875,
+  "status": "STABLE"
+ },
+ {
+  "region": "DKI Jakarta",
+  "price": 16100,
+  "status": "STABLE"
+ },
+ {
+  "region": "Gorontalo",
+  "price": 15000,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Jambi",
+  "price": 16750,
+  "status": "STABLE"
+ },
+ {
+  "region": "Jawa Barat",
+  "price": 15425,
+  "status": "STABLE"
+ },
+ {
+  "region": "Jawa Tengah",
+  "price": 15750,
+  "status": "STABLE"
+ },
+ {
+  "region": "Jawa Timur",
+  "price": 15200,
+  "status": "STABLE"
+ },
+ {
+  "region": "Kalimantan Barat",
+  "price": 18000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Kalimantan Selatan",
+  "price": 18600,
+  "status": "SURPLUS"
+ },
+ {
+  "region": "Kalimantan Tengah",
+  "price": 18625,
+  "status": "STABLE"
+ },
+ {
+  "region": "Kalimantan Timur",
+  "price": 17000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Kalimantan Utara",
+  "price": 17000,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Kepulauan Bangka Belitung",
+  "price": 15900,
+  "status": "STABLE"
+ },
+ {
+  "region": "Kepulauan Riau",
+  "price": 15500,
+  "status": "STABLE"
+ },
+ {
+  "region": "Lampung",
+  "price": 15200,
+  "status": "STABLE"
+ },
+ {
+  "region": "Maluku",
+  "price": 18000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Maluku Utara",
+  "price": 18000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Nusa Tenggara Barat",
+  "price": 14000,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Nusa Tenggara Timur",
+  "price": 14250,
+  "status": "STABLE"
+ },
+ {
+  "region": "Papua",
+  "price": 18250,
+  "status": "STABLE"
+ },
+ {
+  "region": "Papua Barat",
+  "price": 18000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Riau",
+  "price": 17000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sulawesi Barat",
+  "price": 14750,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sulawesi Selatan",
+  "price": 15000,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Sulawesi Tengah",
+  "price": 15625,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sulawesi Tenggara",
+  "price": 15725,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sulawesi Utara",
+  "price": 15000,
+  "status": "CRITICAL"
+ },
+ {
+  "region": "Sumatera Barat",
+  "price": 18875,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sumatera Selatan",
+  "price": 16000,
+  "status": "STABLE"
+ },
+ {
+  "region": "Sumatera Utara",
+  "price": 15000,
+  "status": "CRITICAL"
+ }
+]

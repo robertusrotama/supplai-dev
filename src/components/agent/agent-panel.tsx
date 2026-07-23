@@ -49,7 +49,7 @@ export function AgentPanel({ onClose }: { onClose: () => void }) {
                 {
                     id: `agent-${Date.now()}`,
                     role: "agent",
-                    content: `Berikut adalah analisis data untuk **Daging Sapi**:\n\n| Wilayah | Harga Saat Ini | Proyeksi 14 Hari | Status |\n| :--- | :--- | :--- | :--- |\n| DKI Jakarta | Rp 135.200 | Rp 138.500 | Kenaikan |\n| Jawa Barat | Rp 130.500 | Rp 134.100 | Kenaikan |\n\nTerjadi tren kenaikan rata-rata sebesar **4.2%** yang dipicu oleh minimnya curah hujan di daerah sentra produksi Jawa Barat.`
+                    content: `Berikut adalah analisis data untuk **Daging Sapi**:\n\n| Wilayah | Harga Saat Ini | Proyeksi 3 Bulan | Status |\n| :--- | :--- | :--- | :--- |\n| DKI Jakarta | Rp 135.200 | Rp 138.500 | Kenaikan |\n| Jawa Barat | Rp 130.500 | Rp 134.100 | Kenaikan |\n\nTerjadi tren kenaikan rata-rata sebesar **4.2%** yang dipicu oleh minimnya curah hujan di daerah sentra produksi Jawa Barat.`
                 }
             ]);
         }, 1000);

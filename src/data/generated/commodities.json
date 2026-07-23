@@ -1,0 +1,32 @@
+[
+ {
+  "id": "beras",
+  "name": "Beras Medium",
+  "unit": "kg"
+ },
+ {
+  "id": "bawang-merah",
+  "name": "Bawang Merah",
+  "unit": "kg"
+ },
+ {
+  "id": "bawang-putih",
+  "name": "Bawang Putih",
+  "unit": "kg"
+ },
+ {
+  "id": "daging-ayam",
+  "name": "Daging Ayam",
+  "unit": "kg"
+ },
+ {
+  "id": "telur-ayam",
+  "name": "Telur Ayam",
+  "unit": "kg"
+ },
+ {
+  "id": "minyak-goreng",
+  "name": "Minyak Goreng",
+  "unit": "kg"
+ }
+]

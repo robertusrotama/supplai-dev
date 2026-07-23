@@ -1,0 +1,1892 @@
+{
+ "beras": {
+  "summary": {
+   "totalRoutes": 7,
+   "totalVolume": 800,
+   "activeRoutes": "7 → 2",
+   "estimatedCost": 2126989185
+  },
+  "provinces": [
+   {
+    "id": "di-yogyakarta",
+    "name": "DI Yogyakarta",
+    "status": "surplus",
+    "stock": 181
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 165
+   },
+   {
+    "id": "jawa-timur",
+    "name": "Jawa Timur",
+    "status": "surplus",
+    "stock": 113
+   },
+   {
+    "id": "lampung",
+    "name": "Lampung",
+    "status": "surplus",
+    "stock": 113
+   },
+   {
+    "id": "nusa-tenggara-timur",
+    "name": "Nusa Tenggara Timur",
+    "status": "surplus",
+    "stock": 112
+   },
+   {
+    "id": "jawa-barat",
+    "name": "Jawa Barat",
+    "status": "surplus",
+    "stock": 66
+   },
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "surplus",
+    "stock": 50
+   },
+   {
+    "id": "kalimantan-utara",
+    "name": "Kalimantan Utara",
+    "status": "deficit",
+    "stock": 391
+   },
+   {
+    "id": "jambi",
+    "name": "Jambi",
+    "status": "deficit",
+    "stock": 409
+   }
+  ],
+  "routes": [
+   {
+    "from": "Bali",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 165,
+    "distance": 1303,
+    "cost": 538485256,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Timur",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 112,
+    "distance": 1497,
+    "cost": 420405262,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 113,
+    "distance": 1311,
+    "cost": 369853420,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 66,
+    "distance": 786,
+    "cost": 128878509,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 181,
+    "distance": 1083,
+    "cost": 490235182,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 50,
+    "distance": 319,
+    "cost": 39809270,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 113,
+    "distance": 494,
+    "cost": 139322286,
+    "priority": "low"
+   }
+  ]
+ },
+ "bawang-merah": {
+  "summary": {
+   "totalRoutes": 15,
+   "totalVolume": 800,
+   "activeRoutes": "14 → 2",
+   "estimatedCost": 3132533760
+  },
+  "provinces": [
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "surplus",
+    "stock": 137
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 112
+   },
+   {
+    "id": "sumatera-selatan",
+    "name": "Sumatera Selatan",
+    "status": "surplus",
+    "stock": 76
+   },
+   {
+    "id": "nusa-tenggara-timur",
+    "name": "Nusa Tenggara Timur",
+    "status": "surplus",
+    "stock": 73
+   },
+   {
+    "id": "sulawesi-selatan",
+    "name": "Sulawesi Selatan",
+    "status": "surplus",
+    "stock": 73
+   },
+   {
+    "id": "jambi",
+    "name": "Jambi",
+    "status": "surplus",
+    "stock": 67
+   },
+   {
+    "id": "nusa-tenggara-barat",
+    "name": "Nusa Tenggara Barat",
+    "status": "surplus",
+    "stock": 59
+   },
+   {
+    "id": "kalimantan-barat",
+    "name": "Kalimantan Barat",
+    "status": "surplus",
+    "stock": 42
+   },
+   {
+    "id": "riau",
+    "name": "Riau",
+    "status": "surplus",
+    "stock": 41
+   },
+   {
+    "id": "kalimantan-selatan",
+    "name": "Kalimantan Selatan",
+    "status": "surplus",
+    "stock": 36
+   },
+   {
+    "id": "sulawesi-barat",
+    "name": "Sulawesi Barat",
+    "status": "surplus",
+    "stock": 31
+   },
+   {
+    "id": "di-yogyakarta",
+    "name": "DI Yogyakarta",
+    "status": "surplus",
+    "stock": 31
+   },
+   {
+    "id": "kalimantan-tengah",
+    "name": "Kalimantan Tengah",
+    "status": "surplus",
+    "stock": 20
+   },
+   {
+    "id": "sulawesi-tengah",
+    "name": "Sulawesi Tengah",
+    "status": "surplus",
+    "stock": 3
+   },
+   {
+    "id": "kalimantan-utara",
+    "name": "Kalimantan Utara",
+    "status": "deficit",
+    "stock": 294
+   },
+   {
+    "id": "maluku-utara",
+    "name": "Maluku Utara",
+    "status": "deficit",
+    "stock": 506
+   }
+  ],
+  "routes": [
+   {
+    "from": "Bali",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 112,
+    "distance": 1697,
+    "cost": 475269443,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 31,
+    "distance": 2114,
+    "cost": 162818485,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 36,
+    "distance": 1422,
+    "cost": 129492058,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 20,
+    "distance": 1581,
+    "cost": 77491503,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 31,
+    "distance": 1026,
+    "cost": 79058476,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Timur",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 73,
+    "distance": 1279,
+    "cost": 232960519,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 59,
+    "distance": 1556,
+    "cost": 228751766,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 69,
+    "distance": 2618,
+    "cost": 454044931,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tengah",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 3,
+    "distance": 817,
+    "cost": 5719482,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 73,
+    "distance": 1010,
+    "cost": 183804726,
+    "priority": "low"
+   },
+   {
+    "from": "Jambi",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 67,
+    "distance": 1704,
+    "cost": 286364894,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 137,
+    "distance": 1496,
+    "cost": 513450527,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Barat",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 42,
+    "distance": 925,
+    "cost": 97195753,
+    "priority": "low"
+   },
+   {
+    "from": "Riau",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 41,
+    "distance": 1766,
+    "cost": 180551355,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 6,
+    "distance": 1633,
+    "cost": 25559842,
+    "priority": "low"
+   }
+  ]
+ },
+ "bawang-putih": {
+  "summary": {
+   "totalRoutes": 14,
+   "totalVolume": 800,
+   "activeRoutes": "14 → 2",
+   "estimatedCost": 1426331929
+  },
+  "provinces": [
+   {
+    "id": "jawa-timur",
+    "name": "Jawa Timur",
+    "status": "surplus",
+    "stock": 137
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 106
+   },
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "surplus",
+    "stock": 100
+   },
+   {
+    "id": "jawa-tengah",
+    "name": "Jawa Tengah",
+    "status": "surplus",
+    "stock": 79
+   },
+   {
+    "id": "lampung",
+    "name": "Lampung",
+    "status": "surplus",
+    "stock": 76
+   },
+   {
+    "id": "jambi",
+    "name": "Jambi",
+    "status": "surplus",
+    "stock": 73
+   },
+   {
+    "id": "riau",
+    "name": "Riau",
+    "status": "surplus",
+    "stock": 55
+   },
+   {
+    "id": "kalimantan-barat",
+    "name": "Kalimantan Barat",
+    "status": "surplus",
+    "stock": 40
+   },
+   {
+    "id": "kalimantan-selatan",
+    "name": "Kalimantan Selatan",
+    "status": "surplus",
+    "stock": 36
+   },
+   {
+    "id": "kepulauan-bangka-belitung",
+    "name": "Kepulauan Bangka Belitung",
+    "status": "surplus",
+    "stock": 36
+   },
+   {
+    "id": "sumatera-barat",
+    "name": "Sumatera Barat",
+    "status": "surplus",
+    "stock": 26
+   },
+   {
+    "id": "jawa-barat",
+    "name": "Jawa Barat",
+    "status": "surplus",
+    "stock": 24
+   },
+   {
+    "id": "kalimantan-tengah",
+    "name": "Kalimantan Tengah",
+    "status": "surplus",
+    "stock": 6
+   },
+   {
+    "id": "nusa-tenggara-barat",
+    "name": "Nusa Tenggara Barat",
+    "status": "surplus",
+    "stock": 5
+   },
+   {
+    "id": "maluku-utara",
+    "name": "Maluku Utara",
+    "status": "deficit",
+    "stock": 42
+   },
+   {
+    "id": "dki-jakarta",
+    "name": "DKI Jakarta",
+    "status": "deficit",
+    "stock": 758
+   }
+  ],
+  "routes": [
+   {
+    "from": "Bali",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 106,
+    "distance": 945,
+    "cost": 251371069,
+    "priority": "low"
+   },
+   {
+    "from": "Jambi",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 73,
+    "distance": 686,
+    "cost": 125042573,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 24,
+    "distance": 103,
+    "cost": 6243657,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Tengah",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 79,
+    "distance": 407,
+    "cost": 80344593,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 137,
+    "distance": 694,
+    "cost": 237296758,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 40,
+    "distance": 787,
+    "cost": 77784059,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 6,
+    "distance": 856,
+    "cost": 13016033,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Bangka Belitung",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 36,
+    "distance": 426,
+    "cost": 38802004,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 100,
+    "distance": 862,
+    "cost": 216033552,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 76,
+    "distance": 205,
+    "cost": 38985233,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 26,
+    "distance": 955,
+    "cost": 61351095,
+    "priority": "low"
+   },
+   {
+    "from": "Riau",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 55,
+    "distance": 949,
+    "cost": 129762259,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-putih",
+    "volume": 36,
+    "distance": 1422,
+    "cost": 129703993,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-putih",
+    "volume": 5,
+    "distance": 1556,
+    "cost": 20595051,
+    "priority": "low"
+   }
+  ]
+ },
+ "daging-ayam": {
+  "summary": {
+   "totalRoutes": 7,
+   "totalVolume": 800,
+   "activeRoutes": "6 → 4",
+   "estimatedCost": 1221791333
+  },
+  "provinces": [
+   {
+    "id": "sulawesi-barat",
+    "name": "Sulawesi Barat",
+    "status": "surplus",
+    "stock": 281
+   },
+   {
+    "id": "sulawesi-selatan",
+    "name": "Sulawesi Selatan",
+    "status": "surplus",
+    "stock": 281
+   },
+   {
+    "id": "kalimantan-tengah",
+    "name": "Kalimantan Tengah",
+    "status": "surplus",
+    "stock": 86
+   },
+   {
+    "id": "sumatera-selatan",
+    "name": "Sumatera Selatan",
+    "status": "surplus",
+    "stock": 60
+   },
+   {
+    "id": "sulawesi-tengah",
+    "name": "Sulawesi Tengah",
+    "status": "surplus",
+    "stock": 57
+   },
+   {
+    "id": "sulawesi-tenggara",
+    "name": "Sulawesi Tenggara",
+    "status": "surplus",
+    "stock": 36
+   },
+   {
+    "id": "sumatera-barat",
+    "name": "Sumatera Barat",
+    "status": "deficit",
+    "stock": 60
+   },
+   {
+    "id": "sulawesi-utara",
+    "name": "Sulawesi Utara",
+    "status": "deficit",
+    "stock": 75
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "deficit",
+    "stock": 86
+   },
+   {
+    "id": "nusa-tenggara-barat",
+    "name": "Nusa Tenggara Barat",
+    "status": "deficit",
+    "stock": 579
+   }
+  ],
+  "routes": [
+   {
+    "from": "Sulawesi Barat",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 281,
+    "distance": 653,
+    "cost": 458092465,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 281,
+    "distance": 566,
+    "cost": 397105305,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tenggara",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 17,
+    "distance": 757,
+    "cost": 32540065,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "Bali",
+    "commodity": "daging-ayam",
+    "volume": 86,
+    "distance": 696,
+    "cost": 149144036,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tengah",
+    "to": "Sulawesi Utara",
+    "commodity": "daging-ayam",
+    "volume": 57,
+    "distance": 543,
+    "cost": 77209471,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tenggara",
+    "to": "Sulawesi Utara",
+    "commodity": "daging-ayam",
+    "volume": 19,
+    "distance": 694,
+    "cost": 32241825,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Barat",
+    "commodity": "daging-ayam",
+    "volume": 60,
+    "distance": 501,
+    "cost": 75458166,
+    "priority": "low"
+   }
+  ]
+ },
+ "telur-ayam": {
+  "summary": {
+   "totalRoutes": 9,
+   "totalVolume": 800,
+   "activeRoutes": "3 → 9",
+   "estimatedCost": 1614024294
+  },
+  "provinces": [
+   {
+    "id": "sumatera-selatan",
+    "name": "Sumatera Selatan",
+    "status": "surplus",
+    "stock": 520
+   },
+   {
+    "id": "banten",
+    "name": "Banten",
+    "status": "surplus",
+    "stock": 273
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 7
+   },
+   {
+    "id": "sulawesi-tenggara",
+    "name": "Sulawesi Tenggara",
+    "status": "deficit",
+    "stock": 7
+   },
+   {
+    "id": "gorontalo",
+    "name": "Gorontalo",
+    "status": "deficit",
+    "stock": 26
+   },
+   {
+    "id": "sumatera-barat",
+    "name": "Sumatera Barat",
+    "status": "deficit",
+    "stock": 87
+   },
+   {
+    "id": "sumatera-utara",
+    "name": "Sumatera Utara",
+    "status": "deficit",
+    "stock": 89
+   },
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "deficit",
+    "stock": 94
+   },
+   {
+    "id": "kalimantan-barat",
+    "name": "Kalimantan Barat",
+    "status": "deficit",
+    "stock": 108
+   },
+   {
+    "id": "kalimantan-timur",
+    "name": "Kalimantan Timur",
+    "status": "deficit",
+    "stock": 120
+   },
+   {
+    "id": "kalimantan-tengah",
+    "name": "Kalimantan Tengah",
+    "status": "deficit",
+    "stock": 127
+   },
+   {
+    "id": "riau",
+    "name": "Riau",
+    "status": "deficit",
+    "stock": 142
+   }
+  ],
+  "routes": [
+   {
+    "from": "Banten",
+    "to": "Gorontalo",
+    "commodity": "telur-ayam",
+    "volume": 26,
+    "distance": 2001,
+    "cost": 132411568,
+    "priority": "low"
+   },
+   {
+    "from": "Bali",
+    "to": "Sulawesi Tenggara",
+    "commodity": "telur-ayam",
+    "volume": 7,
+    "distance": 917,
+    "cost": 15589145,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Riau",
+    "commodity": "telur-ayam",
+    "volume": 142,
+    "distance": 487,
+    "cost": 173003444,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Kalimantan Tengah",
+    "commodity": "telur-ayam",
+    "volume": 127,
+    "distance": 902,
+    "cost": 285956554,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Kalimantan Timur",
+    "commodity": "telur-ayam",
+    "volume": 120,
+    "distance": 1352,
+    "cost": 404662732,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kalimantan Barat",
+    "commodity": "telur-ayam",
+    "volume": 108,
+    "distance": 716,
+    "cost": 192631130,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kepulauan Riau",
+    "commodity": "telur-ayam",
+    "volume": 94,
+    "distance": 455,
+    "cost": 107353567,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Utara",
+    "commodity": "telur-ayam",
+    "volume": 89,
+    "distance": 868,
+    "cost": 193437054,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Barat",
+    "commodity": "telur-ayam",
+    "volume": 87,
+    "distance": 501,
+    "cost": 108979098,
+    "priority": "low"
+   }
+  ]
+ },
+ "minyak-goreng": {
+  "summary": {
+   "totalRoutes": 13,
+   "totalVolume": 800,
+   "activeRoutes": "13 → 1",
+   "estimatedCost": 4088824076
+  },
+  "provinces": [
+   {
+    "id": "banten",
+    "name": "Banten",
+    "status": "surplus",
+    "stock": 135
+   },
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "surplus",
+    "stock": 135
+   },
+   {
+    "id": "kepulauan-bangka-belitung",
+    "name": "Kepulauan Bangka Belitung",
+    "status": "surplus",
+    "stock": 98
+   },
+   {
+    "id": "sulawesi-utara",
+    "name": "Sulawesi Utara",
+    "status": "surplus",
+    "stock": 73
+   },
+   {
+    "id": "jawa-timur",
+    "name": "Jawa Timur",
+    "status": "surplus",
+    "stock": 70
+   },
+   {
+    "id": "jawa-barat",
+    "name": "Jawa Barat",
+    "status": "surplus",
+    "stock": 49
+   },
+   {
+    "id": "jawa-tengah",
+    "name": "Jawa Tengah",
+    "status": "surplus",
+    "stock": 49
+   },
+   {
+    "id": "lampung",
+    "name": "Lampung",
+    "status": "surplus",
+    "stock": 49
+   },
+   {
+    "id": "sulawesi-selatan",
+    "name": "Sulawesi Selatan",
+    "status": "surplus",
+    "stock": 49
+   },
+   {
+    "id": "di-yogyakarta",
+    "name": "DI Yogyakarta",
+    "status": "surplus",
+    "stock": 37
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 24
+   },
+   {
+    "id": "sumatera-selatan",
+    "name": "Sumatera Selatan",
+    "status": "surplus",
+    "stock": 20
+   },
+   {
+    "id": "kalimantan-utara",
+    "name": "Kalimantan Utara",
+    "status": "surplus",
+    "stock": 12
+   },
+   {
+    "id": "maluku-utara",
+    "name": "Maluku Utara",
+    "status": "deficit",
+    "stock": 800
+   }
+  ],
+  "routes": [
+   {
+    "from": "Bali",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 24,
+    "distance": 1697,
+    "cost": 103837938,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 135,
+    "distance": 2462,
+    "cost": 828788354,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 37,
+    "distance": 2114,
+    "cost": 194034269,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2350,
+    "cost": 287626507,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Tengah",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2097,
+    "cost": 256716638,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 70,
+    "distance": 1863,
+    "cost": 324980820,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Utara",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 12,
+    "distance": 1129,
+    "cost": 34560206,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Bangka Belitung",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 98,
+    "distance": 2309,
+    "cost": 565212397,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 135,
+    "distance": 2580,
+    "cost": 868418403,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2544,
+    "cost": 311438291,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 1010,
+    "cost": 123563294,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Utara",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 73,
+    "distance": 309,
+    "cost": 56659111,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 20,
+    "distance": 2618,
+    "cost": 132987849,
+    "priority": "low"
+   }
+  ]
+ },
+ "all": {
+  "summary": {
+   "totalRoutes": 65,
+   "totalVolume": 4800,
+   "activeRoutes": "6 komoditas",
+   "estimatedCost": 13610494577
+  },
+  "provinces": [
+   {
+    "id": "sumatera-selatan",
+    "name": "Sumatera Selatan",
+    "status": "surplus",
+    "stock": 676
+   },
+   {
+    "id": "banten",
+    "name": "Banten",
+    "status": "surplus",
+    "stock": 408
+   },
+   {
+    "id": "sulawesi-selatan",
+    "name": "Sulawesi Selatan",
+    "status": "surplus",
+    "stock": 403
+   },
+   {
+    "id": "bali",
+    "name": "Bali",
+    "status": "surplus",
+    "stock": 328
+   },
+   {
+    "id": "kepulauan-riau",
+    "name": "Kepulauan Riau",
+    "status": "surplus",
+    "stock": 328
+   },
+   {
+    "id": "jawa-timur",
+    "name": "Jawa Timur",
+    "status": "surplus",
+    "stock": 320
+   },
+   {
+    "id": "sulawesi-barat",
+    "name": "Sulawesi Barat",
+    "status": "surplus",
+    "stock": 312
+   },
+   {
+    "id": "di-yogyakarta",
+    "name": "DI Yogyakarta",
+    "status": "surplus",
+    "stock": 249
+   },
+   {
+    "id": "lampung",
+    "name": "Lampung",
+    "status": "surplus",
+    "stock": 238
+   },
+   {
+    "id": "nusa-tenggara-timur",
+    "name": "Nusa Tenggara Timur",
+    "status": "surplus",
+    "stock": 185
+   },
+   {
+    "id": "jawa-barat",
+    "name": "Jawa Barat",
+    "status": "surplus",
+    "stock": 139
+   },
+   {
+    "id": "kepulauan-bangka-belitung",
+    "name": "Kepulauan Bangka Belitung",
+    "status": "surplus",
+    "stock": 134
+   },
+   {
+    "id": "jawa-tengah",
+    "name": "Jawa Tengah",
+    "status": "surplus",
+    "stock": 128
+   },
+   {
+    "id": "kalimantan-selatan",
+    "name": "Kalimantan Selatan",
+    "status": "surplus",
+    "stock": 72
+   },
+   {
+    "id": "sulawesi-tengah",
+    "name": "Sulawesi Tengah",
+    "status": "surplus",
+    "stock": 60
+   },
+   {
+    "id": "sulawesi-tenggara",
+    "name": "Sulawesi Tenggara",
+    "status": "surplus",
+    "stock": 29
+   },
+   {
+    "id": "sulawesi-utara",
+    "name": "Sulawesi Utara",
+    "status": "deficit",
+    "stock": 2
+   },
+   {
+    "id": "kalimantan-tengah",
+    "name": "Kalimantan Tengah",
+    "status": "deficit",
+    "stock": 15
+   },
+   {
+    "id": "kalimantan-barat",
+    "name": "Kalimantan Barat",
+    "status": "deficit",
+    "stock": 26
+   },
+   {
+    "id": "gorontalo",
+    "name": "Gorontalo",
+    "status": "deficit",
+    "stock": 26
+   },
+   {
+    "id": "riau",
+    "name": "Riau",
+    "status": "deficit",
+    "stock": 46
+   },
+   {
+    "id": "sumatera-utara",
+    "name": "Sumatera Utara",
+    "status": "deficit",
+    "stock": 89
+   },
+   {
+    "id": "kalimantan-timur",
+    "name": "Kalimantan Timur",
+    "status": "deficit",
+    "stock": 120
+   },
+   {
+    "id": "sumatera-barat",
+    "name": "Sumatera Barat",
+    "status": "deficit",
+    "stock": 121
+   },
+   {
+    "id": "jambi",
+    "name": "Jambi",
+    "status": "deficit",
+    "stock": 269
+   },
+   {
+    "id": "nusa-tenggara-barat",
+    "name": "Nusa Tenggara Barat",
+    "status": "deficit",
+    "stock": 515
+   },
+   {
+    "id": "kalimantan-utara",
+    "name": "Kalimantan Utara",
+    "status": "deficit",
+    "stock": 673
+   },
+   {
+    "id": "dki-jakarta",
+    "name": "DKI Jakarta",
+    "status": "deficit",
+    "stock": 758
+   },
+   {
+    "id": "maluku-utara",
+    "name": "Maluku Utara",
+    "status": "deficit",
+    "stock": 1348
+   }
+  ],
+  "routes": [
+   {
+    "from": "Bali",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 165,
+    "distance": 1303,
+    "cost": 538485256,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Timur",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 112,
+    "distance": 1497,
+    "cost": 420405262,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "Kalimantan Utara",
+    "commodity": "beras",
+    "volume": 113,
+    "distance": 1311,
+    "cost": 369853420,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 66,
+    "distance": 786,
+    "cost": 128878509,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 181,
+    "distance": 1083,
+    "cost": 490235182,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 50,
+    "distance": 319,
+    "cost": 39809270,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "Jambi",
+    "commodity": "beras",
+    "volume": 113,
+    "distance": 494,
+    "cost": 139322286,
+    "priority": "low"
+   },
+   {
+    "from": "Bali",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 112,
+    "distance": 1697,
+    "cost": 475269443,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 31,
+    "distance": 2114,
+    "cost": 162818485,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 36,
+    "distance": 1422,
+    "cost": 129492058,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 20,
+    "distance": 1581,
+    "cost": 77491503,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 31,
+    "distance": 1026,
+    "cost": 79058476,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Timur",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 73,
+    "distance": 1279,
+    "cost": 232960519,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 59,
+    "distance": 1556,
+    "cost": 228751766,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 69,
+    "distance": 2618,
+    "cost": 454044931,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tengah",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 3,
+    "distance": 817,
+    "cost": 5719482,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "volume": 73,
+    "distance": 1010,
+    "cost": 183804726,
+    "priority": "low"
+   },
+   {
+    "from": "Jambi",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 67,
+    "distance": 1704,
+    "cost": 286364894,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 137,
+    "distance": 1496,
+    "cost": 513450527,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Barat",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 42,
+    "distance": 925,
+    "cost": 97195753,
+    "priority": "low"
+   },
+   {
+    "from": "Riau",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 41,
+    "distance": 1766,
+    "cost": 180551355,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kalimantan Utara",
+    "commodity": "bawang-merah",
+    "volume": 6,
+    "distance": 1633,
+    "cost": 25559842,
+    "priority": "low"
+   },
+   {
+    "from": "Bali",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 106,
+    "distance": 945,
+    "cost": 251371069,
+    "priority": "low"
+   },
+   {
+    "from": "Jambi",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 73,
+    "distance": 686,
+    "cost": 125042573,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 24,
+    "distance": 103,
+    "cost": 6243657,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Tengah",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 79,
+    "distance": 407,
+    "cost": 80344593,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 137,
+    "distance": 694,
+    "cost": 237296758,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 40,
+    "distance": 787,
+    "cost": 77784059,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 6,
+    "distance": 856,
+    "cost": 13016033,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Bangka Belitung",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 36,
+    "distance": 426,
+    "cost": 38802004,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 100,
+    "distance": 862,
+    "cost": 216033552,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 76,
+    "distance": 205,
+    "cost": 38985233,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Barat",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 26,
+    "distance": 955,
+    "cost": 61351095,
+    "priority": "low"
+   },
+   {
+    "from": "Riau",
+    "to": "DKI Jakarta",
+    "commodity": "bawang-putih",
+    "volume": 55,
+    "distance": 949,
+    "cost": 129762259,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Selatan",
+    "to": "Maluku Utara",
+    "commodity": "bawang-putih",
+    "volume": 36,
+    "distance": 1422,
+    "cost": 129703993,
+    "priority": "low"
+   },
+   {
+    "from": "Nusa Tenggara Barat",
+    "to": "Maluku Utara",
+    "commodity": "bawang-putih",
+    "volume": 5,
+    "distance": 1556,
+    "cost": 20595051,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Barat",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 281,
+    "distance": 653,
+    "cost": 458092465,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 281,
+    "distance": 566,
+    "cost": 397105305,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tenggara",
+    "to": "Nusa Tenggara Barat",
+    "commodity": "daging-ayam",
+    "volume": 17,
+    "distance": 757,
+    "cost": 32540065,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Tengah",
+    "to": "Bali",
+    "commodity": "daging-ayam",
+    "volume": 86,
+    "distance": 696,
+    "cost": 149144036,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tengah",
+    "to": "Sulawesi Utara",
+    "commodity": "daging-ayam",
+    "volume": 57,
+    "distance": 543,
+    "cost": 77209471,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Tenggara",
+    "to": "Sulawesi Utara",
+    "commodity": "daging-ayam",
+    "volume": 19,
+    "distance": 694,
+    "cost": 32241825,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Barat",
+    "commodity": "daging-ayam",
+    "volume": 60,
+    "distance": 501,
+    "cost": 75458166,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Gorontalo",
+    "commodity": "telur-ayam",
+    "volume": 26,
+    "distance": 2001,
+    "cost": 132411568,
+    "priority": "low"
+   },
+   {
+    "from": "Bali",
+    "to": "Sulawesi Tenggara",
+    "commodity": "telur-ayam",
+    "volume": 7,
+    "distance": 917,
+    "cost": 15589145,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Riau",
+    "commodity": "telur-ayam",
+    "volume": 142,
+    "distance": 487,
+    "cost": 173003444,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Kalimantan Tengah",
+    "commodity": "telur-ayam",
+    "volume": 127,
+    "distance": 902,
+    "cost": 285956554,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Kalimantan Timur",
+    "commodity": "telur-ayam",
+    "volume": 120,
+    "distance": 1352,
+    "cost": 404662732,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kalimantan Barat",
+    "commodity": "telur-ayam",
+    "volume": 108,
+    "distance": 716,
+    "cost": 192631130,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Kepulauan Riau",
+    "commodity": "telur-ayam",
+    "volume": 94,
+    "distance": 455,
+    "cost": 107353567,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Utara",
+    "commodity": "telur-ayam",
+    "volume": 89,
+    "distance": 868,
+    "cost": 193437054,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Sumatera Barat",
+    "commodity": "telur-ayam",
+    "volume": 87,
+    "distance": 501,
+    "cost": 108979098,
+    "priority": "low"
+   },
+   {
+    "from": "Bali",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 24,
+    "distance": 1697,
+    "cost": 103837938,
+    "priority": "low"
+   },
+   {
+    "from": "Banten",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 135,
+    "distance": 2462,
+    "cost": 828788354,
+    "priority": "low"
+   },
+   {
+    "from": "DI Yogyakarta",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 37,
+    "distance": 2114,
+    "cost": 194034269,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Barat",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2350,
+    "cost": 287626507,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Tengah",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2097,
+    "cost": 256716638,
+    "priority": "low"
+   },
+   {
+    "from": "Jawa Timur",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 70,
+    "distance": 1863,
+    "cost": 324980820,
+    "priority": "low"
+   },
+   {
+    "from": "Kalimantan Utara",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 12,
+    "distance": 1129,
+    "cost": 34560206,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Bangka Belitung",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 98,
+    "distance": 2309,
+    "cost": 565212397,
+    "priority": "low"
+   },
+   {
+    "from": "Kepulauan Riau",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 135,
+    "distance": 2580,
+    "cost": 868418403,
+    "priority": "low"
+   },
+   {
+    "from": "Lampung",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 2544,
+    "cost": 311438291,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Selatan",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 49,
+    "distance": 1010,
+    "cost": 123563294,
+    "priority": "low"
+   },
+   {
+    "from": "Sulawesi Utara",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 73,
+    "distance": 309,
+    "cost": 56659111,
+    "priority": "low"
+   },
+   {
+    "from": "Sumatera Selatan",
+    "to": "Maluku Utara",
+    "commodity": "minyak-goreng",
+    "volume": 20,
+    "distance": 2618,
+    "cost": 132987849,
+    "priority": "low"
+   }
+  ]
+ }
+}

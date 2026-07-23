@@ -1,15 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { SlidersHorizontal, Check, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const REGIONAL_GROUPS = {
-  "Jabodetabek": ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi"],
-  "Pulau Jawa": ["Bandung", "Yogyakarta", "Semarang", "Surabaya", "Malang"],
-  "Pulau Sumatera": ["Medan", "Palembang", "Padang", "Bandar Lampung"],
-  "Sulawesi & Kawasan Timur": ["Manado", "Makassar", "Jayapura", "Ambon"]
-};
+import { PROVINCE_GROUPS as REGIONAL_GROUPS } from "@/data/province-groups";
 
 interface CityFilterModalProps {
   isOpen: boolean;

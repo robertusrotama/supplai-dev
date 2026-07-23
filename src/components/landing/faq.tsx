@@ -6,7 +6,7 @@ import { Plus, Minus } from "lucide-react";
 
 const faqData = [
   {
-    question: "Bagaimana SupplAi memproyeksikan harga pangan 14 hari ke depan?",
+    question: "Bagaimana SupplAi memproyeksikan harga pangan 1–3 bulan ke depan?",
     answer: "SupplAi menggabungkan model statistik Prophet untuk menangkap pola tren musiman dengan jaringan saraf tiruan LSTM (Long Short-Term Memory) untuk memproses anomali harga jangka pendek secara real-time berdasarkan data historis multi-sektoral."
   },
   {

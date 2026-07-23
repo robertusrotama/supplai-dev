@@ -29,11 +29,11 @@ const ThinChevron = () => (
 
 const AVAILABLE_COMMODITIES = [
   { id: "beras", name: "Beras Medium" },
-  { id: "cabai-rawit", name: "Cabai Rawit" },
   { id: "bawang-merah", name: "Bawang Merah" },
   { id: "bawang-putih", name: "Bawang Putih" },
-  { id: "gula-pasir", name: "Gula Pasir" },
-  { id: "daging-sapi", name: "Daging Sapi" }
+  { id: "daging-ayam", name: "Daging Ayam" },
+  { id: "telur-ayam", name: "Telur Ayam" },
+  { id: "minyak-goreng", name: "Minyak Goreng" }
 ];
 
 const SEVERITY_OPTIONS = [

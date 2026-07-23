@@ -194,10 +194,10 @@ export default function ExecutiveSummaryPage() {
           {/* Rentetan Log Operasional Nyata terintegrasi dengan Alert Center */}
           <div className="flex-1 space-y-3 overflow-y-auto pr-1">
             {[
-              { time: "Baru saja", type: "CRITICAL", msg: "Lonjakan Harga Bawang Merah +12.4% Jabodetabek", icon: ShieldAlert, bg: "bg-rose-50 text-rose-600 border-rose-100" },
-              { time: "2 jam lalu", type: "ANOMALI", msg: "Volume pasokan Kramat Jati merosot 40 ton/hari", icon: AlertTriangle, bg: "bg-amber-50 text-amber-600 border-amber-100" },
-              { time: "1 hari lalu", type: "LOGISTIK", msg: "Kargo armada logistik tertahan 18 jam di Pantura", icon: Truck, bg: "bg-sky-50 text-sky-600 border-sky-100" },
-              { time: "2 hari lalu", type: "STABLE", msg: "Stok Beras Medium wilayah Surabaya terkonfirmasi aman", icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
+              { time: "Snapshot", type: "WARNING", msg: "2 wilayah berstatus Warning pada horizon 3 bulan", icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
+              { time: "Snapshot", type: "INFO", msg: "21 wilayah berstatus pantauan Info", icon: AlertTriangle, bg: "bg-sky-50 text-sky-600 border-sky-100" },
+              { time: "Snapshot", type: "MODEL", msg: "204 seri komoditas-provinsi dimodelkan bulanan", icon: Truck, bg: "bg-slate-50 text-slate-600 border-slate-100" },
+              { time: "Snapshot", type: "AKURASI", msg: "Akurasi model 95,9% (MAPE 4,1% horizon 1 bulan)", icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
             ].map((log, idx) => {
               const LogIcon = log.icon;
               return (

@@ -1,0 +1,608 @@
+{
+ "summary": {
+  "active": 23,
+  "thisMonth": 23,
+  "avgResponseTime": 0,
+  "resolved": 0
+ },
+ "alerts": [
+  {
+   "id": "ALT-001",
+   "severity": "tinggi",
+   "title": "Harga Beras Medium Sulawesi Utara diperkirakan naik 6.0% dalam 3 bulan",
+   "region": "Sulawesi Utara",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 5.99,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sulawesi Utara naik +6.0% menjadi Rp15.899/kg dalam 3 bulan (dari Rp15.000/kg). Kenaikan sebesar ini berada di persentil 86 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15899,
+    "persentilHistoris": 85.9,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-002",
+   "severity": "tinggi",
+   "title": "Harga Beras Medium Gorontalo diperkirakan naik 5.9% dalam 3 bulan",
+   "region": "Gorontalo",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 5.85,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Gorontalo naik +5.9% menjadi Rp15.878/kg dalam 3 bulan (dari Rp15.000/kg). Kenaikan sebesar ini berada di persentil 86 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15878,
+    "persentilHistoris": 85.5,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-003",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Gorontalo diperkirakan naik 8.8% dalam 3 bulan",
+   "region": "Gorontalo",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 8.78,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Gorontalo naik +8.8% menjadi Rp36.060/kg dalam 3 bulan (dari Rp33.150/kg). Kenaikan sebesar ini berada di persentil 82 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 33150,
+    "hargaPrediksi": 36060,
+    "persentilHistoris": 81.5,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-004",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Aceh diperkirakan naik 8.7% dalam 3 bulan",
+   "region": "Aceh",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 98,
+   "change": 8.73,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Aceh naik +8.7% menjadi Rp31.693/kg dalam 3 bulan (dari Rp29.150/kg). Kenaikan sebesar ini berada di persentil 81 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg). Isolation Forest juga menandai pergerakan harga tidak wajar pada 3 bulan terakhir.",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 29150,
+    "hargaPrediksi": 31693,
+    "persentilHistoris": 81.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": true
+   }
+  },
+  {
+   "id": "ALT-005",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Sulawesi Barat diperkirakan naik 8.4% dalam 3 bulan",
+   "region": "Sulawesi Barat",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 8.39,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Sulawesi Barat naik +8.4% menjadi Rp25.879/kg dalam 3 bulan (dari Rp23.875/kg). Kenaikan sebesar ini berada di persentil 81 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%.",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 23875,
+    "hargaPrediksi": 25879,
+    "persentilHistoris": 80.8,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-006",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Sulawesi Tengah diperkirakan naik 8.2% dalam 3 bulan",
+   "region": "Sulawesi Tengah",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 8.22,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Sulawesi Tengah naik +8.2% menjadi Rp30.679/kg dalam 3 bulan (dari Rp28.350/kg). Kenaikan sebesar ini berada di persentil 80 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 28350,
+    "hargaPrediksi": 30679,
+    "persentilHistoris": 80.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-007",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Sulawesi Selatan diperkirakan naik 7.3% dalam 3 bulan",
+   "region": "Sulawesi Selatan",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 7.26,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Sulawesi Selatan naik +7.3% menjadi Rp26.680/kg dalam 3 bulan (dari Rp24.875/kg). Kenaikan sebesar ini berada di persentil 78 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%.",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 24875,
+    "hargaPrediksi": 26680,
+    "persentilHistoris": 77.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-008",
+   "severity": "sedang",
+   "title": "Harga Daging Ayam Sumatera Utara diperkirakan naik 6.8% dalam 3 bulan",
+   "region": "Sumatera Utara",
+   "commodity": "daging-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 94,
+   "change": 6.81,
+   "detail": {
+    "recommendation": "Model memprediksi Daging Ayam di Sumatera Utara naik +6.8% menjadi Rp36.850/kg dalam 3 bulan (dari Rp34.500/kg). Kenaikan sebesar ini berada di persentil 71 dari seluruh pergerakan 3 bulan Daging Ayam sejak 2016 — ambang Kritis komoditas ini adalah +22.2%.",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 34500,
+    "hargaPrediksi": 36850,
+    "persentilHistoris": 71.3,
+    "mapeKomoditas": 6.39,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-009",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Sulawesi Tenggara diperkirakan naik 5.9% dalam 3 bulan",
+   "region": "Sulawesi Tenggara",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 5.9,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Sulawesi Tenggara naik +5.9% menjadi Rp31.560/kg dalam 3 bulan (dari Rp29.800/kg). Kenaikan sebesar ini berada di persentil 73 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 29800,
+    "hargaPrediksi": 31560,
+    "persentilHistoris": 73.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-010",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Lampung diperkirakan naik 5.5% dalam 3 bulan",
+   "region": "Lampung",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 5.53,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Lampung naik +5.5% menjadi Rp27.965/kg dalam 3 bulan (dari Rp26.500/kg). Kenaikan sebesar ini berada di persentil 72 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%.",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 26500,
+    "hargaPrediksi": 27965,
+    "persentilHistoris": 72.0,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-011",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Kalimantan Selatan diperkirakan naik 5.4% dalam 3 bulan",
+   "region": "Kalimantan Selatan",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 5.4,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Kalimantan Selatan naik +5.4% menjadi Rp30.040/kg dalam 3 bulan (dari Rp28.500/kg). Kenaikan sebesar ini berada di persentil 72 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 28500,
+    "hargaPrediksi": 30040,
+    "persentilHistoris": 71.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-012",
+   "severity": "sedang",
+   "title": "Harga Telur Ayam Riau diperkirakan naik 5.2% dalam 3 bulan",
+   "region": "Riau",
+   "commodity": "telur-ayam",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 96,
+   "change": 5.21,
+   "detail": {
+    "recommendation": "Model memprediksi Telur Ayam di Riau naik +5.2% menjadi Rp31.299/kg dalam 3 bulan (dari Rp29.750/kg). Kenaikan sebesar ini berada di persentil 71 dari seluruh pergerakan 3 bulan Telur Ayam sejak 2016 — ambang Kritis komoditas ini adalah +19.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp30.000/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 29750,
+    "hargaPrediksi": 31299,
+    "persentilHistoris": 70.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-013",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Nusa Tenggara Barat diperkirakan naik 5.0% dalam 3 bulan",
+   "region": "Nusa Tenggara Barat",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 4.98,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Nusa Tenggara Barat naik +5.0% menjadi Rp14.697/kg dalam 3 bulan (dari Rp14.000/kg). Kenaikan sebesar ini berada di persentil 83 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 14000,
+    "hargaPrediksi": 14697,
+    "persentilHistoris": 83.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-014",
+   "severity": "sedang",
+   "title": "Harga Minyak Goreng Maluku Utara diperkirakan naik 4.7% dalam 3 bulan",
+   "region": "Maluku Utara",
+   "commodity": "minyak-goreng",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 4.67,
+   "detail": {
+    "recommendation": "Model memprediksi Minyak Goreng di Maluku Utara naik +4.7% menjadi Rp25.645/kg dalam 3 bulan (dari Rp24.500/kg). Kenaikan sebesar ini berada di persentil 73 dari seluruh pergerakan 3 bulan Minyak Goreng sejak 2016 — ambang Kritis komoditas ini adalah +17.5%. Harga prediksi melampaui HAP/HET Bapanas (Rp15.700/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 24500,
+    "hargaPrediksi": 25645,
+    "persentilHistoris": 72.7,
+    "mapeKomoditas": 2.53,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-015",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Banten diperkirakan naik 4.3% dalam 3 bulan",
+   "region": "Banten",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 4.3,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Banten naik +4.3% menjadi Rp16.166/kg dalam 3 bulan (dari Rp15.500/kg). Kenaikan sebesar ini berada di persentil 81 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15500,
+    "hargaPrediksi": 16166,
+    "persentilHistoris": 80.8,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-016",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Aceh diperkirakan naik 3.7% dalam 3 bulan",
+   "region": "Aceh",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 3.74,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Aceh naik +3.7% menjadi Rp15.924/kg dalam 3 bulan (dari Rp15.350/kg). Kenaikan sebesar ini berada di persentil 79 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15350,
+    "hargaPrediksi": 15924,
+    "persentilHistoris": 79.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-017",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Sulawesi Selatan diperkirakan naik 3.7% dalam 3 bulan",
+   "region": "Sulawesi Selatan",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 3.69,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sulawesi Selatan naik +3.7% menjadi Rp15.553/kg dalam 3 bulan (dari Rp15.000/kg). Kenaikan sebesar ini berada di persentil 79 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15553,
+    "persentilHistoris": 78.9,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-018",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Kalimantan Utara diperkirakan naik 3.4% dalam 3 bulan",
+   "region": "Kalimantan Utara",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 3.44,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Kalimantan Utara naik +3.4% menjadi Rp17.585/kg dalam 3 bulan (dari Rp17.000/kg). Kenaikan sebesar ini berada di persentil 77 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 17000,
+    "hargaPrediksi": 17585,
+    "persentilHistoris": 77.3,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-019",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Sumatera Utara diperkirakan naik 3.0% dalam 3 bulan",
+   "region": "Sumatera Utara",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 3.03,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sumatera Utara naik +3.0% menjadi Rp15.454/kg dalam 3 bulan (dari Rp15.000/kg). Kenaikan sebesar ini berada di persentil 75 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15454,
+    "persentilHistoris": 75.2,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-020",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Sulawesi Tenggara diperkirakan naik 3.0% dalam 3 bulan",
+   "region": "Sulawesi Tenggara",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 2.97,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sulawesi Tenggara naik +3.0% menjadi Rp16.191/kg dalam 3 bulan (dari Rp15.725/kg). Kenaikan sebesar ini berada di persentil 75 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15725,
+    "hargaPrediksi": 16191,
+    "persentilHistoris": 75.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-021",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Sulawesi Tengah diperkirakan naik 2.7% dalam 3 bulan",
+   "region": "Sulawesi Tengah",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 2.72,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sulawesi Tengah naik +2.7% menjadi Rp16.050/kg dalam 3 bulan (dari Rp15.625/kg). Kenaikan sebesar ini berada di persentil 73 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 15625,
+    "hargaPrediksi": 16050,
+    "persentilHistoris": 73.4,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-022",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Jambi diperkirakan naik 2.6% dalam 3 bulan",
+   "region": "Jambi",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 2.58,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Jambi naik +2.6% menjadi Rp17.183/kg dalam 3 bulan (dari Rp16.750/kg). Kenaikan sebesar ini berada di persentil 73 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 16750,
+    "hargaPrediksi": 17183,
+    "persentilHistoris": 72.7,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  },
+  {
+   "id": "ALT-023",
+   "severity": "sedang",
+   "title": "Harga Beras Medium Sulawesi Barat diperkirakan naik 2.1% dalam 3 bulan",
+   "region": "Sulawesi Barat",
+   "commodity": "beras",
+   "timestamp": "2026-07-20T12:42:56",
+   "status": "aktif",
+   "confidence": 97,
+   "change": 2.15,
+   "detail": {
+    "recommendation": "Model memprediksi Beras Medium di Sulawesi Barat naik +2.1% menjadi Rp15.067/kg dalam 3 bulan (dari Rp14.750/kg). Kenaikan sebesar ini berada di persentil 70 dari seluruh pergerakan 3 bulan Beras Medium sejak 2016 — ambang Kritis komoditas ini adalah +9.6%. Harga prediksi melampaui HAP/HET Bapanas (Rp12.500/kg).",
+    "history": [
+     {
+      "status": "Terdeteksi",
+      "timestamp": "2026-07-20T12:42:56"
+     }
+    ],
+    "hargaKini": 14750,
+    "hargaPrediksi": 15067,
+    "persentilHistoris": 70.2,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
+   }
+  }
+ ]
+}

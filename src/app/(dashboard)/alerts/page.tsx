@@ -53,47 +53,41 @@ export default function AlertsPage() {
     { id: "90", label: "Triwulan Berjalan (3 Bulan)" }
   ];
 
-  // Integrasi API bawaan Anda
-  const params = new URLSearchParams();
-  if (severity) params.set("severity", severity);
-  if (status) params.set("status", status);
-  if (commodity) params.set("commodity", commodity);
-  const query = params.toString();
+  // Real data: the API filters by commodity id. Severity is filtered
+  // client-side below because the filter UI uses uppercase labels
+  // (CRITICAL/WARNING/INFO) while the API uses kritis/tinggi/sedang.
+  const query = commodity ? `?commodity=${commodity}` : "";
+  const { data, loading } = useApi<AlertResponse>(`/api/alerts${query}`);
 
-  const { data, loading } = useApi<AlertResponse>(`/api/alerts${query ? `?${query}` : ""}`);
-
-  // DATA SENTRALISASI UTAMA SINKRON DENGAN NOTIFIKASI NOTA HEADER KRISIS [id]
-  const [alertsList, setAlertsList] = useState<AlertData[]>([
-    { id: "warn-1", severity: "CRITICAL", type: "PRICE SURGE", title: "Bawang Merah", location: "Jawa Tengah & DKI Jakarta sentra Brebes", delta: "+12.4%", updated: "Baru saja" },
-    { id: "warn-2", severity: "CRITICAL", type: "PRICE SURGE", title: "Cabai Rawit", location: "West Java Region • Bandung Regency", delta: "+24.8%", updated: "2m ago" },
-    { id: "warn-3", severity: "WARNING", type: "SUPPLY DROP", title: "Gula Pasir", location: "East Java Region • Surabaya City", delta: "-18.2%", updated: "15m ago" },
-    { id: "warn-4", severity: "INFO", type: "LOGISTICS DELAY", title: "Beras Medium", location: "North Sumatra • Belawan Port", delta: "48h", updated: "1h ago" },
-  ]);
+  // Map the real API alerts into the card's display shape.
+  const [alertsList, setAlertsList] = useState<AlertData[]>([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      toast.warning("Peringatan Baru", {
-        description: "Lonjakan harga Cabai Rawit terdeteksi di Kab. Jayapura (+32.5%)",
-      });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    if (!data?.alerts) return;
+    const sevMap: Record<string, AlertData["severity"]> = {
+      kritis: "CRITICAL", tinggi: "WARNING", sedang: "INFO", rendah: "INFO",
+    };
+    setAlertsList(
+      data.alerts.map((a) => ({
+        id: a.id,
+        severity: sevMap[a.severity] ?? "INFO",
+        type: a.change >= 0 ? "PRICE SURGE" : "SUPPLY DROP",
+        title: a.commodity
+          .split("-")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" "),
+        location: a.region,
+        delta: `${a.change >= 0 ? "+" : ""}${a.change.toFixed(1)}%`,
+        updated: "Snapshot",
+      }))
+    );
+  }, [data]);
 
-  // Filter Client-side Data Terpusat Berdasarkan Pilihan Komoditas & Tingkat Keparahan Dropdown
-  const displayedAlerts = useMemo(() => {
-    return alertsList.filter(item => {
-      if (severity && item.severity !== severity) return false;
-      
-      // Pencocokan relasi ID komoditas dengan Title teks filter
-      if (commodity) {
-        if (commodity === "bawang-merah" && item.title !== "Bawang Merah") return false;
-        if (commodity === "cabai-rawit" && item.title !== "Cabai Rawit") return false;
-        if (commodity === "gula-pasir" && item.title !== "Gula Pasir") return false;
-        if (commodity === "beras" && item.title !== "Beras Medium") return false;
-      }
-      return true;
-    });
-  }, [alertsList, severity, commodity]);
+  // Severity is filtered client-side; commodity is already filtered by the API.
+  const displayedAlerts = useMemo(
+    () => alertsList.filter((item) => !severity || item.severity === severity),
+    [alertsList, severity]
+  );
 
   // Fungsional Ril Dismiss Card: Menghapus item dari antrean state internal
   const handleDismissAlert = (id: string | number) => {

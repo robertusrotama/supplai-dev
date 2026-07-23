@@ -9,7 +9,7 @@ export function ShortcutCards() {
   const shortcuts = [
     {
       title: "Engine Prediksi Harga",
-      desc: "Analisis proyeksi pergerakan harga komoditas 14 hari ke depan.",
+      desc: "Analisis proyeksi pergerakan harga komoditas 1–3 bulan ke depan.",
       path: "/dashboard",
       icon: BarChart2,
       color: "bg-emerald-50 text-emerald-700 border-emerald-100",

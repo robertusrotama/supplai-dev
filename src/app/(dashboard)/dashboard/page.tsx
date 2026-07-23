@@ -10,6 +10,7 @@ import { Popover } from "@base-ui/react/popover";
 import { commodities } from "@/data/commodities";
 import { regionalComparisonMaster } from "@/data/regional-data";
 import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
+import commodityMape from "@/data/generated/commodity_mape.json";
 
 import {
   ResponsiveContainer,
@@ -60,19 +61,24 @@ const cardItemVariants = {
   show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 120, damping: 14 } }
 } as const;
 
-const COMMODITY_BEHAVIOR: Record<string, { mape: number }> = {
-  "beras": { mape: 1.8 },
-  "cabai-rawit": { mape: 5.4 },
-  "bawang-merah": { mape: 4.2 },
-  "bawang-putih": { mape: 2.8 },
-  "gula-pasir": { mape: 2.1 },
-  "daging-sapi": { mape: 1.2 },
-  "daging-ayam": { mape: 2.5 },
-  "telur-ayam": { mape: 2.2 },
-  "tomat": { mape: 4.9 },
-  "wortel": { mape: 3.6 },
-  "kentang": { mape: 3.1 },
-};
+// Real per-commodity horizon-1 MAPE (rolling-origin blend), from the export.
+const COMMODITY_MAPE = commodityMape as Record<string, number>;
+
+// Date bounds derived from the real monthly data so the default window and the
+// range shortcuts stay correct across re-exports (data is a snapshot).
+const ALL_POINTS = Object.values(generatedTimeSeriesMaster).flatMap((regMap) =>
+  Object.values(regMap).flat()
+);
+const DATA_DATES = Array.from(new Set(ALL_POINTS.map((p) => p.date))).sort();
+const DATA_MIN = DATA_DATES[0] ?? "2025-03-01";
+const DATA_MAX = DATA_DATES[DATA_DATES.length - 1] ?? "2026-09-01";
+const TODAY_DATE = ALL_POINTS.find((p) => p.isToday)?.date ?? DATA_MAX;
+
+function monthsBefore(iso: string, n: number): string {
+  const d = new Date(iso);
+  d.setMonth(d.getMonth() - n);
+  return d.toISOString().slice(0, 10);
+}
 
 const transitionSmooth = { type: "spring", stiffness: 100, damping: 15 } as const;
 
@@ -91,21 +97,19 @@ export default function PricePredictionEnginePage() {
   const queryCommodity = searchParams.get("commodity");
   const hasTrigger = searchParams.get("trigger") === "alert";
 
-  const [commodityId, setCommodityId] = useState(() => {
-    if (queryCommodity === "bawang-merah") return "bawang-merah";
-    if (queryCommodity === "cabai-rawit") return "cabai-rawit";
-    return "beras";
-  });
-  
+  const [commodityId, setCommodityId] = useState(() =>
+    commodities.some((c) => c.id === queryCommodity) ? (queryCommodity as string) : "beras"
+  );
+
   const [selectedRegions, setSelectedRegions] = useState<string[]>(() => {
-    if (hasTrigger && queryCommodity === "bawang-merah") {
-      return ["Semarang", "Bandung"];
-    }
-    return [regionalComparisonMaster[7]?.region || "Bandung"];
+    const names = regionalComparisonMaster.map((r) => r.region);
+    if (hasTrigger) return names.slice(0, 2);
+    return [names[0] ?? "Aceh"];
   });
 
-  const [startDate, setStartDate] = useState("2026-07-06");
-  const [endDate, setEndDate] = useState("2026-07-20");
+  // Default view: last 12 months of history through the 3 forecast months.
+  const [startDate, setStartDate] = useState(monthsBefore(TODAY_DATE, 12));
+  const [endDate, setEndDate] = useState(DATA_MAX);
 
   const [isMobileScreen, setIsMobileScreen] = useState(false);
 
@@ -116,13 +120,9 @@ export default function PricePredictionEnginePage() {
     return () => window.removeEventListener("resize", checkMediaQuery);
   }, []);
 
-  const setPredictionHorizon = (days: number) => {
-    const start = new Date("2026-07-06");
-    const end = new Date(start);
-    end.setDate(start.getDate() + days);
-
-    setStartDate(start.toISOString().split("T")[0]);
-    setEndDate(end.toISOString().split("T")[0]);
+  const setPredictionWindow = (monthsBack: number) => {
+    setStartDate(monthsBefore(TODAY_DATE, monthsBack));
+    setEndDate(DATA_MAX);
   };
 
   const filteredCommodities = useMemo(() => {
@@ -147,7 +147,7 @@ export default function PricePredictionEnginePage() {
 
   const handleAddRegion = (regionName: string) => {
     if (selectedRegions.length >= 3) {
-      alert("Maksimal perbandingan adalah 3 kota/wilayah sekaligus.");
+      alert("Maksimal perbandingan adalah 3 wilayah sekaligus.");
       return;
     }
     setSelectedRegions([...selectedRegions, regionName]);
@@ -157,7 +157,7 @@ export default function PricePredictionEnginePage() {
 
   const handleRemoveRegion = (regionName: string) => {
     if (selectedRegions.length <= 1) {
-      alert("Minimal harus memilih 1 kota untuk divisualisasikan.");
+      alert("Minimal harus memilih 1 wilayah untuk divisualisasikan.");
       return;
     }
     setSelectedRegions(selectedRegions.filter(r => r !== regionName));
@@ -181,12 +181,10 @@ export default function PricePredictionEnginePage() {
     const sortedDates = Array.from(datePointsSet).sort();
     return sortedDates.map(dStr => {
       const row: any = { date: dStr };
-      const dateObj = new Date(dStr);
-      row.displayDate = dateObj.toLocaleDateString("id-ID", { day: "2-digit", month: "short" });
-      
       selectedRegions.forEach(reg => {
         const found = activeGroup[reg]?.find(pt => pt.date === dStr);
         if (found) {
+          row.displayDate = found.displayDate;
           row[reg] = found.price;
           if (found.isToday) row.isToday = true;
           if (found.isFuture) row.isFuture = true;
@@ -218,14 +216,14 @@ export default function PricePredictionEnginePage() {
     const avgToday = Math.round(totalToday / divisor);
     const avgFuture = Math.round(totalFuture / divisor);
     const delta = avgFuture - avgToday;
-    const behavior = COMMODITY_BEHAVIOR[commodityId] || { mape: 3.0 };
+    const mape = COMMODITY_MAPE[commodityId] ?? 3.0;
 
     return {
       currentPrice: avgToday,
       predictedPrice: avgFuture,
       priceChange: delta,
       isPriceDown: delta < 0,
-      avgMape: behavior.mape
+      avgMape: mape
     };
   }, [commodityId, selectedRegions]);
 
@@ -268,7 +266,7 @@ export default function PricePredictionEnginePage() {
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-[#006c4a] tracking-tight">Price Prediction Engine</h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-            Strategic commodity forecasting with dynamic look-ahead windows comparing multi-city scopes.
+            Proyeksi harga komoditas 1–3 bulan ke depan, dibandingkan lintas provinsi.
           </p>
         </div>
         <Button 
@@ -334,7 +332,7 @@ export default function PricePredictionEnginePage() {
 
           {/* DROPDOWN KOTA */}
           <div className="space-y-1.5 relative" ref={cityDropdownRef}>
-            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">COMPARE CITIES (MAX 3)</label>
+            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">BANDINGKAN WILAYAH (MAX 3)</label>
             <div onClick={() => !hasTrigger && setIsCityOpen(!isCityOpen)} className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 flex items-center justify-between text-sm font-bold text-slate-700 cursor-pointer transition-all ${hasTrigger ? "bg-slate-100 cursor-not-allowed" : "hover:border-slate-300"}`}>
               <span className="text-slate-400 font-normal text-xs sm:text-sm truncate">Tambah wilayah komparasi...</span>
               <Plus className="w-4 h-4 text-slate-400 shrink-0" />
@@ -344,7 +342,7 @@ export default function PricePredictionEnginePage() {
                 <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} className="dropdown-portal absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 space-y-2">
                   <div className="relative flex items-center">
                     <Search className="absolute left-2.5 w-3.5 h-3.5 text-slate-400" />
-                    <input type="text" placeholder="Cari kota/kabupaten..." value={searchCity} onChange={(e) => setSearchCity(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs outline-none focus:border-[#006c4a] font-bold"/>
+                    <input type="text" placeholder="Cari provinsi..." value={searchCity} onChange={(e) => setSearchCity(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs outline-none focus:border-[#006c4a] font-bold"/>
                   </div>
                   <div className="max-h-40 overflow-y-auto space-y-0.5">
                     {filteredCities.length > 0 ? (
@@ -352,7 +350,7 @@ export default function PricePredictionEnginePage() {
                         <div key={item.region} onClick={() => handleAddRegion(item.region)} className="px-3 py-2 text-xs font-bold rounded-lg cursor-pointer text-slate-600 hover:bg-slate-50">{item.region}</div>
                       ))
                     ) : (
-                      <div className="text-[10px] text-slate-400 text-center py-2">Kota tidak tersedia/sudah dipilih</div>
+                      <div className="text-[10px] text-slate-400 text-center py-2">Wilayah tidak tersedia/sudah dipilih</div>
                     )}
                   </div>
                 </motion.div>
@@ -441,7 +439,7 @@ export default function PricePredictionEnginePage() {
           <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="bg-white border border-slate-200 rounded-[24px] p-4 sm:p-6 space-y-4 shadow-3xs overflow-hidden">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-4">
               <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-400 font-mono uppercase flex items-center gap-1.5">
-                <span>📈</span> 14-DAY PRICE TRAJECTORY
+                <span>📈</span> TRAYEKTORI HARGA 1–3 BULAN
               </span>
 
               {/* TIMELINE CONTROLS BAR WITH NEW RANGE SHORTCUTS BUTTONS */}
@@ -449,9 +447,9 @@ export default function PricePredictionEnginePage() {
                 
                 {/* NEW SHORTCUT BUTTONS GROUP */}
                 <div className="shortcut-row flex items-center bg-slate-100 border border-slate-200 rounded-xl p-0.5 text-[10px] font-bold text-slate-600 shadow-3xs shrink-0">
-                  <button onClick={() => setPredictionHorizon(7)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">7 Days</button>
-                  <button onClick={() => setPredictionHorizon(14)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">2 Week</button>
-                  <button onClick={() => setPredictionHorizon(28)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">1 Month</button>
+                  <button onClick={() => setPredictionWindow(3)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">3 Bulan</button>
+                  <button onClick={() => setPredictionWindow(6)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">6 Bulan</button>
+                  <button onClick={() => setPredictionWindow(12)} className="px-2.5 py-1.5 rounded-lg hover:bg-white transition-all cursor-pointer">1 Tahun</button>
                 </div>
 
                 {/* Date Picker Range Input */}

@@ -1,5 +1,6 @@
 import type { PredictionResponse, HeatmapResponse, HeatmapCell, HeatmapRow } from "@/lib/types"
 import { regions } from "./regions"
+import heatmapGenerated from "./generated/heatmap.json"
 
 // ---------------------------------------------------------------------------
 // Seeded PRNG (mulberry32)
@@ -252,62 +253,35 @@ export function getPriceData(
 // ---------------------------------------------------------------------------
 // Public API: getHeatmapData
 // ---------------------------------------------------------------------------
-export function getHeatmapData(commodityId: string, range: number = 14): HeatmapResponse {
-  const matrix: HeatmapRow[] = regions.map((r) => {
-    const full = getCachedSeries(commodityId, r.id)
-    // Last `range` historical days
-    const slice = full.slice(Math.max(0, HIST_DAYS - range), HIST_DAYS)
+export function getHeatmapData(commodityId: string, range: number = 12): HeatmapResponse {
+  const all = heatmapGenerated as Record<string, HeatmapResponse>
+  const src = all[commodityId] ?? all["beras"]
 
-    // Use cumulative change from the first day in the range so that
-    // regional price divergence (driven by distance factor) produces a
-    // rich spread of green → yellow → orange → red cells.
-    const basePrice = slice[0]?.actual ?? 1
-    const data: HeatmapCell[] = slice.map((point) => {
-      const curr = point.actual ?? 0
-      const change = basePrice !== 0 ? ((curr - basePrice) / basePrice) * 100 : 0
-      return {
-        date: point.date,
-        price: curr,
-        change: parseFloat(change.toFixed(2)),
-      }
-    })
-
-    return { region: r.name, data }
+  const matrix: HeatmapRow[] = src.matrix.map((row) => {
+    const slice = row.data.slice(-range)
+    const base = slice[0]?.price ?? 1
+    const data: HeatmapCell[] = slice.map((c) => ({
+      date: c.date,
+      price: c.price,
+      change: base ? parseFloat((((c.price - base) / base) * 100).toFixed(2)) : 0,
+    }))
+    return { region: row.region, data }
   })
 
-  // avgIncrease: mean of last-day change across all regions
-  const lastDayChanges = matrix.map((row) => row.data[row.data.length - 1]?.change ?? 0)
-  const avgIncrease = lastDayChanges.reduce((s, v) => s + v, 0) / lastDayChanges.length
-
-  // alertCount: regions where cumulative change over range > 10%
-  const alertCount = matrix.filter((row) => {
-    if (row.data.length < 2) return false
-    const first = row.data[0].price
-    const last = row.data[row.data.length - 1].price
+  const lastChanges = matrix.map((r) => r.data[r.data.length - 1]?.change ?? 0)
+  const avgIncrease = lastChanges.length
+    ? parseFloat((lastChanges.reduce((s, v) => s + v, 0) / lastChanges.length).toFixed(2))
+    : 0
+  const alertCount = matrix.filter((r) => {
+    if (r.data.length < 2) return false
+    const first = r.data[0].price
+    const last = r.data[r.data.length - 1].price
     return first > 0 && ((last - first) / first) * 100 > 10
   }).length
 
-  // topCritical: top 5 rows by average absolute change
-  const scored = matrix.map((row) => ({
-    region: row.region,
-    avgChange:
-      row.data.reduce((s, c) => s + Math.abs(c.change), 0) / (row.data.length || 1),
-  }))
-  scored.sort((a, b) => b.avgChange - a.avgChange)
-
-  const topCritical = scored.slice(0, 5).map((s) => ({
-    region: s.region,
-    commodity: commodityId,
-    change: parseFloat(s.avgChange.toFixed(2)),
-  }))
-
   return {
-    summary: {
-      totalRegions: 514,
-      avgIncrease: parseFloat(avgIncrease.toFixed(2)),
-      alertCount,
-    },
+    summary: { totalRegions: src.summary.totalRegions, avgIncrease, alertCount },
     matrix,
-    topCritical,
+    topCritical: src.topCritical,
   }
 }

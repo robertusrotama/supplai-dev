@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { useApi } from "@/hooks/use-api";
+import { commodities } from "@/data/commodities";
 import type { RedistributionResponse } from "@/lib/types";
 import { IndonesiaMap } from "@/components/redistribusi/indonesia-map";
 import { RouteTable } from "@/components/redistribusi/route-table";
@@ -75,10 +76,9 @@ export default function RedistribusiPage() {
               onChange={(e) => setCommodity(e.target.value)}
               className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none appearance-none cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all pr-8"
             >
-              <option value="beras">Beras (Premium)</option>
-              <option value="bawang-merah">Bawang Merah</option>
-              <option value="cabai-rawit">Cabai Rawit</option>
-              <option value="minyak-goreng">Minyak Goreng</option>
+              {commodities.map((c) => (
+                <option key={c.id} value={c.id}>{c.name}</option>
+              ))}
             </select>
             <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
               <ChevronDown className="w-3.5 h-3.5 stroke-[2.5]" />

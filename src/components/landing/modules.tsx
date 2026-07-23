@@ -10,7 +10,7 @@ const modulesData = [
     step: "INPUT",
     stepLabel: "Integrasi Data Multi-Sektoral",
     title: "SupplAi Predict",
-    description: "Mengintegrasikan data PIHPS BI, Panel Bapanas, cuaca BMKG, dan data produksi Kementan untuk memproyeksikan pergerakan harga pokok 14 hari ke depan.",
+    description: "Mengintegrasikan data PIHPS BI, Panel Bapanas, cuaca BMKG, dan data produksi Kementan untuk memproyeksikan pergerakan harga pokok 1–3 bulan ke depan.",
     icon: Database,
     imageBg: "from-brand-primary/10 to-emerald-500/5",
     labels: ["PIHPS", "Bapanas", "BMKG", "Kementan"],
@@ -21,7 +21,7 @@ const modulesData = [
           <span className="text-brand-primary font-bold">● Active</span>
         </div>
         <div className="space-y-2 my-auto">
-          <p className="text-brand-textMuted/50">// Menghitung tren 14 hari ke depan</p>
+          <p className="text-brand-textMuted/50">// Menghitung tren 1–3 bulan ke depan</p>
           <p className="text-cyan-700 font-semibold">Executing: model.predict(target_date)</p>
           <div className="h-16 w-full bg-brand-bgSubtle rounded border border-brand-border p-2 flex items-end gap-1">
             <div className="w-full bg-brand-primary/30 h-1/3 rounded-t"></div>

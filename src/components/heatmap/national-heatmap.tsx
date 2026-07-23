@@ -2,26 +2,63 @@
 
 import { useEffect, useRef, useState, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { regionalComparisonMaster } from "@/data/regional-data";
+import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { commodities } from "@/data/commodities";
 import { Sliders, Search, AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
 
-const CITY_COORDINATES: Record<string, { x: number; y: number }> = {
-  "Medan": { x: 120, y: 140 },
-  "Padang": { x: 160, y: 220 },
-  "Palembang": { x: 240, y: 280 },
-  "Bandung": { x: 300, y: 390 },
-  "Semarang": { x: 370, y: 390 },
-  "Yogyakarta": { x: 390, y: 410 },
-  "Surabaya": { x: 440, y: 390 },
-  "Pontianak": { x: 310, y: 210 },
-  "Banjarmasin": { x: 410, y: 270 },
-  "Balikpapan": { x: 440, y: 240 },
-  "Makassar": { x: 530, y: 290 },
-  "Palu": { x: 530, y: 210 },
-  "Kupang": { x: 590, y: 430 },
-  "Sorong": { x: 740, y: 190 },
-  "Merauke": { x: 910, y: 380 },
+// Canvas coordinates for all 34 provinces, computed from each province's path
+// in /indonesia.svg (largest-landmass centroid, mapped through the same
+// drawImage transform: rect 40,40 → 920×420 over a 792.5×316.7 image).
+// Regenerate if the base map changes.
+const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
+  // Sumatera
+  "Aceh": { x: 75, y: 111 },
+  "Sumatera Utara": { x: 119, y: 156 },
+  "Sumatera Barat": { x: 149, y: 224 },
+  "Riau": { x: 172, y: 198 },
+  "Kepulauan Riau": { x: 226, y: 185 },
+  "Jambi": { x: 191, y: 247 },
+  "Bengkulu": { x: 184, y: 290 },
+  "Sumatera Selatan": { x: 220, y: 282 },
+  "Kepulauan Bangka Belitung": { x: 256, y: 260 },
+  "Lampung": { x: 237, y: 321 },
+  // Jawa
+  "DKI Jakarta": { x: 274, y: 350 },
+  "Banten": { x: 259, y: 356 },
+  "Jawa Barat": { x: 289, y: 367 },
+  "Jawa Tengah": { x: 341, y: 374 },
+  "DI Yogyakarta": { x: 346, y: 389 },
+  "Jawa Timur": { x: 390, y: 387 },
+  // Bali & Nusa Tenggara
+  "Bali": { x: 440, y: 400 },
+  "Nusa Tenggara Barat": { x: 495, y: 406 },
+  "Nusa Tenggara Timur": { x: 561, y: 405 },
+  // Kalimantan
+  "Kalimantan Barat": { x: 360, y: 210 },
+  "Kalimantan Tengah": { x: 406, y: 245 },
+  "Kalimantan Selatan": { x: 445, y: 276 },
+  "Kalimantan Timur": { x: 467, y: 198 },
+  "Kalimantan Utara": { x: 462, y: 142 },
+  // Sulawesi
+  "Sulawesi Utara": { x: 623, y: 189 },
+  "Gorontalo": { x: 586, y: 193 },
+  "Sulawesi Tengah": { x: 560, y: 231 },
+  "Sulawesi Barat": { x: 525, y: 265 },
+  "Sulawesi Selatan": { x: 541, y: 292 },
+  "Sulawesi Tenggara": { x: 574, y: 295 },
+  // Maluku & Papua
+  "Maluku": { x: 728, y: 282 },
+  "Maluku Utara": { x: 699, y: 189 },
+  "Papua Barat": { x: 802, y: 256 },
+  "Papua": { x: 914, y: 313 },
+};
+
+type MapPoint = {
+  region: string;
+  price: number;
+  status: "CRITICAL" | "STABLE" | "SURPLUS";
+  change: number;
+  coord: { x: number; y: number };
 };
 
 export function NationalHeatmap() {
@@ -29,7 +66,7 @@ export function NationalHeatmap() {
   
   // States Filter & Dropdown
   const [selectedCommodity, setSelectedCommodity] = useState("beras");
-  const [intensity, setIntensity] = useState(71);
+  const [intensity, setIntensity] = useState(48);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCommOpen, setIsCommOpen] = useState(false);
   
@@ -56,6 +93,29 @@ export function NationalHeatmap() {
     return commodities.find(c => c.id === selectedCommodity)?.name || "Beras Medium";
   }, [selectedCommodity]);
 
+  // Real per-province price + 3-month projection for the selected commodity,
+  // derived from the monthly series (current month vs last forecast month).
+  const provinceData = useMemo<MapPoint[]>(() => {
+    const series = generatedTimeSeriesMaster[selectedCommodity] || {};
+    const out: MapPoint[] = [];
+    for (const [prov, coord] of Object.entries(PROVINCE_COORDINATES)) {
+      const arr = series[prov];
+      if (!arr || arr.length === 0) continue;
+      const today = arr.find(p => p.isToday) ?? arr[0];
+      const last = arr[arr.length - 1];
+      const change = today.price ? ((last.price - today.price) / today.price) * 100 : 0;
+      const status: MapPoint["status"] =
+        change > 3 ? "CRITICAL" : change < -3 ? "SURPLUS" : "STABLE";
+      out.push({ region: prov, price: today.price, status, change, coord });
+    }
+    return out;
+  }, [selectedCommodity]);
+
+  const criticalCount = useMemo(
+    () => provinceData.filter(p => p.status === "CRITICAL").length,
+    [provinceData]
+  );
+
   // LOGIKA MOUSE HOVER CANVAS TOOLTIP
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
@@ -67,9 +127,8 @@ export function NationalHeatmap() {
 
     let foundCity: any = null;
 
-    regionalComparisonMaster.forEach((item) => {
-      const coord = CITY_COORDINATES[item.region];
-      if (!coord) return;
+    provinceData.forEach((item) => {
+      const coord = item.coord;
 
       const distance = Math.sqrt(Math.pow(mouseX - coord.x, 2) + Math.pow(mouseY - coord.y, 2));
       if (distance < 16) {
@@ -96,24 +155,22 @@ export function NationalHeatmap() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const baseMap = new Image();
-    baseMap.src = "/indonesia-map.svg"; 
-
-    baseMap.onload = () => {
+    const paint = (baseMap: HTMLImageElement | null) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#ffffff"; 
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.globalAlpha = 0.6; 
-      ctx.drawImage(baseMap, 40, 40, 920, 420); // Skala gambar peta diperbesar agar proporsional widescreen
-      ctx.globalAlpha = 1.0; 
+      if (baseMap) {
+        ctx.globalAlpha = 0.6;
+        ctx.drawImage(baseMap, 40, 40, 920, 420); // scaled to widescreen
+        ctx.globalAlpha = 1.0;
+      }
 
       // Render Thermal Gradien Blur
-      regionalComparisonMaster.forEach((item) => {
-        const coord = CITY_COORDINATES[item.region];
-        if (!coord) return;
+      provinceData.forEach((item) => {
+        const coord = item.coord;
 
-        const radius = intensity; 
+        const radius = intensity;
         const gradient = ctx.createRadialGradient(coord.x, coord.y, 2, coord.x, coord.y, radius);
 
         if (item.status === "CRITICAL") {
@@ -138,29 +195,32 @@ export function NationalHeatmap() {
       });
 
       // Render Titik Anchor Kota & Teks Label
-      regionalComparisonMaster.forEach((item) => {
-        const coord = CITY_COORDINATES[item.region];
-        if (!coord) return;
+      provinceData.forEach((item) => {
+        const coord = item.coord;
 
         ctx.fillStyle = item.status === "CRITICAL" ? "#ef4444" : "#1e293b";
         ctx.beginPath();
-        ctx.arc(coord.x, coord.y, 4.5, 0, Math.PI * 2);
+        ctx.arc(coord.x, coord.y, 3.5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = "bold 11px sans-serif";
+        // Province label only (price/change live in the hover tooltip); keeps
+        // the 34-marker map readable. White halo for contrast over the heat.
+        ctx.font = "600 9px sans-serif";
         ctx.fillStyle = "#0f172a";
         ctx.shadowColor = "#ffffff";
-        ctx.shadowBlur = 4;
-        ctx.fillText(item.region, coord.x + 8, coord.y + 2);
-
-        ctx.font = "9px monospace";
-        ctx.fillStyle = "#64748b";
-        ctx.fillText(`Rp${item.price.toLocaleString()}`, coord.x + 8, coord.y + 12);
-        
-        ctx.shadowBlur = 0; 
+        ctx.shadowBlur = 3;
+        ctx.fillText(item.region, coord.x + 6, coord.y + 3);
+        ctx.shadowBlur = 0;
       });
     };
-  }, [selectedCommodity, intensity]);
+
+    // Draw the data immediately, then layer the base map underneath once it
+    // loads. If the map asset is missing/slow, the heat + markers still show.
+    paint(null);
+    const baseMap = new Image();
+    baseMap.onload = () => paint(baseMap);
+    baseMap.src = "/indonesia.svg";
+  }, [provinceData, intensity]);
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto font-sans pb-4 p-2 text-slate-800">
@@ -268,7 +328,7 @@ export function NationalHeatmap() {
             </span>
             <div className="flex items-center gap-2 text-[10px] font-bold font-mono text-slate-500">
               <AlertTriangle className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
-              Brebes Cluster Critical Peak
+              {criticalCount} Wilayah Status Kritis
             </div>
           </div>
           
@@ -305,9 +365,8 @@ export function NationalHeatmap() {
                     </span>
                   </div>
                   <div className="space-y-0.5 font-mono text-[10px]">
-                    <div className="flex justify-between"><span className="text-slate-400">Harga Retail:</span><span className="font-bold text-emerald-300">Rp{hoveredCity.price.toLocaleString()}</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Volume Stok:</span><span className="font-bold text-slate-100">140 Ton</span></div>
-                    <div className="flex justify-between"><span className="text-slate-400">Rasio Pangan:</span><span className="font-bold text-amber-300">88.4%</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Harga Kini:</span><span className="font-bold text-emerald-300">Rp{hoveredCity.price.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">Proyeksi 3 Bln:</span><span className={`font-bold ${hoveredCity.change >= 0 ? "text-rose-300" : "text-emerald-300"}`}>{hoveredCity.change >= 0 ? "+" : ""}{hoveredCity.change.toFixed(1)}%</span></div>
                   </div>
                 </motion.div>
               )}
