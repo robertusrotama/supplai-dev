@@ -6,7 +6,7 @@ import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { commodities } from "@/data/commodities";
 import { Sliders, Search, AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
 
-// Canvas coordinates (calibrated to /indonesia-map.svg) keyed by the province
+// Canvas coordinates (calibrated to /indonesia.svg) keyed by the province
 // whose main market sits there. 15 anchor provinces span the archipelago.
 const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
   "Sumatera Utara": { x: 120, y: 140 },
@@ -128,17 +128,16 @@ export function NationalHeatmap() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const baseMap = new Image();
-    baseMap.src = "/indonesia-map.svg"; 
-
-    baseMap.onload = () => {
+    const paint = (baseMap: HTMLImageElement | null) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#ffffff"; 
+      ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.globalAlpha = 0.6; 
-      ctx.drawImage(baseMap, 40, 40, 920, 420); // Skala gambar peta diperbesar agar proporsional widescreen
-      ctx.globalAlpha = 1.0; 
+      if (baseMap) {
+        ctx.globalAlpha = 0.6;
+        ctx.drawImage(baseMap, 40, 40, 920, 420); // scaled to widescreen
+        ctx.globalAlpha = 1.0;
+      }
 
       // Render Thermal Gradien Blur
       provinceData.forEach((item) => {
@@ -190,6 +189,13 @@ export function NationalHeatmap() {
         ctx.shadowBlur = 0;
       });
     };
+
+    // Draw the data immediately, then layer the base map underneath once it
+    // loads. If the map asset is missing/slow, the heat + markers still show.
+    paint(null);
+    const baseMap = new Image();
+    baseMap.onload = () => paint(baseMap);
+    baseMap.src = "/indonesia.svg";
   }, [provinceData, intensity]);
 
   return (
