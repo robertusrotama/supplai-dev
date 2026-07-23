@@ -123,6 +123,33 @@ def test_build_redistribution():
     assert "all" in res
 
 
+def test_build_timeseries_history_then_forecast():
+    panel = _mini_panel()   # Aceh + Bali, 12 monthly actuals each
+    fpath = pd.DataFrame({
+        "provinsi": ["Aceh"] * 3 + ["Bali"] * 3,
+        "komoditas": ["Beras Medium"] * 6,
+        "bulan": list(pd.date_range("2026-07-01", periods=3, freq="MS")) * 2,
+        "h": [1, 2, 3, 1, 2, 3],
+        "ensemble": [16200, 16300, 16400, 15200, 15300, 15400],
+    })
+    ts = ew.build_timeseries(panel, fpath, months_hist=6)
+    aceh = ts["beras"]["Aceh"]
+    assert len([p for p in aceh if not p["isFuture"]]) == 6      # history capped
+    assert sum(p["isFuture"] for p in aceh) == 3                 # 3 forecast
+    hist = [p for p in aceh if not p["isFuture"]]
+    assert hist[-1]["isToday"] and not hist[0]["isToday"]        # last actual flagged
+    assert aceh[-1]["price"] == 16400 and aceh[-1]["isFuture"]
+    assert aceh[0]["displayDate"].split()[0] in ew.IND_MONTHS
+
+
+def test_build_commodity_mape():
+    bf = pd.DataFrame({"h": [1, 1], "komoditas": ["Beras Medium", "Bawang Merah"],
+                       "actual": [100.0, 100.0], "lstm": [120.0, 80.0],
+                       "lgbm": [120.0, 80.0]})
+    m = ew.build_commodity_mape(bf)
+    assert m["beras"] == 20.0 and m["bawang-merah"] == 20.0
+
+
 def test_headline_mape_and_exec_values_parser_safe():
     # blend = mean(lstm,lgbm) = [120,220]; ape vs actual [100,200] = 20%,10% -> 15%
     bf = pd.DataFrame({"h": [1, 1, 2], "actual": [100.0, 200.0, 999.0],

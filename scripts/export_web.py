@@ -26,6 +26,12 @@ COMMODITY_ID = {
 
 SEV_MAP = {"Kritis": "kritis", "Warning": "tinggi", "Info": "sedang"}
 PRIO_MAP = {"Kritis": "high", "Warning": "medium", "Info": "low"}
+IND_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+              "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+
+
+def _disp_month(ts) -> str:
+    return f"{IND_MONTHS[ts.month]} {ts.year % 100:02d}"
 
 # scripts/ -> supplai-dev/ -> hackathon_phase2/  (artifacts live at the last)
 DEFAULT_ARTIFACTS = Path(__file__).resolve().parents[2] / "artifacts"
@@ -230,6 +236,48 @@ def build_executive(A: dict) -> dict:
     return {"topMetrics": top, "shortcutCards": shortcuts}
 
 
+def build_timeseries(panel: pd.DataFrame, forecast_path: pd.DataFrame,
+                     months_hist: int = 15) -> dict:
+    """{commodityId: {province: TimeSeriesPoint[]}} — monthly history + forecast.
+
+    Each series is the last `months_hist` months of actuals (last one flagged
+    isToday) followed by the 3 forecast months (isFuture). Feeds the flagship
+    Price-Prediction chart.
+    """
+    out = {}
+    for wfp, (cid, _disp, _unit) in COMMODITY_ID.items():
+        out[cid] = {}
+        p = panel[panel.komoditas == wfp]
+        fp = forecast_path[forecast_path.komoditas == wfp]
+        for prov, g in p.groupby("provinsi"):
+            g = g.sort_values("bulan").tail(months_hist)
+            if g.empty:
+                continue
+            months = list(g["bulan"])
+            pts = []
+            for j, (b, h) in enumerate(zip(g["bulan"], g["harga"])):
+                pts.append({"date": f"{b:%Y-%m-01}", "displayDate": _disp_month(b),
+                            "price": round(float(h)), "isFuture": False,
+                            "isToday": j == len(months) - 1, "region": prov})
+            fpp = fp[fp.provinsi == prov].sort_values("h")
+            for b, e in zip(fpp["bulan"], fpp["ensemble"]):
+                pts.append({"date": f"{b:%Y-%m-01}", "displayDate": _disp_month(b),
+                            "price": round(float(e)), "isFuture": True,
+                            "isToday": False, "region": prov})
+            out[cid][prov] = pts
+    return out
+
+
+def build_commodity_mape(bench_final: pd.DataFrame) -> dict:
+    """{commodityId: horizon-1 MAPE} from the rolling-origin blend."""
+    b = bench_final[bench_final.h == 1].copy()
+    b["blend"] = (b["lstm"] + b["lgbm"]) / 2
+    b["ape"] = (b["blend"] - b["actual"]).abs() / b["actual"] * 100
+    m = b.groupby("komoditas")["ape"].mean()
+    return {COMMODITY_ID[k][0]: round(float(v), 2)
+            for k, v in m.items() if k in COMMODITY_ID}
+
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
@@ -256,6 +304,8 @@ def main(argv=None) -> int:
     alerts = build_alerts(A["alerts"], A["meta"])
     redist = build_redistribution(A["flows"], A["meta"])
     executive = build_executive(A)
+    timeseries = build_timeseries(A["panel"], A["forecast_path"])
+    commodity_mape = build_commodity_mape(A["bench_final"])
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -264,6 +314,8 @@ def main(argv=None) -> int:
     _write(args.out, "alerts.json", alerts)
     _write(args.out, "redistribution.json", redist)
     _write(args.out, "executive.json", executive)
+    _write(args.out, "timeseries.json", timeseries)
+    _write(args.out, "commodity_mape.json", commodity_mape)
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -280,6 +332,13 @@ def main(argv=None) -> int:
     for m in executive["topMetrics"]:
         assert re.fullmatch(r"\d+(\.\d+)?[^0-9.-]*", m["value"]), \
             f"unsafe exec value {m['value']!r}"
+    assert set(timeseries) == {c["id"] for c in commodities}, "timeseries missing a commodity"
+    for cid, regs in timeseries.items():
+        assert regs, f"timeseries[{cid}] empty"
+        sample = next(iter(regs.values()))
+        assert any(p["isToday"] for p in sample), "no isToday flag"
+        assert sum(p["isFuture"] for p in sample) == 3, "expected 3 forecast points"
+    assert len(commodity_mape) == 6, "commodity_mape must cover 6 commodities"
     print("export_web: OK")
     return 0
 
