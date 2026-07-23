@@ -87,10 +87,10 @@ Bawang Merah   → bawang-merah,  "Bawang Merah",   kg
 Bawang Putih   → bawang-putih,  "Bawang Putih",   kg
 Daging Ayam    → daging-ayam,   "Daging Ayam",    kg
 Telur Ayam     → telur-ayam,    "Telur Ayam",     kg
-Minyak Goreng  → minyak-goreng, "Minyak Goreng",  liter
+Minyak Goreng  → minyak-goreng, "Minyak Goreng",  kg
 ```
-Unit for `minyak-goreng` is `liter` (per HET reference); the rest are `kg`.
-Verify against the WFP `unit` column during implementation before hardcoding.
+All six units are `kg` — confirmed against the WFP `unit` column (Oil is
+reported per KG, not per liter).
 
 ### `regions.json` — `Region[]`
 From `centroids.parquet` (34 rows): `{id: slug(provinsi), name: provinsi,
@@ -178,10 +178,40 @@ while keeping its TS interfaces.
    fabricated; metrics we can't back (TPID roster, CPI inflation) are replaced
    by real quantities under honest labels.
 
+## Implementation scoping (discovered during planning)
+
+Tracing actual data consumers changed the delivery shape. Only **3 of 6 routes
+are live** (`/api/alerts`, `/api/heatmap`, `/api/redistribution`); `/api/
+predictions`, `/api/commodities`, `/api/regions` are never fetched — the pages
+import the data modules directly. Additional gotchas:
+
+- **`alerts/page.tsx` ignores its own `useApi('/api/alerts')` result** and
+  renders a hardcoded `alertsList` state. Wiring the accessor is not enough —
+  the page must be refactored to consume `data.alerts` (and drop the fake
+  toast). API `Alert` → page `AlertData` mapping required.
+- **Heatmap has two data paths.** `PriceMatrix`/`TopCritical` use `/api/
+  heatmap` (clean swap), but the choropleth `<NationalHeatmap>` reads
+  `regionalComparisonMaster` (`regional-data.ts`) directly — so `regional-
+  data.ts` is also in scope (real per-province staple prices). NationalHeatmap's
+  own commodity selector stays cosmetic in phase 1 (per-commodity choropleth
+  deferred with the flagship).
+- **Range control:** `FilterBar` is unused; the live control is
+  `ElasticDatePicker` (heatmap page). Its day presets become month presets.
+
+**Phased delivery (user-approved):**
+- **Phase 1 (this plan):** Alert Center, Heatmap, Redistribusi + shared
+  `commodities`/`regions`/`regional-data`/`executive`. Real data end-to-end for
+  three of four modules.
+- **Phase 2 (follow-up PR):** flagship Price-Prediction page + `prediction-
+  chart.ts` + `regional-data` per-commodity + `/api/predictions`, incl. the
+  daily→monthly date-window rework. Landing marketing copy, the fabricated
+  alert-detail page, and the executive activity feed are deferred here too.
+
 ## Scope
 
-**In:** 6 API endpoints + executive cards; provincial; monthly; the export
-script; FE default-id and label fixes; verification.
+**In (phase 1):** 3 live API endpoints + executive cards + shared data modules;
+provincial; monthly; the export script; in-scope FE default-id / dropdown /
+label fixes; verification.
 
 **Non-goals:** live/streaming serving; kabupaten-tuned FE; the 5 fake
 commodities; real TPID/inflation/inventory data; auth; new UI features.
