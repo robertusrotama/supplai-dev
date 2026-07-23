@@ -6,24 +6,51 @@ import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { commodities } from "@/data/commodities";
 import { Sliders, Search, AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
 
-// Canvas coordinates (calibrated to /indonesia.svg) keyed by the province
-// whose main market sits there. 15 anchor provinces span the archipelago.
+// Canvas coordinates for all 34 provinces, computed from each province's path
+// in /indonesia.svg (largest-landmass centroid, mapped through the same
+// drawImage transform: rect 40,40 → 920×420 over a 792.5×316.7 image).
+// Regenerate if the base map changes.
 const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
-  "Sumatera Utara": { x: 120, y: 140 },
-  "Sumatera Barat": { x: 160, y: 220 },
-  "Sumatera Selatan": { x: 240, y: 280 },
-  "Jawa Barat": { x: 300, y: 390 },
-  "Jawa Tengah": { x: 370, y: 390 },
-  "DI Yogyakarta": { x: 390, y: 410 },
-  "Jawa Timur": { x: 440, y: 390 },
-  "Kalimantan Barat": { x: 310, y: 210 },
-  "Kalimantan Selatan": { x: 410, y: 270 },
-  "Kalimantan Timur": { x: 440, y: 240 },
-  "Sulawesi Selatan": { x: 530, y: 290 },
-  "Sulawesi Tengah": { x: 530, y: 210 },
-  "Nusa Tenggara Timur": { x: 590, y: 430 },
-  "Papua Barat": { x: 740, y: 190 },
-  "Papua": { x: 910, y: 380 },
+  // Sumatera
+  "Aceh": { x: 75, y: 111 },
+  "Sumatera Utara": { x: 119, y: 156 },
+  "Sumatera Barat": { x: 149, y: 224 },
+  "Riau": { x: 172, y: 198 },
+  "Kepulauan Riau": { x: 226, y: 185 },
+  "Jambi": { x: 191, y: 247 },
+  "Bengkulu": { x: 184, y: 290 },
+  "Sumatera Selatan": { x: 220, y: 282 },
+  "Kepulauan Bangka Belitung": { x: 256, y: 260 },
+  "Lampung": { x: 237, y: 321 },
+  // Jawa
+  "DKI Jakarta": { x: 274, y: 350 },
+  "Banten": { x: 259, y: 356 },
+  "Jawa Barat": { x: 289, y: 367 },
+  "Jawa Tengah": { x: 341, y: 374 },
+  "DI Yogyakarta": { x: 346, y: 389 },
+  "Jawa Timur": { x: 390, y: 387 },
+  // Bali & Nusa Tenggara
+  "Bali": { x: 440, y: 400 },
+  "Nusa Tenggara Barat": { x: 495, y: 406 },
+  "Nusa Tenggara Timur": { x: 561, y: 405 },
+  // Kalimantan
+  "Kalimantan Barat": { x: 360, y: 210 },
+  "Kalimantan Tengah": { x: 406, y: 245 },
+  "Kalimantan Selatan": { x: 445, y: 276 },
+  "Kalimantan Timur": { x: 467, y: 198 },
+  "Kalimantan Utara": { x: 462, y: 142 },
+  // Sulawesi
+  "Sulawesi Utara": { x: 623, y: 189 },
+  "Gorontalo": { x: 586, y: 193 },
+  "Sulawesi Tengah": { x: 560, y: 231 },
+  "Sulawesi Barat": { x: 525, y: 265 },
+  "Sulawesi Selatan": { x: 541, y: 292 },
+  "Sulawesi Tenggara": { x: 574, y: 295 },
+  // Maluku & Papua
+  "Maluku": { x: 728, y: 282 },
+  "Maluku Utara": { x: 699, y: 189 },
+  "Papua Barat": { x: 802, y: 256 },
+  "Papua": { x: 914, y: 313 },
 };
 
 type MapPoint = {
@@ -39,7 +66,7 @@ export function NationalHeatmap() {
   
   // States Filter & Dropdown
   const [selectedCommodity, setSelectedCommodity] = useState("beras");
-  const [intensity, setIntensity] = useState(71);
+  const [intensity, setIntensity] = useState(48);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCommOpen, setIsCommOpen] = useState(false);
   
@@ -173,19 +200,16 @@ export function NationalHeatmap() {
 
         ctx.fillStyle = item.status === "CRITICAL" ? "#ef4444" : "#1e293b";
         ctx.beginPath();
-        ctx.arc(coord.x, coord.y, 4.5, 0, Math.PI * 2);
+        ctx.arc(coord.x, coord.y, 3.5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = "bold 11px sans-serif";
+        // Province label only (price/change live in the hover tooltip); keeps
+        // the 34-marker map readable. White halo for contrast over the heat.
+        ctx.font = "600 9px sans-serif";
         ctx.fillStyle = "#0f172a";
         ctx.shadowColor = "#ffffff";
-        ctx.shadowBlur = 4;
-        ctx.fillText(item.region, coord.x + 8, coord.y + 2);
-
-        ctx.font = "9px monospace";
-        ctx.fillStyle = "#64748b";
-        ctx.fillText(`Rp${item.price.toLocaleString()}`, coord.x + 8, coord.y + 12);
-        
+        ctx.shadowBlur = 3;
+        ctx.fillText(item.region, coord.x + 6, coord.y + 3);
         ctx.shadowBlur = 0;
       });
     };
