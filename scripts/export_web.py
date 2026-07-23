@@ -140,8 +140,16 @@ def build_alerts(alerts_df: pd.DataFrame, meta: dict) -> dict:
             "timestamp": ts, "status": "aktif",
             "confidence": round(float(r["confidence"]) * 100),
             "change": round(chg, 2),
-            "detail": {"recommendation": str(r["alasan"]),
-                       "history": [{"status": "Terdeteksi", "timestamp": ts}]},
+            "detail": {
+                "recommendation": str(r["alasan"]),
+                "history": [{"status": "Terdeteksi", "timestamp": ts}],
+                "hargaKini": round(float(r["harga_kini"])),
+                "hargaPrediksi": round(float(r["harga_prediksi"])),
+                "persentilHistoris": round(float(r["persentil_historis"]), 1),
+                "mapeKomoditas": round(float(r["mape_komoditas"]), 2),
+                "diAtasHet": bool(r["di_atas_het"]),
+                "anomaliTerkonfirmasi": bool(r["anomali_terkonfirmasi"]),
+            },
         })
     return {"summary": {"active": len(alerts), "thisMonth": len(alerts),
                         "avgResponseTime": 0, "resolved": 0},

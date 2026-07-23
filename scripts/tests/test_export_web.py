@@ -83,6 +83,7 @@ def test_build_alerts_mapping():
         "komoditas": ["Beras Medium", "Beras Medium"],
         "severity": ["Warning", "Info"],
         "perubahan_persen": [5.99, 4.10],
+        "persentil_historis": [85.9, 70.1],
         "harga_kini": [15000, 15000], "harga_prediksi": [15899, 15600],
         "confidence": [0.97, 0.9], "model": ["LSTM", "LSTM"],
         "mape_komoditas": [1.62, 1.62], "anomali_terkonfirmasi": [False, False],
@@ -98,6 +99,10 @@ def test_build_alerts_mapping():
     assert round(a0["change"], 2) == 5.99
     assert a0["id"] == "ALT-001"
     assert res["alerts"][1]["severity"] == "sedang"   # Info -> sedang
+    d = a0["detail"]
+    assert d["hargaKini"] == 15000 and d["hargaPrediksi"] == 15899
+    assert d["diAtasHet"] is True and d["anomaliTerkonfirmasi"] is False
+    assert d["mapeKomoditas"] == 1.62
 
 
 def test_build_redistribution():

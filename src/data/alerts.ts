@@ -11,3 +11,7 @@ export function getAlerts(filters: Record<string, string> = {}): AlertResponse {
   if (filters.region) alerts = alerts.filter((a) => a.region === filters.region)
   return { summary: base.summary, alerts }
 }
+
+export function getAlertById(id: string): Alert | undefined {
+  return base.alerts.find((a) => a.id === id)
+}

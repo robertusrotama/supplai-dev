@@ -86,6 +86,12 @@ export interface Alert {
   detail: {
     recommendation: string
     history: { status: string; timestamp: string }[]
+    hargaKini: number
+    hargaPrediksi: number
+    persentilHistoris: number
+    mapeKomoditas: number
+    diAtasHet: boolean
+    anomaliTerkonfirmasi: boolean
   }
 }
 

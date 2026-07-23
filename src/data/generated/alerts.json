@@ -23,7 +23,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15899,
+    "persentilHistoris": 85.9,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -43,7 +49,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15878,
+    "persentilHistoris": 85.5,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -63,7 +75,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 33150,
+    "hargaPrediksi": 36060,
+    "persentilHistoris": 81.5,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -83,7 +101,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 29150,
+    "hargaPrediksi": 31693,
+    "persentilHistoris": 81.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": true
    }
   },
   {
@@ -103,7 +127,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 23875,
+    "hargaPrediksi": 25879,
+    "persentilHistoris": 80.8,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -123,7 +153,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 28350,
+    "hargaPrediksi": 30679,
+    "persentilHistoris": 80.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -143,7 +179,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 24875,
+    "hargaPrediksi": 26680,
+    "persentilHistoris": 77.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -163,7 +205,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 34500,
+    "hargaPrediksi": 36850,
+    "persentilHistoris": 71.3,
+    "mapeKomoditas": 6.39,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -183,7 +231,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 29800,
+    "hargaPrediksi": 31560,
+    "persentilHistoris": 73.4,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -203,7 +257,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 26500,
+    "hargaPrediksi": 27965,
+    "persentilHistoris": 72.0,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": false,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -223,7 +283,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 28500,
+    "hargaPrediksi": 30040,
+    "persentilHistoris": 71.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -243,7 +309,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 29750,
+    "hargaPrediksi": 31299,
+    "persentilHistoris": 70.6,
+    "mapeKomoditas": 4.49,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -263,7 +335,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 14000,
+    "hargaPrediksi": 14697,
+    "persentilHistoris": 83.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -283,7 +361,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 24500,
+    "hargaPrediksi": 25645,
+    "persentilHistoris": 72.7,
+    "mapeKomoditas": 2.53,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -303,7 +387,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15500,
+    "hargaPrediksi": 16166,
+    "persentilHistoris": 80.8,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -323,7 +413,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15350,
+    "hargaPrediksi": 15924,
+    "persentilHistoris": 79.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -343,7 +439,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15553,
+    "persentilHistoris": 78.9,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -363,7 +465,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 17000,
+    "hargaPrediksi": 17585,
+    "persentilHistoris": 77.3,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -383,7 +491,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15000,
+    "hargaPrediksi": 15454,
+    "persentilHistoris": 75.2,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -403,7 +517,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15725,
+    "hargaPrediksi": 16191,
+    "persentilHistoris": 75.0,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -423,7 +543,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 15625,
+    "hargaPrediksi": 16050,
+    "persentilHistoris": 73.4,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -443,7 +569,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 16750,
+    "hargaPrediksi": 17183,
+    "persentilHistoris": 72.7,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   },
   {
@@ -463,7 +595,13 @@
       "status": "Terdeteksi",
       "timestamp": "2026-07-20T12:42:56"
      }
-    ]
+    ],
+    "hargaKini": 14750,
+    "hargaPrediksi": 15067,
+    "persentilHistoris": 70.2,
+    "mapeKomoditas": 1.62,
+    "diAtasHet": true,
+    "anomaliTerkonfirmasi": false
    }
   }
  ]
