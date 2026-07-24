@@ -31,7 +31,10 @@ import {
   DollarSign,
   Weight,
   Printer,
-  ExternalLink
+  ExternalLink,
+  Hourglass,
+  CheckCircle,
+  PlayCircle
 } from "lucide-react";
 
 const SEVERITY = {
@@ -45,6 +48,8 @@ const rupiah = (n: number) => `Rp${n.toLocaleString("id-ID")}`;
 const titleCase = (id: string) =>
   id.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 
+type WorkflowStep = "alert_masuk" | "perencanaan" | "menunggu_approval" | "proses_redistribusi" | "selesai";
+
 export default function AlertDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -53,7 +58,7 @@ export default function AlertDetailPage() {
 
   // ================= STATES =================
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isExecuted, setIsExecuted] = useState(false);
+  const [currentStep, setCurrentStep] = useState<WorkflowStep>("alert_masuk");
   const [isWizardVisible, setIsWizardVisible] = useState(true);
   const [note, setNote] = useState("");
   const [officer, setOfficer] = useState("Tim TPID");
@@ -87,17 +92,17 @@ export default function AlertDetailPage() {
 
   const routes = alert ? getRedistributionData(alert.commodity).routes.slice(0, 4) : [];
 
-  const handleSubmitAction = (e: React.FormEvent) => {
+  const handleSendApproval = (e: React.FormEvent) => {
     e.preventDefault();
     if (!note.trim()) return;
 
     const chosenRoute = selectedRouteIndex !== null ? routes[selectedRouteIndex] : undefined;
 
-    setIsExecuted(true);
+    setCurrentStep("menunggu_approval");
     setSavedLogs({
       officer,
       note: note.trim(),
-      time: "Baru saja direspon",
+      time: "Baru saja diajukan",
       selectedRouteObj: chosenRoute
         ? {
           from: chosenRoute.from,
@@ -111,11 +116,19 @@ export default function AlertDetailPage() {
     setIsModalOpen(false);
   };
 
+  // Helper Simulasi Approval oleh Atasan
+  const handleApproveByManager = () => {
+    setCurrentStep("proses_redistribusi");
+  };
+
+  const handleCompleteProcess = () => {
+    setCurrentStep("selesai");
+  };
+
   // ================= NATIVE BROWSER PRINT GENERATOR =================
   const handleDownloadReport = () => {
     if (!alert) return;
 
-    // 1. Munculkan Toast terlebih dahulu
     setIsDownloading(true);
     setShowDownloadToast(true);
 
@@ -129,6 +142,14 @@ export default function AlertDetailPage() {
       month: "short",
       year: "numeric",
     });
+
+    const stepLabels: Record<WorkflowStep, string> = {
+      alert_masuk: "Alert Masuk",
+      perencanaan: "Perencanaan Tindak Lanjut",
+      menunggu_approval: "Menunggu Approval Atasan",
+      proses_redistribusi: "Proses Redistribusi Berjalan",
+      selesai: "Selesai",
+    };
 
     const htmlContent = `
       <!DOCTYPE html>
@@ -147,8 +168,6 @@ export default function AlertDetailPage() {
             print-color-adjust: exact !important; 
           }
           .page-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
-          
-          /* Hide scrollbar in print window */
           ::-webkit-scrollbar { display: none; }
         </style>
       </head>
@@ -158,8 +177,8 @@ export default function AlertDetailPage() {
         <div class="border-b border-slate-200 pb-5 flex justify-between items-start">
           <div>
             <div class="flex items-center gap-2 mb-1.5">
-              <span class="bg-[#047857] text-white font-mono text-[10px] font-black px-2 py-0.5 rounded">
-                ${isExecuted ? "DITANGANI" : alert.severity.toUpperCase()}
+              <span class="bg-[#047857] text-white font-mono text-[10px] font-black px-2 py-0.5 rounded uppercase">
+                Status: ${stepLabels[currentStep]}
               </span>
               <span class="font-mono text-xs text-slate-500 font-bold">${alert.id}</span>
               <span class="text-xs text-slate-400">• Snapshot: ${snapshotDate}</span>
@@ -183,12 +202,18 @@ export default function AlertDetailPage() {
           </div>
         </div>
 
+        <!-- Workflow Status Badge info in PDF -->
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs font-semibold text-slate-700 flex justify-between items-center">
+          <span>Tahap Workflow Saat Ini: <strong>${stepLabels[currentStep]}</strong></span>
+          <span class="font-mono text-[10px] text-slate-400">ID: ${alert.id}</span>
+        </div>
+
         <!-- Intervention Log -->
         ${savedLogs
         ? `
           <div class="bg-[#ecfdf5] border border-[#a7f3d0] rounded-xl p-5 space-y-2 page-break-inside-avoid">
             <div class="flex justify-between items-center text-xs font-bold text-[#065f46]">
-              <span>✓ Catatan Intervensi Petugas</span>
+              <span>✓ Pengajuan Intervensi Petugas</span>
               <span class="font-mono text-[10px] text-slate-500">${savedLogs.time}</span>
             </div>
             <p class="text-sm text-slate-800 font-bold mt-2">Petugas/Unit: ${savedLogs.officer}</p>
@@ -196,7 +221,7 @@ export default function AlertDetailPage() {
             ${savedLogs.selectedRouteObj
           ? `
               <div class="pt-3 mt-3 border-t border-[#a7f3d0] text-xs font-semibold text-[#064e3b]">
-                <p class="font-black mb-1 text-[#065f46]">Rute Redistribusi Ditetapkan:</p>
+                <p class="font-black mb-1 text-[#065f46]">Rute Redistribusi Diajukan:</p>
                 <div class="grid grid-cols-2 gap-2 mt-2">
                   <p>• Beban: ${savedLogs.selectedRouteObj.volume.toLocaleString("id-ID")} Ton</p>
                   <p>• Rute: ${savedLogs.selectedRouteObj.from} → ${savedLogs.selectedRouteObj.to}</p>
@@ -247,27 +272,22 @@ export default function AlertDetailPage() {
         </div>
 
         <script>
-          // Script untuk otomatis memanggil print dialog saat halaman termuat
           window.onload = function() {
             setTimeout(function() {
               window.print();
-            }, 500); // Jeda sejenak untuk membiarkan CDN Tailwind memuat styles
+            }, 500);
           };
         </script>
       </body>
       </html>
     `;
 
-    // Matikan loading state di toast setelah 2 detik (asumsi print dialog sudah muncul)
     setTimeout(() => {
       setIsDownloading(false);
     }, 2000);
 
     const printWindow = window.open("", "_blank");
-    if (!printWindow) {
-      // Jika browser memblokir pop-up, hentikan proses tulis html dan biarkan user menggunakan fallback di toast
-      return;
-    }
+    if (!printWindow) return;
 
     printWindow.document.open();
     printWindow.document.write(htmlContent);
@@ -313,6 +333,27 @@ export default function AlertDetailPage() {
     { title: "3. Optimasi Redistribusi", desc: "Eksekusi Rute Logistik", path: `/redistribusi?commodity=${alert.commodity}&trigger=alert` },
   ];
 
+  // Logic untuk progress step visual di atas
+  const stepsList = [
+    { id: "alert_masuk", label: "Alert Masuk" },
+    { id: "perencanaan", label: "Perencanaan" },
+    { id: "menunggu_approval", label: "Menunggu Approval" },
+    { id: "proses_redistribusi", label: "Proses Redistribusi" },
+    { id: "selesai", label: "Selesai" },
+  ];
+
+  const getStepIndex = (s: WorkflowStep) => {
+    switch (s) {
+      case "alert_masuk": return 0;
+      case "perencanaan": return 1;
+      case "menunggu_approval": return 2;
+      case "proses_redistribusi": return 3;
+      case "selesai": return 4;
+    }
+  };
+
+  const currentIndex = getStepIndex(currentStep);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -320,7 +361,7 @@ export default function AlertDetailPage() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="space-y-6 max-w-[1600px] mx-auto font-sans pb-16 text-slate-800 relative"
     >
-      {/* ================= TOAST POP-UP DOWNLOAD DI POJOK KANAN ATAS ================= */}
+      {/* ================= TOAST POP-UP DOWNLOAD ================= */}
       <AnimatePresence>
         {showDownloadToast && (
           <motion.div
@@ -373,9 +414,9 @@ export default function AlertDetailPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-2">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className={`font-mono font-black text-[10px] uppercase px-2 py-0.5 rounded-md tracking-wider transition-all duration-300 ${isExecuted ? "bg-emerald-600 text-white" : sev.badge
+              <span className={`font-mono font-black text-[10px] uppercase px-2 py-0.5 rounded-md tracking-wider transition-all duration-300 ${currentStep === "selesai" ? "bg-emerald-600 text-white" : sev.badge
                 }`}>
-                {isExecuted ? "DITANGANI" : sev.label}
+                {currentStep === "selesai" ? "SELESAI" : currentStep === "menunggu_approval" ? "MENUNGGU APPROVAL" : sev.label}
               </span>
               <span className="font-mono text-[10px] text-slate-400">{alert.id}</span>
               <div className="flex items-center gap-1 text-xs text-slate-400 font-medium">
@@ -403,52 +444,111 @@ export default function AlertDetailPage() {
               </div>
             </div>
 
-            {/* TOMBOL AKSI */}
-            {isExecuted ? (
-              <button
-                onClick={handleDownloadReport}
-                className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
-              >
-                <Printer className="w-4 h-4" /> Cetak / Save PDF
-              </button>
-            ) : (
+            {/* TOMBOL AKSI BERDASARKAN WORKFLOW */}
+            {currentStep === "alert_masuk" || currentStep === "perencanaan" ? (
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
               >
                 <FileSpreadsheet className="w-4 h-4" /> Tindak Lanjuti
               </button>
+            ) : (
+              <button
+                onClick={handleDownloadReport}
+                className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
+              >
+                <Printer className="w-4 h-4" /> Cetak / Save PDF
+              </button>
             )}
           </div>
         </div>
       </div>
 
-      {/* ================= INTERVENTION LOG ================= */}
+      {/* ================= PROGRESS BAR / WORKFLOW INDICATOR ================= */}
+      <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs space-y-4">
+        <div className="flex items-center justify-between text-xs font-bold text-slate-700">
+          <span>Progres Workflow Mitigasi</span>
+          <span className="text-[11px] font-mono text-[#006c4a] uppercase bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+            Tahap: {stepsList[currentIndex].label}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-5 gap-2 relative">
+          {stepsList.map((step, idx) => {
+            const isPassed = idx <= currentIndex;
+            const isCurrent = idx === currentIndex;
+            return (
+              <div key={step.id} className="space-y-1.5 text-center">
+                <div className={`h-2 rounded-full transition-all duration-300 ${isPassed ? "bg-[#006c4a]" : "bg-slate-100"
+                  }`} />
+                <p className={`text-[10px] font-bold leading-tight truncate ${isCurrent ? "text-slate-900 font-black" : isPassed ? "text-slate-600" : "text-slate-400"
+                  }`}>
+                  {idx + 1}. {step.label}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Panel Simulasi Tindakan Atasan / Lanjutan (Opsional untuk mempermudah testing UI) */}
+        {currentStep === "menunggu_approval" && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2 text-amber-800">
+              <Hourglass className="w-4 h-4 shrink-0 animate-spin" />
+              <span>Menunggu persetujuan rencana tindak lanjut dari atasan/manajemen.</span>
+            </div>
+            <button
+              onClick={handleApproveByManager}
+              className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-bold transition-colors cursor-pointer shrink-0"
+            >
+              Simulasi Approve (Atasan)
+            </button>
+          </div>
+        )}
+
+        {currentStep === "proses_redistribusi" && (
+          <div className="bg-sky-50 border border-sky-200 rounded-xl p-3 flex items-center justify-between text-xs">
+            <div className="flex items-center gap-2 text-sky-800">
+              <PlayCircle className="w-4 h-4 shrink-0" />
+              <span>Logistik dan rute redistribusi sedang dieksekusi di lapangan.</span>
+            </div>
+            <button
+              onClick={handleCompleteProcess}
+              className="px-3 py-1.5 bg-sky-600 hover:bg-sky-700 text-white rounded-lg font-bold transition-colors cursor-pointer shrink-0"
+            >
+              Tandai Selesai
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* ================= INTERVENTION LOG / SUBMISSION STATUS ================= */}
       <AnimatePresence>
-        {isExecuted && savedLogs && (
+        {savedLogs && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 space-y-2 overflow-hidden shadow-2xs"
+            className={`border rounded-2xl p-5 space-y-2 overflow-hidden shadow-2xs ${currentStep === "selesai" ? "bg-emerald-50/70 border-emerald-200" : "bg-amber-50/70 border-amber-200"
+              }`}
           >
-            <div className="flex items-center justify-between text-xs text-emerald-800 font-bold">
+            <div className={`flex items-center justify-between text-xs font-bold ${currentStep === "selesai" ? "text-emerald-800" : "text-amber-800"}`}>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Log Intervensi Tercatat (lokal, sesi ini)</span>
+                {currentStep === "selesai" ? <CheckCircle2 className="w-4 h-4 text-emerald-600" /> : <Hourglass className="w-4 h-4 text-amber-600" />}
+                <span>{currentStep === "selesai" ? "Mitigasi & Redistribusi Selesai" : "Pengajuan Intervensi Terkirim (Menunggu Approval)"}</span>
               </div>
               <span className="font-mono font-medium text-slate-400">{savedLogs.time}</span>
             </div>
-            <div className="text-xs text-slate-600 bg-white/80 border border-emerald-100 p-3 rounded-xl leading-relaxed flex items-center justify-between gap-4">
+            <div className="text-xs text-slate-600 bg-white/80 border p-3 rounded-xl leading-relaxed flex items-center justify-between gap-4">
               <div>
-                <p className="font-bold text-slate-700 mb-0.5">Petugas: {savedLogs.officer}</p>
-                <p className="font-medium">Status: Peringatan telah selesai ditindaklanjuti.</p>
+                <p className="font-bold text-slate-700 mb-0.5">Petugas Pengaju: {savedLogs.officer}</p>
+                <p className="font-medium">Catatan: &quot;{savedLogs.note}&quot;</p>
               </div>
               <button
                 onClick={handleDownloadReport}
                 className="text-[11px] font-bold text-[#006c4a] hover:underline flex items-center gap-1 shrink-0 cursor-pointer"
               >
-                <Printer className="w-3.5 h-3.5" /> Cetak / Save PDF
+                <Printer className="w-3.5 h-3.5" /> Unduh Laporan PDF
               </button>
             </div>
           </motion.div>
@@ -456,10 +556,10 @@ export default function AlertDetailPage() {
       </AnimatePresence>
 
       {/* ================= CONTENT GRID ================= */}
-      <div className={`grid grid-cols-1 ${isExecuted ? "lg:grid-cols-12" : "lg:grid-cols-12"} gap-6 items-start`}>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
         {/* LEFT COLUMN */}
-        <div className={`${isExecuted ? "lg:col-span-12" : "lg:col-span-8"} space-y-6`}>
+        <div className="lg:col-span-8 space-y-6">
 
           {/* RINGKASAN MODEL */}
           <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs">
@@ -469,192 +569,129 @@ export default function AlertDetailPage() {
             </p>
           </div>
 
-          {/* ================= TAMPILAN JIKA SUDAH DITANGANI (CARD HASIL TINDAK LANJUT) ================= */}
-          {isExecuted && savedLogs ? (
-            <div className="space-y-6">
+          {/* RUTE REDISTRIBUSI YANG DIAJUKAN (JIKA ADA) */}
+          {savedLogs?.selectedRouteObj && (
+            <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+              <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                <Truck className="w-5 h-5 text-[#006c4a]" />
+                <h3 className="text-base font-bold text-slate-800">Rute Redistribusi Diajukan</h3>
+              </div>
 
-              {/* 1. CARD RUTE REDISTRIBUSI TERPILIH (BACKGROUND PUTIH) */}
-              {savedLogs.selectedRouteObj && (
-                <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-                  <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                    <Truck className="w-5 h-5 text-[#006c4a]" />
-                    <h3 className="text-base font-bold text-slate-800">Rute Redistribusi Ditetapkan</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                  <div className="flex items-center gap-1.5 text-slate-600">
+                    <Weight className="w-4 h-4 text-[#006c4a]" />
+                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Beban Volume</p>
                   </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                      <div className="flex items-center gap-1.5 text-slate-600">
-                        <Weight className="w-4 h-4 text-[#006c4a]" />
-                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Beban Volume</p>
-                      </div>
-                      <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.volume.toLocaleString("id-ID")} Ton</p>
-                    </div>
-
-                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1 sm:col-span-2">
-                      <div className="flex items-center gap-1.5 text-slate-600">
-                        <Navigation className="w-4 h-4 text-[#006c4a]" />
-                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Rute Logistik</p>
-                      </div>
-                      <p className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                        <span>{savedLogs.selectedRouteObj.from}</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#006c4a] shrink-0" />
-                        <span>{savedLogs.selectedRouteObj.to}</span>
-                      </p>
-                    </div>
-
-                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                      <div className="flex items-center gap-1.5 text-slate-600">
-                        <MapPin className="w-4 h-4 text-[#006c4a]" />
-                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Jarak Tempuh</p>
-                      </div>
-                      <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.distance.toLocaleString("id-ID")} km</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-slate-50 border border-slate-200/80 p-3.5 rounded-xl flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-600 flex items-center gap-2">
-                      <DollarSign className="w-4 h-4 text-[#006c4a]" /> Estimasi Biaya Redistribusi
-                    </span>
-                    <span className="font-mono font-black text-sm text-[#006c4a]">{rupiah(savedLogs.selectedRouteObj.cost)}</span>
-                  </div>
+                  <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.volume.toLocaleString("id-ID")} Ton</p>
                 </div>
-              )}
 
-              {/* 2. CARD NOTES PETUGAS */}
-              <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                  <FileText className="w-4 h-4 text-[#006c4a]" />
-                  <h3 className="text-base font-bold text-slate-800">Catatan Intervensi Petugas</h3>
+                <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1 sm:col-span-2">
+                  <div className="flex items-center gap-1.5 text-slate-600">
+                    <Navigation className="w-4 h-4 text-[#006c4a]" />
+                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Rute Logistik</p>
+                  </div>
+                  <p className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <span>{savedLogs.selectedRouteObj.from}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#006c4a] shrink-0" />
+                    <span>{savedLogs.selectedRouteObj.to}</span>
+                  </p>
                 </div>
-                <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs text-slate-700 font-medium leading-relaxed">
-                  &quot;{savedLogs.note}&quot;
+
+                <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                  <div className="flex items-center gap-1.5 text-slate-600">
+                    <MapPin className="w-4 h-4 text-[#006c4a]" />
+                    <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Jarak Tempuh</p>
+                  </div>
+                  <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.distance.toLocaleString("id-ID")} km</p>
                 </div>
               </div>
 
-              {/* 3. SINYAL MODEL */}
-              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                  <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
-                  <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
-                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
-                      {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                    </div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
-                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
-                    <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
-                    <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 pt-1">
-                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
-                    {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
-                  </span>
-                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
-                    {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
-                  </span>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
-                    Model: horizon 3 bulan
-                  </span>
-                </div>
+              <div className="bg-slate-50 border border-slate-200/80 p-3.5 rounded-xl flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-600 flex items-center gap-2">
+                  <DollarSign className="w-4 h-4 text-[#006c4a]" /> Estimasi Biaya Redistribusi
+                </span>
+                <span className="font-mono font-black text-sm text-[#006c4a]">{rupiah(savedLogs.selectedRouteObj.cost)}</span>
               </div>
-
             </div>
-          ) : (
-            <>
-              {/* SINYAL MODEL */}
-              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                  <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
-                  <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
-                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
-                      {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                    </div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
-                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
-                    <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
-                  </div>
-                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                    <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
-                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
-                    <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 pt-1">
-                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
-                    {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
-                  </span>
-                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
-                    {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
-                  </span>
-                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
-                    Model: horizon 3 bulan
-                  </span>
-                </div>
-              </div>
-
-              {/* REKOMENDASI REDISTRIBUSI */}
-              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-                  <Lightbulb className="w-5 h-5 text-emerald-600" />
-                  <h3 className="text-base font-bold text-slate-800">Rekomendasi Redistribusi — {commodityName}</h3>
-                </div>
-                {routes.length > 0 ? (
-                  <div className="space-y-2.5">
-                    {routes.map((r, idx) => (
-                      <div key={idx} className="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-3xs">
-                        <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0"><Truck className="w-4 h-4" /></div>
-                        <p className="text-xs text-slate-600 font-semibold leading-relaxed flex-1">
-                          Kirim <span className="font-black text-slate-800">{r.volume.toLocaleString("id-ID")} ton</span> dari{" "}
-                          <span className="font-bold">{r.from}</span> <ArrowRight className="inline w-3 h-3" /> <span className="font-bold">{r.to}</span>
-                          <span className="text-slate-400"> · {r.distance.toLocaleString("id-ID")} km · {rupiah(r.cost)}</span>
-                        </p>
-                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border shrink-0 ${r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
-                          r.priority === "medium" ? "bg-amber-50 text-amber-600 border-amber-100" :
-                            "bg-slate-50 text-slate-500 border-slate-100"
-                          }`}>{r.priority}</span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-xs text-slate-500 font-medium">Tidak ada rute redistribusi yang diusulkan untuk komoditas ini.</p>
-                )}
-              </div>
-            </>
           )}
+
+          {/* SINYAL MODEL */}
+          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+              <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
+              <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
+                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
+                <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+              </div>
+              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
+                  {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                </div>
+                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
+                <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+              </div>
+              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
+                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
+                <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
+              </div>
+              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
+                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
+                <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+                {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
+              </span>
+              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
+                {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
+              </span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
+                Model: horizon 3 bulan
+              </span>
+            </div>
+          </div>
+
+          {/* REKOMENDASI REDISTRIBUSI */}
+          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+              <Lightbulb className="w-5 h-5 text-emerald-600" />
+              <h3 className="text-base font-bold text-slate-800">Rekomendasi Redistribusi — {commodityName}</h3>
+            </div>
+            {routes.length > 0 ? (
+              <div className="space-y-2.5">
+                {routes.map((r, idx) => (
+                  <div key={idx} className="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-3xs">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0"><Truck className="w-4 h-4" /></div>
+                    <p className="text-xs text-slate-600 font-semibold leading-relaxed flex-1">
+                      Kirim <span className="font-black text-slate-800">{r.volume.toLocaleString("id-ID")} ton</span> dari{" "}
+                      <span className="font-bold">{r.from}</span> <ArrowRight className="inline w-3 h-3" /> <span className="font-bold">{r.to}</span>
+                      <span className="text-slate-400"> · {r.distance.toLocaleString("id-ID")} km · {rupiah(r.cost)}</span>
+                    </p>
+                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border shrink-0 ${r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
+                        r.priority === "medium" ? "bg-amber-50 text-amber-600 border-amber-100" :
+                          "bg-slate-50 text-slate-500 border-slate-100"
+                      }`}>{r.priority}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-xs text-slate-500 font-medium">Tidak ada rute redistribusi yang diusulkan untuk komoditas ini.</p>
+            )}
+          </div>
 
         </div>
 
         {/* RIGHT COLUMN */}
-        {!isExecuted && (
-          <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+        <div className="lg:col-span-4 space-y-6">
+          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <MapPin className="w-4 h-4 text-[#006c4a]" />
               <h3 className="text-base font-bold text-slate-800">Wilayah Lain — {commodityName}</h3>
@@ -685,13 +722,13 @@ export default function AlertDetailPage() {
               <p className="text-xs text-slate-500 font-medium">Tidak ada peringatan lain untuk komoditas ini.</p>
             )}
           </div>
-        )}
+        </div>
 
       </div>
 
       {/* ================= FLOW WIZARD ================= */}
       <AnimatePresence>
-        {!isExecuted && isWizardVisible && (
+        {isWizardVisible && (
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -739,7 +776,7 @@ export default function AlertDetailPage() {
         )}
       </AnimatePresence>
 
-      {/* ================= ACTION MODAL ================= */}
+      {/* ================= ACTION MODAL (KIRIM PENGAJUAN) ================= */}
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -760,7 +797,7 @@ export default function AlertDetailPage() {
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[#006c4a]">
                   <AlertTriangle className="w-4 h-4 text-amber-500" />
-                  <h3 className="text-sm font-black uppercase tracking-wider">Catat Tindak Lanjut</h3>
+                  <h3 className="text-sm font-black uppercase tracking-wider">Pengajuan Rencana Tindak Lanjut</h3>
                 </div>
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -769,9 +806,9 @@ export default function AlertDetailPage() {
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <form onSubmit={handleSubmitAction} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
+              <form onSubmit={handleSendApproval} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider">Petugas / Unit</label>
+                  <label className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider">Petugas Pengaju / Unit</label>
                   <input
                     type="text"
                     value={officer}
@@ -804,8 +841,8 @@ export default function AlertDetailPage() {
                             key={idx}
                             onClick={() => setSelectedRouteIndex(isSelected ? null : idx)}
                             className={`p-3 rounded-xl border text-xs cursor-pointer transition-all flex items-center justify-between gap-3 ${isSelected
-                              ? "bg-emerald-50 border-[#006c4a] ring-1 ring-[#006c4a]"
-                              : "bg-slate-50 border-slate-200 hover:border-slate-300"
+                                ? "bg-emerald-50 border-[#006c4a] ring-1 ring-[#006c4a]"
+                                : "bg-slate-50 border-slate-200 hover:border-slate-300"
                               }`}
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
@@ -853,7 +890,7 @@ export default function AlertDetailPage() {
                     className="bg-[#006c4a] hover:bg-[#005238] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm active:scale-97 transition-all cursor-pointer"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    Simpan
+                    Kirim
                   </button>
                 </div>
               </form>
