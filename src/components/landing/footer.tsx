@@ -11,25 +11,22 @@ export function FooterSection() {
 
   return (
     <section className="bg-brand-bgSubtle border-t border-brand-border font-sans text-brand-textMain pt-20 pb-8 px-6 md:px-12 relative overflow-hidden">
-      
+
       {/* KONTEN UTAMA FOOTER GRID */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16">
-        
+
         {/* KOLOM KIRI: Logo Besar, Nama Brand, Deskripsi, & Sosmed (5/12 lebar) */}
         <div className="lg:col-span-5 space-y-6 flex flex-col items-start">
           <Link href="/" onClick={scrollToTop} className="flex items-center gap-4 group cursor-pointer">
             {/* Logo Ukuran Lebih Besar Sesuai Permintaan (w-20 h-20) */}
-            <img 
-              src="/images/logo.png" 
-              alt="supplAi Logo" 
-              className="w-20 h-20 object-contain group-hover:scale-105 transition-transform" 
+            <img
+              src="/images/logo.png"
+              alt="supplAi Logo"
+              className="w-30 h-30 object-contain group-hover:scale-105 transition-transform"
             />
-            <p className="text-brand-textMuted text-sm font-normal max-w-sm leading-relaxed">
-            Sistem Peringatan Dini Inflasi Pangan Berbasis AI. Memangkas rantai koordinasi untuk memutus disparitas pasokan ekstrem di seluruh Indonesia.
-          </p>
           </Link>
 
-          
+
 
           {/* Ikon Sosial Media Melingkar Minimalis (Gaya ReturnQueen) */}
           <div className="flex items-center gap-3 pt-2">
@@ -41,9 +38,9 @@ export function FooterSection() {
             ].map((social, idx) => {
               const Icon = social.icon;
               return (
-                <a 
-                  key={idx} 
-                  href={social.href} 
+                <a
+                  key={idx}
+                  href={social.href}
                   className="w-9 h-9 rounded-full bg-brand-card border border-brand-border flex items-center justify-center text-brand-textMuted hover:text-brand-primary hover:border-brand-primary/40 shadow-sm transition-all duration-300"
                 >
                   <Icon className="w-4 h-4" />
@@ -100,13 +97,13 @@ export function FooterSection() {
         <div>
           © 2026 supplAi. All Rights Reserved.
         </div>
-        
+
         <div className="flex items-center gap-6">
           <a href="#" className="hover:text-brand-primary transition-colors">Terms & Conditions</a>
           <a href="#" className="hover:text-brand-primary transition-colors">Privacy Policy</a>
-          
+
           {/* Tombol Back-to-Top Kecil */}
-          <button 
+          <button
             onClick={scrollToTop}
             className="p-2 bg-brand-card border border-brand-border rounded-xl text-brand-textMuted hover:text-brand-primary hover:border-brand-primary/30 shadow-sm transition-all cursor-pointer"
             title="Kembali ke atas"

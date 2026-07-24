@@ -68,7 +68,7 @@ const modulesData = [
     step: "OUTPUT",
     stepLabel: "Aksi Cepat & Peringatan",
     title: "SupplAi Agent",
-    description: "Sistem otomatisasi yang menyajikan peta disparitas spasial nasional serta mengirimkan alarm Push-Alert darurat langsung ke 542 instansi TPID daerah.",
+    description: "Sistem otomatisasi yang menyajikan peta disparitas spasial nasional serta mengirimkan alarm Push-Alert darurat langsung ke 500 instansi TPID daerah.",
     icon: Rocket,
     imageBg: "from-emerald-500/10 to-cyan-500/5",
     labels: ["Early Warning System", "Peta Disparitas Real-time"],
@@ -270,7 +270,7 @@ export function ModulesSection() {
             title="Tim Pengendalian Inflasi Daerah"
             className="font-mono text-xs md:text-sm font-black tracking-tight text-brand-textMuted/45 hover:text-brand-primary border border-dashed border-brand-border/80 hover:border-brand-primary/40 px-3 py-2 rounded-xl transition-all duration-300 cursor-help select-none bg-brand-card/30"
           >
-            +542 TPID yang tersebar di seluruh daerah Indonesia
+            +500 TPID yang tersebar di seluruh daerah Indonesia
           </div>
         </div>
 

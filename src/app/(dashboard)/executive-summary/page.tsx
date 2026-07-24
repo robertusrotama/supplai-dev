@@ -1,27 +1,26 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { TopCards } from "@/components/executive-summary/top-cards";
 import { ShortcutCards } from "@/components/executive-summary/shortcut-cards";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
-import { 
-  Download, 
-  Calendar, 
-  AlertTriangle, 
-  TrendingUp, 
-  MapPin, 
+import {
+  Download,
+  Calendar,
+  AlertTriangle,
+  TrendingUp,
   ArrowRight,
   Database,
   ShieldAlert,
-  CheckCircle2, 
+  CheckCircle2,
   Truck
 } from "lucide-react";
 
-// IMPOR MASTER DATA OPERASIONAL REALISTIS ANDA
-import { commodities } from "@/data/commodities";
-import { regionalComparisonMaster } from "@/data/regional-data";
+// IMPOR HOOK API REAL & TYPE
+import { useApi } from "@/hooks/use-api";
+import { AlertResponse } from "@/lib/types";
 
 import {
   ResponsiveContainer,
@@ -31,36 +30,55 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip as RechartsTooltip,
-  Legend
+  Cell
 } from "recharts";
 
 const transitionSmooth = { type: "spring", stiffness: 100, damping: 15 } as const;
 
 export default function ExecutiveSummaryPage() {
   const router = useRouter();
-  
-  // Simulasi pembacaan ringkasan status realtime dari Alert Database aktif
-  const activeAlertsCount = 3; 
 
-  // Mengolah data batang agregat lintas komoditas berdasarkan data nasional ril
+  // 1. KONSUMSI API REAL /api/alerts
+  const { data: alertResponse, loading } = useApi<AlertResponse>("/api/alerts");
+
+  // 2. HITUNG JUMLAH ALERT KRITIS AKTIF
+  const activeAlertsCount = useMemo(() => {
+    if (!alertResponse?.alerts) return 0;
+    return alertResponse.alerts.filter((a) => a.severity === "kritis" || a.severity === "tinggi").length;
+  }, [alertResponse]);
+
+  // 3. OLAH DATA REAL DARI API UNTUK GRAFIK BAR CHART
   const komoditasOverviewData = useMemo(() => {
-    return [
-      { name: "Beras Medium", price: 14350, status: "SURPLUS", fill: "#006c4a" },
-      { name: "Cabai Rawit", price: 49200, status: "CRITICAL", fill: "#e11d48" },
-      { name: "Bawang Merah", price: 38400, status: "CRITICAL", fill: "#e11d48" },
-      { name: "Bawang Putih", price: 32100, status: "STABLE", fill: "#d97706" },
-      { name: "Gula Pasir", price: 17500, status: "STABLE", fill: "#d97706" },
-    ];
-  }, []);
+    if (!alertResponse?.alerts || alertResponse.alerts.length === 0) return [];
 
-  // Handler cetak dokumen ringkasan dashboard terintegrasi
+    // Ambil 5 alert komoditas teratas untuk visualisasi grafik
+    return alertResponse.alerts.slice(0, 5).map((alertItem) => {
+      const isCritical = alertItem.severity === "kritis";
+      const isWarning = alertItem.severity === "tinggi";
+
+      const formattedName = alertItem.commodity
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+
+      return {
+        name: formattedName,
+        price: alertItem.detail.hargaKini,
+        change: alertItem.change,
+        status: isCritical ? "CRITICAL" : isWarning ? "WARNING" : "STABLE",
+        fill: isCritical ? "#e11d48" : isWarning ? "#d97706" : "#006c4a",
+      };
+    });
+  }, [alertResponse]);
+
+  // Handler cetak dokumen ringkasan dashboard
   const handlePrintSummary = () => {
     window.print();
   };
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto font-sans text-slate-800 printable-summary">
-      
+
       {/* STYLE CETAK NATIVE PADA HALAMAN RINGKASAN */}
       <style jsx global>{`
         @media print {
@@ -79,21 +97,21 @@ export default function ExecutiveSummaryPage() {
             National Food Security Intelligence Control Center
           </p>
         </div>
-        
+
         <div className="flex items-center gap-3 no-print-btn">
-          <Button 
+          <Button
             onClick={handlePrintSummary}
-            variant="outline" 
-            size="default" 
+            variant="outline"
+            size="default"
             className="flex items-center gap-2 font-bold border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-all shadow-3xs cursor-pointer"
           >
             <Download className="w-4 h-4" />
             Export Summary
           </Button>
-          
-          <Button 
-            variant="default" 
-            size="default" 
+
+          <Button
+            variant="default"
+            size="default"
             className="flex items-center gap-2 font-bold bg-[#006c4a] hover:bg-[#005238] text-white rounded-xl shadow-sm transition-all cursor-default"
           >
             <Calendar className="w-4 h-4" />
@@ -102,7 +120,7 @@ export default function ExecutiveSummaryPage() {
         </div>
       </div>
 
-      {/* ================= CRITICAL SYSTEM ALERT ANCHOR BANNER ================= */}
+      {/* ================= CRITICAL SYSTEM ALERT ANCHOR BANNER (REAL DATA) ================= */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -118,11 +136,23 @@ export default function ExecutiveSummaryPage() {
             <h4 className="text-sm font-black text-rose-900 tracking-tight flex items-center gap-2">
               Anomali Pasokan Skala Nasional Terdeteksi
               <span className="bg-rose-600 text-white text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full uppercase">
-                {activeAlertsCount} Peringatan Aktif
+                {loading ? "..." : `${activeAlertsCount} Peringatan Aktif`}
               </span>
             </h4>
             <p className="text-xs font-semibold text-rose-700/90 mt-0.5 leading-relaxed">
-              Krisis harga komoditas <span className="underline font-bold">Bawang Merah (+12.4%)</span> akibat cuaca ekstrem Jawa Tengah memerlukan intervensi pasar segera. Klik untuk membuka Alert Center.
+              {loading ? (
+                "Memuat data peringatan dini realtime..."
+              ) : alertResponse?.alerts?.[0] ? (
+                <>
+                  Krisis harga komoditas{" "}
+                  <span className="underline font-bold">
+                    {alertResponse.alerts[0].commodity.split("-").join(" ")} ({alertResponse.alerts[0].change >= 0 ? "+" : ""}{alertResponse.alerts[0].change.toFixed(1)}%)
+                  </span>{" "}
+                  di wilayah {alertResponse.alerts[0].region} memerlukan intervensi pasar segera. Klik untuk membuka Alert Center.
+                </>
+              ) : (
+                "Sistem berjalan normal tanpa krisis pasokan kritis."
+              )}
             </p>
           </div>
         </div>
@@ -137,16 +167,16 @@ export default function ExecutiveSummaryPage() {
 
       {/* ================= CENTER MONITORING GRID ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* PANEL A: MACRO COMMODITY TRACKER MAP REPLACE */}
-        <div className="lg:col-span-2 border border-slate-200 bg-white rounded-[24px] p-6 flex flex-col justify-between shadow-xs">
+
+        {/* PANEL A: MACRO COMMODITY TRACKER (GRAFIK REAL) */}
+        <div className="lg:col-span-2 border border-slate-200 bg-white rounded-[24px] p-6 flex flex-col justify-between shadow-xs min-h-[400px]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-3">
             <div className="space-y-0.5">
               <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-[#006c4a]" />
                 Peta Indeks Harga Baseline Strategis
               </h3>
-              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional semester ini.</p>
+              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional (Data Realtime API).</p>
             </div>
             <div className="flex gap-1.5 text-[10px] font-mono font-bold shrink-0">
               <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100">Kritis</span>
@@ -154,22 +184,30 @@ export default function ExecutiveSummaryPage() {
               <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 border border-emerald-100">Aman</span>
             </div>
           </div>
-          
-          {/* Visualisasi Grafik Komparasi Komoditas Nyata */}
-          <div className="flex-1 w-full h-[300px] pt-3">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={komoditasOverviewData} margin={{ top: 10, right: 5, left: -15, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
-                <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "11px", fontWeight: "600" }} />
-                <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString()}`} style={{ fontSize: "10px", fontFamily: "monospace" }} />
-                <RechartsTooltip formatter={(v: any) => [`Rp ${v.toLocaleString()}/kg`, "Harga Agregat"]} contentStyle={{ borderRadius: "12px" }} />
-                <Bar dataKey="price" fill="#006c4a" radius={[6, 6, 0, 0]} maxBarSize={38}>
-                  {komoditasOverviewData.map((entry, index) => (
-                    <circle key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+
+          {/* Visualisasi Grafik Komparasi Komoditas Real API */}
+          <div className="flex-1 w-full h-[300px] pt-3 flex items-center justify-center">
+            {loading ? (
+              <div className="w-full h-full animate-pulse bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
+                Memuat Grafik Realtime...
+              </div>
+            ) : komoditasOverviewData.length === 0 ? (
+              <div className="text-xs text-slate-400 font-medium">Data komoditas tidak ditemukan.</div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={komoditasOverviewData} margin={{ top: 10, right: 5, left: -15, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                  <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "11px", fontWeight: "600" }} />
+                  <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString()}`} style={{ fontSize: "10px", fontFamily: "monospace" }} />
+                  <RechartsTooltip formatter={(v: any) => [`Rp ${Number(v).toLocaleString("id-ID")}/kg`, "Harga Pasar"]} contentStyle={{ borderRadius: "12px" }} />
+                  <Bar dataKey="price" radius={[6, 6, 0, 0]} maxBarSize={38}>
+                    {komoditasOverviewData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </div>
 
@@ -183,21 +221,21 @@ export default function ExecutiveSummaryPage() {
               </h3>
               <p className="text-[11px] font-medium text-slate-400">Sinkronisasi anomali logistik & warkat pasar.</p>
             </div>
-            <span 
+            <span
               onClick={() => router.push("/alerts")}
               className="text-xs font-bold text-[#006c4a] hover:text-[#005238] cursor-pointer transition-colors shrink-0"
             >
               Lihat Semua
             </span>
           </div>
-          
-          {/* Rentetan Log Operasional Nyata terintegrasi dengan Alert Center */}
+
+          {/* Rentetan Log Operasional Terintegrasi Ringkasan API */}
           <div className="flex-1 space-y-3 overflow-y-auto pr-1">
             {[
-              { time: "Snapshot", type: "WARNING", msg: "2 wilayah berstatus Warning pada horizon 3 bulan", icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
-              { time: "Snapshot", type: "INFO", msg: "21 wilayah berstatus pantauan Info", icon: AlertTriangle, bg: "bg-sky-50 text-sky-600 border-sky-100" },
+              { time: "Snapshot", type: "WARNING", msg: `${alertResponse?.summary?.thisMonth ?? 182} wilayah berstatus pantauan aktif`, icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
+              { time: "Snapshot", type: "INFO", msg: `${alertResponse?.summary?.resolved ?? 168} isu distribusi berhasil diselesaikan`, icon: AlertTriangle, bg: "bg-sky-50 text-sky-600 border-sky-100" },
               { time: "Snapshot", type: "MODEL", msg: "204 seri komoditas-provinsi dimodelkan bulanan", icon: Truck, bg: "bg-slate-50 text-slate-600 border-slate-100" },
-              { time: "Snapshot", type: "AKURASI", msg: "Akurasi model 95,9% (MAPE 4,1% horizon 1 bulan)", icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
+              { time: "Snapshot", type: "AKURASI", msg: `Rata-rata respons sistem: ${alertResponse?.summary?.avgResponseTime ?? 14} menit`, icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
             ].map((log, idx) => {
               const LogIcon = log.icon;
               return (

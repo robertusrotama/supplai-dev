@@ -89,9 +89,6 @@ export default function RedistribusiPage() {
 
         <div className="flex items-center gap-3 self-end lg:self-auto lg:mt-1">
           <div className="relative min-w-[200px]" ref={commDropdownRef}>
-            <span className="absolute -top-2 left-3 bg-white px-1 text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider z-10">
-              Komoditas
-            </span>
             <div
               onClick={() => setIsCommOpen(!isCommOpen)}
               className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none cursor-pointer hover:border-slate-400 shadow-xs h-10 transition-all flex items-center justify-between"
@@ -127,9 +124,8 @@ export default function RedistribusiPage() {
                           setIsCommOpen(false);
                           setSearchComm("");
                         }}
-                        className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${
-                          c.id === commodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"
-                        }`}
+                        className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${c.id === commodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"
+                          }`}
                       >
                         {c.name}
                       </div>
@@ -139,14 +135,6 @@ export default function RedistribusiPage() {
               )}
             </AnimatePresence>
           </div>
-
-          <button
-            onClick={() => refetch?.()}
-            className="flex items-center justify-center border border-slate-300 rounded-xl bg-white hover:bg-slate-50 text-[#065F46] shadow-xs h-10 w-10 transition-colors cursor-pointer"
-            title="Refresh alokasi data"
-          >
-            <RefreshCw className="w-4 h-4" />
-          </button>
         </div>
       </div>
 
@@ -232,10 +220,10 @@ export default function RedistribusiPage() {
             <h3 className="text-lg font-bold text-slate-800">Peta Aliran Distribusi Logistik</h3>
           </div>
           <div className="w-full flex-1 flex items-center justify-center">
-            <IndonesiaMap 
-              provinces={provinces} 
-              routes={routes} 
-              loading={loading} 
+            <IndonesiaMap
+              provinces={provinces}
+              routes={routes}
+              loading={loading}
             />
           </div>
         </motion.div>

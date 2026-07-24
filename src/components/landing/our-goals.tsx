@@ -36,17 +36,17 @@ export function OurGoalsSection() {
                                 </div>
                                 <div className="space-y-1">
                                     <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block">
-                                        EFISIENSI BIROKRASI
+                                        INSIGHT PREDIKTIF
                                     </span>
                                     <div className="flex items-baseline gap-2 mt-2">
-                                        <span className="text-5xl font-black tracking-tight">2-3</span>
-                                        <span className="text-xl font-medium text-brand-textMuted">Hari</span>
+                                        <span className="text-5xl font-black tracking-tight">1-3</span>
+                                        <span className="text-xl font-medium text-brand-textMuted">Bulan</span>
                                     </div>
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
                                 <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
-                                    Memangkas birokrasi koordinasi dari semula 1-4 minggu secara signifikan.
+                                    Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan.
                                 </p>
                             </div>
                         </motion.div>
@@ -98,7 +98,7 @@ export function OurGoalsSection() {
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
                                 <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
-                                    Target potensi serapan melalui 32.000+ satuan pendidikan nasional.
+                                    Target potensi serapan melalui 500+ satuan TPID nasional.
                                 </p>
                             </div>
                         </motion.div>

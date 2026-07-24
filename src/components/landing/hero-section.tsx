@@ -46,8 +46,8 @@ export function HeroSection() {
             transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
             className="text-slate-200 text-base md:text-xl font-medium leading-relaxed max-w-2xl drop-shadow-sm"
           >
-            Sistem Peringatan Dini Inflasi Pangan Berbasis AI. Memangkas waktu respons
-            TPID menjadi 2–3 hari guna memutus disparitas ekstrem melalui manajemen
+            Sistem Peringatan Dini Inflasi Pangan Berbasis AI yang dapat mendeteksi harga pangan 1-3 bulan kedepan
+            guna memutus disparitas ekstrem melalui manajemen
             distribusi cerdas.
           </motion.p>
         </div>

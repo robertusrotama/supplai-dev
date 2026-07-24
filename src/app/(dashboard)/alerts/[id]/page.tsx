@@ -19,14 +19,19 @@ import {
   CheckCircle2,
   X,
   FileSpreadsheet,
-  Download,
   Send,
   Lightbulb,
   Info,
   Gauge,
   BarChart3,
   Target,
-  Printer
+  Check,
+  FileText,
+  Navigation,
+  DollarSign,
+  Weight,
+  Printer,
+  ExternalLink
 } from "lucide-react";
 
 const SEVERITY = {
@@ -52,7 +57,24 @@ export default function AlertDetailPage() {
   const [isWizardVisible, setIsWizardVisible] = useState(true);
   const [note, setNote] = useState("");
   const [officer, setOfficer] = useState("Tim TPID");
-  const [savedLogs, setSavedLogs] = useState<{ officer: string; text: string; time: string } | null>(null);
+  const [selectedRouteIndex, setSelectedRouteIndex] = useState<number | null>(null);
+
+  // STATE TOAST NOTIFIKASI PRINT
+  const [showDownloadToast, setShowDownloadToast] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const [savedLogs, setSavedLogs] = useState<{
+    officer: string;
+    note: string;
+    time: string;
+    selectedRouteObj?: {
+      from: string;
+      to: string;
+      volume: number;
+      distance: number;
+      cost: number;
+    };
+  } | null>(null);
 
   useEffect(() => {
     const savedEmail = sessionStorage.getItem("userEmail") || localStorage.getItem("userEmail");
@@ -63,17 +85,39 @@ export default function AlertDetailPage() {
     }
   }, []);
 
+  const routes = alert ? getRedistributionData(alert.commodity).routes.slice(0, 4) : [];
+
   const handleSubmitAction = (e: React.FormEvent) => {
     e.preventDefault();
     if (!note.trim()) return;
+
+    const chosenRoute = selectedRouteIndex !== null ? routes[selectedRouteIndex] : undefined;
+
     setIsExecuted(true);
-    setSavedLogs({ officer, text: note, time: "Baru saja direspon" });
+    setSavedLogs({
+      officer,
+      note: note.trim(),
+      time: "Baru saja direspon",
+      selectedRouteObj: chosenRoute
+        ? {
+          from: chosenRoute.from,
+          to: chosenRoute.to,
+          volume: chosenRoute.volume,
+          distance: chosenRoute.distance,
+          cost: chosenRoute.cost,
+        }
+        : undefined,
+    });
     setIsModalOpen(false);
   };
 
-  // ================= HANDLER GENERATE FULL PDF REPORT =================
+  // ================= NATIVE BROWSER PRINT GENERATOR =================
   const handleDownloadReport = () => {
     if (!alert) return;
+
+    // 1. Munculkan Toast terlebih dahulu
+    setIsDownloading(true);
+    setShowDownloadToast(true);
 
     const commodityObj = commodities.find((c) => c.id === alert.commodity);
     const commodityTitle = commodityObj?.name ?? titleCase(alert.commodity);
@@ -86,172 +130,150 @@ export default function AlertDetailPage() {
       year: "numeric",
     });
 
-    const printWindow = window.open("", "_blank");
-    if (!printWindow) return;
-
     const htmlContent = `
       <!DOCTYPE html>
       <html lang="id">
       <head>
         <meta charset="UTF-8">
-        <title>Laporan Intervensi - ${alert.id}</title>
+        <title>Laporan_Intervensi_${alert.id}</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
-          @page {
-            size: A4 portrait;
-            margin: 12mm;
+          @page { size: A4 portrait; margin: 15mm; }
+          body { 
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: #ffffff; 
+            color: #1e293b; 
+            -webkit-print-color-adjust: exact !important; 
+            print-color-adjust: exact !important; 
           }
-          body {
-            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #ffffff;
-            color: #1e293b;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          .page-break-inside-avoid {
-            break-inside: avoid;
-            page-break-inside: avoid;
-          }
+          .page-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+          
+          /* Hide scrollbar in print window */
+          ::-webkit-scrollbar { display: none; }
         </style>
       </head>
-      <body class="p-4 space-y-5">
+      <body class="p-6 space-y-6 max-w-[800px] mx-auto bg-white">
         
-        <!-- HEADER DOKUMEN -->
-        <div class="border-b border-slate-200 pb-4 flex justify-between items-start">
+        <!-- Header -->
+        <div class="border-b border-slate-200 pb-5 flex justify-between items-start">
           <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="bg-emerald-700 text-white font-mono text-[10px] font-black px-2 py-0.5 rounded">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="bg-[#047857] text-white font-mono text-[10px] font-black px-2 py-0.5 rounded">
                 ${isExecuted ? "DITANGANI" : alert.severity.toUpperCase()}
               </span>
-              <span class="font-mono text-xs text-slate-400 font-bold">${alert.id}</span>
+              <span class="font-mono text-xs text-slate-500 font-bold">${alert.id}</span>
               <span class="text-xs text-slate-400">• Snapshot: ${snapshotDate}</span>
             </div>
-            <h1 class="text-2xl font-black text-slate-900 tracking-tight">
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">
               ${commodityTitle} — <span class="text-[#065F46]">${alert.region}</span>
             </h1>
           </div>
-
-          <!-- METRIK HEADER -->
-          <div class="flex gap-4 border border-slate-200 rounded-xl p-2.5 bg-slate-50">
+          <div class="flex gap-4 border border-slate-200 rounded-xl p-3 bg-slate-50">
             <div>
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Proyeksi 3 Bln</p>
-              <p class="text-lg font-black ${up ? "text-rose-600" : "text-emerald-600"}">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Proyeksi 3 Bln</p>
+              <p class="text-xl font-black ${up ? "text-rose-600" : "text-emerald-600"}">
                 ${up ? "+" : ""}${alert.change.toFixed(1)}%
               </p>
             </div>
             <div class="w-px bg-slate-200"></div>
             <div>
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Keyakinan</p>
-              <p class="text-lg font-black text-slate-800">${alert.confidence}%</p>
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Keyakinan</p>
+              <p class="text-xl font-black text-slate-800">${alert.confidence}%</p>
             </div>
           </div>
         </div>
 
-        <!-- LOG INTERVENSI -->
-        ${
-          savedLogs
-            ? `
-          <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-1 page-break-inside-avoid">
-            <div class="flex justify-between items-center text-xs font-bold text-emerald-800 mb-1">
+        <!-- Intervention Log -->
+        ${savedLogs
+        ? `
+          <div class="bg-[#ecfdf5] border border-[#a7f3d0] rounded-xl p-5 space-y-2 page-break-inside-avoid">
+            <div class="flex justify-between items-center text-xs font-bold text-[#065f46]">
               <span>✓ Catatan Intervensi Petugas</span>
-              <span class="font-mono text-[10px] text-slate-400">${savedLogs.time}</span>
+              <span class="font-mono text-[10px] text-slate-500">${savedLogs.time}</span>
             </div>
-            <p class="text-xs text-slate-700 font-bold">Petugas/Unit: ${savedLogs.officer}</p>
-            <p class="text-xs text-slate-600">Tindakan: "${savedLogs.text}"</p>
-          </div>
-          `
-            : ""
-        }
-
-        <!-- RINGKASAN MODEL -->
-        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-2 page-break-inside-avoid">
-          <h3 class="text-xs font-black font-mono uppercase text-slate-400">Ringkasan Analisis Model</h3>
-          <p class="text-xs text-slate-700 leading-relaxed text-justify">${d.recommendation}</p>
-        </div>
-
-        <!-- SINYAL MODEL -->
-        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-3 page-break-inside-avoid">
-          <h3 class="text-xs font-black font-mono uppercase text-slate-400">Sinyal & Indikator Model</h3>
-          
-          <div class="grid grid-cols-4 gap-3">
-            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Harga Kini</p>
-              <p class="text-sm font-black text-slate-800">${rupiah(d.hargaKini)}/${unitName}</p>
-            </div>
-            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Prediksi 3 Bln</p>
-              <p class="text-sm font-black text-slate-800">${rupiah(d.hargaPrediksi)}/${unitName}</p>
-            </div>
-            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Persentil Historis</p>
-              <p class="text-sm font-black text-slate-800">${d.persentilHistoris.toFixed(0)}%</p>
-            </div>
-            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
-              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase">Akurasi Model</p>
-              <p class="text-sm font-black text-slate-800">${(100 - d.mapeKomoditas).toFixed(1)}%</p>
-            </div>
-          </div>
-
-          <div class="flex gap-2 pt-1">
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}">
-              ${d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
-            </span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}">
-              ${d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
-            </span>
-          </div>
-        </div>
-
-        <!-- REKOMENDASI REDISTRIBUSI -->
-        <div class="border border-emerald-200 rounded-2xl p-5 bg-emerald-50/30 space-y-3 page-break-inside-avoid">
-          <h3 class="text-xs font-black font-mono uppercase text-emerald-800">Rekomendasi Rute Redistribusi — ${commodityTitle}</h3>
-          
-          ${
-            routes.length > 0
-              ? `
-            <div class="space-y-2">
-              ${routes
-                .map(
-                  (r) => `
-                <div class="flex justify-between items-center bg-white border border-emerald-100 p-3 rounded-xl text-xs">
-                  <div>
-                    <span class="font-black text-slate-800">${r.volume.toLocaleString("id-ID")} ton</span> dari 
-                    <span class="font-bold">${r.from}</span> → <span class="font-bold">${r.to}</span>
-                    <span class="text-slate-400 font-normal"> (${r.distance.toLocaleString("id-ID")} km · ${rupiah(r.cost)})</span>
-                  </div>
-                  <span class="text-[9px] font-black uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-600 border">
-                    ${r.priority}
-                  </span>
+            <p class="text-sm text-slate-800 font-bold mt-2">Petugas/Unit: ${savedLogs.officer}</p>
+            <p class="text-sm text-slate-700 italic">"${savedLogs.note}"</p>
+            ${savedLogs.selectedRouteObj
+          ? `
+              <div class="pt-3 mt-3 border-t border-[#a7f3d0] text-xs font-semibold text-[#064e3b]">
+                <p class="font-black mb-1 text-[#065f46]">Rute Redistribusi Ditetapkan:</p>
+                <div class="grid grid-cols-2 gap-2 mt-2">
+                  <p>• Beban: ${savedLogs.selectedRouteObj.volume.toLocaleString("id-ID")} Ton</p>
+                  <p>• Rute: ${savedLogs.selectedRouteObj.from} → ${savedLogs.selectedRouteObj.to}</p>
+                  <p>• Jarak: ${savedLogs.selectedRouteObj.distance.toLocaleString("id-ID")} km</p>
+                  <p>• Estimasi Biaya: ${rupiah(savedLogs.selectedRouteObj.cost)}</p>
                 </div>
-              `
-                )
-                .join("")}
-            </div>
+              </div>
+            `
+          : ""
+        }
+          </div>
           `
-              : `<p class="text-xs text-slate-500">Tidak ada rute redistribusi yang diusulkan.</p>`
-          }
+        : ""
+      }
+
+        <!-- Analysis -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-2 page-break-inside-avoid shadow-sm">
+          <h3 class="text-xs font-black font-mono uppercase text-slate-400 tracking-wider">Ringkasan Analisis Model</h3>
+          <p class="text-sm text-slate-700 leading-relaxed text-justify">${d.recommendation}</p>
         </div>
 
-        <!-- FOOTER DOKUMEN -->
-        <div class="pt-6 border-t border-slate-200 text-center text-[10px] text-slate-400 font-mono">
-          Dokumen Laporan Resmi Sistem SupplAi • Dicetak Otomatis pada ${new Date().toLocaleString("id-ID")}
+        <!-- Metrics -->
+        <div class="border border-slate-200 rounded-2xl p-5 bg-white space-y-3 page-break-inside-avoid shadow-sm">
+          <h3 class="text-xs font-black font-mono uppercase text-slate-400 tracking-wider">Sinyal & Indikator Model</h3>
+          <div class="grid grid-cols-4 gap-4 mt-2">
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Harga Kini</p>
+              <p class="text-sm font-black text-slate-800 mt-1">${rupiah(d.hargaKini)}<span class="text-[10px] font-normal text-slate-500">/${unitName}</span></p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Prediksi 3 Bln</p>
+              <p class="text-sm font-black text-slate-800 mt-1">${rupiah(d.hargaPrediksi)}<span class="text-[10px] font-normal text-slate-500">/${unitName}</span></p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Persentil Historis</p>
+              <p class="text-sm font-black text-slate-800 mt-1">${d.persentilHistoris.toFixed(0)}%</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl">
+              <p class="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">Akurasi Model</p>
+              <p class="text-sm font-black text-slate-800 mt-1">${(100 - d.mapeKomoditas).toFixed(1)}%</p>
+            </div>
+          </div>
         </div>
 
+        <!-- Footer -->
+        <div class="pt-8 mt-8 border-t border-slate-200 text-center text-[10px] text-slate-400 font-mono">
+          Dokumen Laporan Resmi Sistem SupplAi • Dicetak pada ${new Date().toLocaleString("id-ID")}
+        </div>
+
+        <script>
+          // Script untuk otomatis memanggil print dialog saat halaman termuat
+          window.onload = function() {
+            setTimeout(function() {
+              window.print();
+            }, 500); // Jeda sejenak untuk membiarkan CDN Tailwind memuat styles
+          };
+        </script>
       </body>
       </html>
     `;
 
+    // Matikan loading state di toast setelah 2 detik (asumsi print dialog sudah muncul)
+    setTimeout(() => {
+      setIsDownloading(false);
+    }, 2000);
+
+    const printWindow = window.open("", "_blank");
+    if (!printWindow) {
+      // Jika browser memblokir pop-up, hentikan proses tulis html dan biarkan user menggunakan fallback di toast
+      return;
+    }
+
     printWindow.document.open();
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-
-    setTimeout(() => {
-      printWindow.focus();
-      printWindow.print();
-    }, 350);
   };
 
-  // ================= NOT FOUND =================
   if (!alert) {
     return (
       <div className="max-w-[1600px] mx-auto font-sans py-16 text-center space-y-4">
@@ -281,7 +303,6 @@ export default function AlertDetailPage() {
     day: "2-digit", month: "short", year: "numeric",
   });
 
-  const routes = getRedistributionData(alert.commodity).routes.slice(0, 4);
   const relatedAlerts = getAlerts({ commodity: alert.commodity }).alerts
     .filter((a) => a.id !== alert.id)
     .slice(0, 5);
@@ -299,6 +320,46 @@ export default function AlertDetailPage() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="space-y-6 max-w-[1600px] mx-auto font-sans pb-16 text-slate-800 relative"
     >
+      {/* ================= TOAST POP-UP DOWNLOAD DI POJOK KANAN ATAS ================= */}
+      <AnimatePresence>
+        {showDownloadToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            className="fixed top-5 right-5 z-50 bg-slate-900 text-white border border-slate-700 shadow-2xl rounded-2xl p-4 max-w-sm flex items-start gap-3"
+          >
+            <div className="p-2 bg-emerald-500/20 text-emerald-400 rounded-xl shrink-0 mt-0.5">
+              <Printer className={`w-4 h-4 ${isDownloading ? "animate-bounce" : ""}`} />
+            </div>
+            <div className="flex-1 space-y-1">
+              <h5 className="text-xs font-bold text-white">
+                {isDownloading ? "Menyiapkan Dokumen..." : "Dokumen Siap Dicetak / Disimpan"}
+              </h5>
+              <p className="text-[11px] text-slate-300 leading-snug">
+                Silakan pilih opsi <strong>"Save as PDF"</strong> pada jendela browser yang terbuka.
+              </p>
+
+              {!isDownloading && (
+                <button
+                  onClick={handleDownloadReport}
+                  className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 underline pt-1 cursor-pointer"
+                >
+                  <span>Jendela tidak terbuka? Tekan di sini</span>
+                  <ExternalLink className="w-3 h-3" />
+                </button>
+              )}
+            </div>
+            <button
+              onClick={() => setShowDownloadToast(false)}
+              className="p-1 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ================= HEADER & BREADCRUMB ================= */}
       <div className="flex flex-col gap-2 border-b border-slate-200/60 pb-4">
         <button
@@ -312,9 +373,8 @@ export default function AlertDetailPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-2">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <span className={`font-mono font-black text-[10px] uppercase px-2 py-0.5 rounded-md tracking-wider transition-all duration-300 ${
-                isExecuted ? "bg-emerald-600 text-white" : sev.badge
-              }`}>
+              <span className={`font-mono font-black text-[10px] uppercase px-2 py-0.5 rounded-md tracking-wider transition-all duration-300 ${isExecuted ? "bg-emerald-600 text-white" : sev.badge
+                }`}>
                 {isExecuted ? "DITANGANI" : sev.label}
               </span>
               <span className="font-mono text-[10px] text-slate-400">{alert.id}</span>
@@ -333,7 +393,7 @@ export default function AlertDetailPage() {
               <div>
                 <p className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider">Proyeksi 3 Bulan</p>
                 <p className={`text-2xl font-black tracking-tight ${up ? "text-rose-600" : "text-emerald-600"}`}>
-                  {up ? "+" : ""}{alert.change.toFixed(1)}%
+                  {up ? "+" : ""}${alert.change.toFixed(1)}%
                 </p>
               </div>
               <div className={`w-px h-8 ${up ? "bg-rose-200" : "bg-emerald-200"}`} />
@@ -349,7 +409,7 @@ export default function AlertDetailPage() {
                 onClick={handleDownloadReport}
                 className="px-5 py-4 rounded-2xl text-xs font-black shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer bg-[#006c4a] hover:bg-[#005238] text-white active:scale-95"
               >
-                <Download className="w-4 h-4" /> Download Report (PDF)
+                <Printer className="w-4 h-4" /> Cetak / Save PDF
               </button>
             ) : (
               <button
@@ -382,13 +442,13 @@ export default function AlertDetailPage() {
             <div className="text-xs text-slate-600 bg-white/80 border border-emerald-100 p-3 rounded-xl leading-relaxed flex items-center justify-between gap-4">
               <div>
                 <p className="font-bold text-slate-700 mb-0.5">Petugas: {savedLogs.officer}</p>
-                <p className="font-medium">Tindakan: &quot;{savedLogs.text}&quot;</p>
+                <p className="font-medium">Status: Peringatan telah selesai ditindaklanjuti.</p>
               </div>
               <button
                 onClick={handleDownloadReport}
                 className="text-[11px] font-bold text-[#006c4a] hover:underline flex items-center gap-1 shrink-0 cursor-pointer"
               >
-                <Printer className="w-3.5 h-3.5" /> Cetak / Simpan PDF
+                <Printer className="w-3.5 h-3.5" /> Cetak / Save PDF
               </button>
             </div>
           </motion.div>
@@ -396,124 +456,242 @@ export default function AlertDetailPage() {
       </AnimatePresence>
 
       {/* ================= CONTENT GRID ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* LEFT (8 COLS) */}
-        <div className="lg:col-span-8 space-y-6">
+      <div className={`grid grid-cols-1 ${isExecuted ? "lg:grid-cols-12" : "lg:grid-cols-12"} gap-6 items-start`}>
+
+        {/* LEFT COLUMN */}
+        <div className={`${isExecuted ? "lg:col-span-12" : "lg:col-span-8"} space-y-6`}>
+
+          {/* RINGKASAN MODEL */}
           <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs">
-            <h3 className="text-sm font-black font-mono uppercase tracking-wider text-slate-400 mb-2.5">Ringkasan Model</h3>
+            <h3 className="text-sm font-black font-mono uppercase tracking-wider text-slate-400 mb-2.5">Ringkasan Analisis Model</h3>
             <p className="text-xs text-slate-600 font-medium leading-relaxed text-justify">
               {d.recommendation}
             </p>
           </div>
 
-          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-              <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
-              <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
-                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
-                <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-              </div>
-              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
-                  {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                </div>
-                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
-                <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
-              </div>
-              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
-                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
-                <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
-              </div>
-              <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
-                <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
-                <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
-                <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
-              </div>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-1">
-              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
-                {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
-              </span>
-              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
-                {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
-              </span>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
-                Model: horizon 3 bulan
-              </span>
-            </div>
-          </div>
+          {/* ================= TAMPILAN JIKA SUDAH DITANGANI (CARD HASIL TINDAK LANJUT) ================= */}
+          {isExecuted && savedLogs ? (
+            <div className="space-y-6">
 
-          <div className="bg-gradient-to-br from-emerald-50/50 to-teal-50/30 border border-emerald-200 rounded-[24px] p-6 shadow-xs space-y-4">
-            <div className="flex items-center gap-2 border-b border-emerald-100 pb-3">
-              <Lightbulb className="w-5 h-5 text-emerald-600" />
-              <h3 className="text-base font-bold text-slate-800">Rekomendasi Redistribusi — {commodityName}</h3>
-            </div>
-            {routes.length > 0 ? (
-              <div className="space-y-2.5">
-                {routes.map((r, idx) => (
-                  <div key={idx} className="flex items-center gap-3 bg-white border border-emerald-100/60 p-3.5 rounded-xl shadow-3xs">
-                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0"><Truck className="w-4 h-4" /></div>
-                    <p className="text-xs text-slate-600 font-semibold leading-relaxed flex-1">
-                      Kirim <span className="font-black text-slate-800">{r.volume.toLocaleString("id-ID")} ton</span> dari{" "}
-                      <span className="font-bold">{r.from}</span> <ArrowRight className="inline w-3 h-3" /> <span className="font-bold">{r.to}</span>
-                      <span className="text-slate-400"> · {r.distance.toLocaleString("id-ID")} km · {rupiah(r.cost)}</span>
-                    </p>
-                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border shrink-0 ${
-                      r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
-                      r.priority === "medium" ? "bg-amber-50 text-amber-600 border-amber-100" :
-                      "bg-slate-50 text-slate-500 border-slate-100"
-                    }`}>{r.priority}</span>
+              {/* 1. CARD RUTE REDISTRIBUSI TERPILIH (BACKGROUND PUTIH) */}
+              {savedLogs.selectedRouteObj && (
+                <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+                  <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                    <Truck className="w-5 h-5 text-[#006c4a]" />
+                    <h3 className="text-base font-bold text-slate-800">Rute Redistribusi Ditetapkan</h3>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-xs text-slate-500 font-medium">Tidak ada rute redistribusi yang diusulkan untuk komoditas ini.</p>
-            )}
-          </div>
-        </div>
 
-        {/* RIGHT (4 COLS) */}
-        <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
-            <MapPin className="w-4 h-4 text-[#006c4a]" />
-            <h3 className="text-base font-bold text-slate-800">Wilayah Lain — {commodityName}</h3>
-          </div>
-          {relatedAlerts.length > 0 ? (
-            <div className="space-y-2">
-              {relatedAlerts.map((a) => {
-                const s = SEVERITY[a.severity];
-                const rUp = a.change >= 0;
-                return (
-                  <button
-                    key={a.id}
-                    onClick={() => router.push(`/alerts/${a.id}`)}
-                    className="w-full text-left p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between gap-4 hover:bg-slate-100/60 transition-colors cursor-pointer"
-                  >
-                    <div className="space-y-0.5 min-w-0">
-                      <h5 className="text-xs font-bold text-slate-800 truncate">{a.region}</h5>
-                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${s.chip}`}>{s.label}</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                      <div className="flex items-center gap-1.5 text-slate-600">
+                        <Weight className="w-4 h-4 text-[#006c4a]" />
+                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Beban Volume</p>
+                      </div>
+                      <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.volume.toLocaleString("id-ID")} Ton</p>
                     </div>
-                    <p className={`text-xs font-mono font-black shrink-0 ${rUp ? "text-rose-600" : "text-emerald-600"}`}>
-                      {rUp ? "+" : ""}{a.change.toFixed(1)}%
-                    </p>
-                  </button>
-                );
-              })}
+
+                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1 sm:col-span-2">
+                      <div className="flex items-center gap-1.5 text-slate-600">
+                        <Navigation className="w-4 h-4 text-[#006c4a]" />
+                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Rute Logistik</p>
+                      </div>
+                      <p className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                        <span>{savedLogs.selectedRouteObj.from}</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#006c4a] shrink-0" />
+                        <span>{savedLogs.selectedRouteObj.to}</span>
+                      </p>
+                    </div>
+
+                    <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                      <div className="flex items-center gap-1.5 text-slate-600">
+                        <MapPin className="w-4 h-4 text-[#006c4a]" />
+                        <p className="text-[10px] font-bold font-mono uppercase tracking-wider text-slate-400">Jarak Tempuh</p>
+                      </div>
+                      <p className="text-base font-black text-slate-800">{savedLogs.selectedRouteObj.distance.toLocaleString("id-ID")} km</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-slate-50 border border-slate-200/80 p-3.5 rounded-xl flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-600 flex items-center gap-2">
+                      <DollarSign className="w-4 h-4 text-[#006c4a]" /> Estimasi Biaya Redistribusi
+                    </span>
+                    <span className="font-mono font-black text-sm text-[#006c4a]">{rupiah(savedLogs.selectedRouteObj.cost)}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* 2. CARD NOTES PETUGAS */}
+              <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs space-y-3">
+                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                  <FileText className="w-4 h-4 text-[#006c4a]" />
+                  <h3 className="text-base font-bold text-slate-800">Catatan Intervensi Petugas</h3>
+                </div>
+                <div className="bg-slate-50 border border-slate-100 p-4 rounded-2xl text-xs text-slate-700 font-medium leading-relaxed">
+                  &quot;{savedLogs.note}&quot;
+                </div>
+              </div>
+
+              {/* 3. SINYAL MODEL */}
+              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                  <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
+                  <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
+                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
+                      {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                    </div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
+                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
+                    <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
+                    <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+                    {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
+                  </span>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
+                    {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
+                  </span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
+                    Model: horizon 3 bulan
+                  </span>
+                </div>
+              </div>
+
             </div>
           ) : (
-            <p className="text-xs text-slate-500 font-medium">Tidak ada peringatan lain untuk komoditas ini.</p>
+            <>
+              {/* SINYAL MODEL */}
+              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                  <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
+                  <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 text-[#006c4a] flex items-center justify-center"><BarChart3 className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Harga Kini</p>
+                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaKini)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${up ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-emerald-600"}`}>
+                      {up ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                    </div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Prediksi 3 Bln</p>
+                    <p className="text-sm font-black text-slate-800">{rupiah(d.hargaPrediksi)}<span className="text-[10px] font-normal text-slate-400">/{unit}</span></p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center"><Target className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Persentil Historis</p>
+                    <p className="text-sm font-black text-slate-800">{d.persentilHistoris.toFixed(0)}%</p>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-100 p-4 rounded-xl space-y-1">
+                    <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center"><Gauge className="w-4 h-4" /></div>
+                    <p className="text-[10px] font-bold font-mono text-slate-400 uppercase mt-1">Akurasi Model</p>
+                    <p className="text-sm font-black text-slate-800">{accuracy}%<span className="text-[10px] font-normal text-slate-400"> · MAPE {d.mapeKomoditas}%</span></p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+                    {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
+                  </span>
+                  <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
+                    {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
+                  </span>
+                  <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
+                    Model: horizon 3 bulan
+                  </span>
+                </div>
+              </div>
+
+              {/* REKOMENDASI REDISTRIBUSI */}
+              <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+                <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+                  <Lightbulb className="w-5 h-5 text-emerald-600" />
+                  <h3 className="text-base font-bold text-slate-800">Rekomendasi Redistribusi — {commodityName}</h3>
+                </div>
+                {routes.length > 0 ? (
+                  <div className="space-y-2.5">
+                    {routes.map((r, idx) => (
+                      <div key={idx} className="flex items-center gap-3 bg-slate-50 border border-slate-100 p-3.5 rounded-xl shadow-3xs">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0"><Truck className="w-4 h-4" /></div>
+                        <p className="text-xs text-slate-600 font-semibold leading-relaxed flex-1">
+                          Kirim <span className="font-black text-slate-800">{r.volume.toLocaleString("id-ID")} ton</span> dari{" "}
+                          <span className="font-bold">{r.from}</span> <ArrowRight className="inline w-3 h-3" /> <span className="font-bold">{r.to}</span>
+                          <span className="text-slate-400"> · {r.distance.toLocaleString("id-ID")} km · {rupiah(r.cost)}</span>
+                        </p>
+                        <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border shrink-0 ${r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
+                          r.priority === "medium" ? "bg-amber-50 text-amber-600 border-amber-100" :
+                            "bg-slate-50 text-slate-500 border-slate-100"
+                          }`}>{r.priority}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-slate-500 font-medium">Tidak ada rute redistribusi yang diusulkan untuk komoditas ini.</p>
+                )}
+              </div>
+            </>
           )}
+
         </div>
+
+        {/* RIGHT COLUMN */}
+        {!isExecuted && (
+          <div className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+              <MapPin className="w-4 h-4 text-[#006c4a]" />
+              <h3 className="text-base font-bold text-slate-800">Wilayah Lain — {commodityName}</h3>
+            </div>
+            {relatedAlerts.length > 0 ? (
+              <div className="space-y-2">
+                {relatedAlerts.map((a) => {
+                  const s = SEVERITY[a.severity];
+                  const rUp = a.change >= 0;
+                  return (
+                    <button
+                      key={a.id}
+                      onClick={() => router.push(`/alerts/${a.id}`)}
+                      className="w-full text-left p-3 border border-slate-100 rounded-xl bg-slate-50 flex items-center justify-between gap-4 hover:bg-slate-100/60 transition-colors cursor-pointer"
+                    >
+                      <div className="space-y-0.5 min-w-0">
+                        <h5 className="text-xs font-bold text-slate-800 truncate">{a.region}</h5>
+                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${s.chip}`}>{s.label}</span>
+                      </div>
+                      <p className={`text-xs font-mono font-black shrink-0 ${rUp ? "text-rose-600" : "text-emerald-600"}`}>
+                        {rUp ? "+" : ""}{a.change.toFixed(1)}%
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="text-xs text-slate-500 font-medium">Tidak ada peringatan lain untuk komoditas ini.</p>
+            )}
+          </div>
+        )}
+
       </div>
 
       {/* ================= FLOW WIZARD ================= */}
       <AnimatePresence>
-        {isWizardVisible && (
+        {!isExecuted && isWizardVisible && (
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -591,7 +769,7 @@ export default function AlertDetailPage() {
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <form onSubmit={handleSubmitAction} className="p-6 space-y-4">
+              <form onSubmit={handleSubmitAction} className="p-6 space-y-4 max-h-[80vh] overflow-y-auto">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider">Petugas / Unit</label>
                   <input
@@ -602,10 +780,58 @@ export default function AlertDetailPage() {
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none focus:border-[#006c4a] focus:bg-white transition-all"
                   />
                 </div>
+
+                {/* PILIHAN REKOMENDASI REDISTRIBUSI */}
+                {routes.length > 0 && (
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider flex items-center justify-between">
+                      <span>Pilih Rekomendasi Redistribusi (Opsional)</span>
+                      {selectedRouteIndex !== null && (
+                        <button
+                          type="button"
+                          onClick={() => setSelectedRouteIndex(null)}
+                          className="text-[10px] text-rose-500 hover:underline capitalize"
+                        >
+                          Batal Pilih
+                        </button>
+                      )}
+                    </label>
+                    <div className="space-y-2">
+                      {routes.map((r, idx) => {
+                        const isSelected = selectedRouteIndex === idx;
+                        return (
+                          <div
+                            key={idx}
+                            onClick={() => setSelectedRouteIndex(isSelected ? null : idx)}
+                            className={`p-3 rounded-xl border text-xs cursor-pointer transition-all flex items-center justify-between gap-3 ${isSelected
+                              ? "bg-emerald-50 border-[#006c4a] ring-1 ring-[#006c4a]"
+                              : "bg-slate-50 border-slate-200 hover:border-slate-300"
+                              }`}
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <div
+                                className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${isSelected ? "bg-[#006c4a] border-[#006c4a] text-white" : "border-slate-300 bg-white"
+                                  }`}
+                              >
+                                {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                              </div>
+                              <p className="font-semibold text-slate-700 truncate">
+                                Kirim <span className="font-bold text-slate-900">{r.volume.toLocaleString("id-ID")} ton</span> dari{" "}
+                                <span className="font-bold">{r.from}</span> → <span className="font-bold">{r.to}</span>
+                              </p>
+                            </div>
+                            <span className="text-[10px] font-mono text-slate-400 shrink-0">{rupiah(r.cost)}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold font-mono text-slate-400 uppercase tracking-wider">Rencana Tindak Lanjut</label>
                   <textarea
-                    rows={4}
+                    rows={3}
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     required
@@ -613,6 +839,7 @@ export default function AlertDetailPage() {
                     className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 placeholder-slate-400 outline-none focus:border-[#006c4a] focus:bg-white transition-all resize-none leading-relaxed"
                   />
                 </div>
+
                 <div className="flex items-center justify-end gap-3 pt-2">
                   <button
                     type="button"

@@ -19,8 +19,8 @@ const bouncyVariants = {
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 100, // Tingkat daya pegas (makin tinggi makin cepat)
-      damping: 12,    // Peredam pantulan (semakin kecil nilainya, semakin bouncy/membal)
+      stiffness: 100,
+      damping: 12,
       mass: 0.8,
     },
   },
