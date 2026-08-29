@@ -115,7 +115,13 @@ function MatrixSkeleton() {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
-  const [sortAsc, setSortAsc] = useState(true)
+  // Tiga cara urut. Dulu boolean "sortAsc", dan mode keduanya diberi label
+  // "Kenaikan Tertinggi" padahal mengurutkan berdasarkan LEVEL tertinggi
+  // terhadap bulan basis — bukan besar kenaikannya. Akibatnya wilayah yang
+  // sudah mahal tapi diproyeksikan turun tetap muncul di puncak, dan urutannya
+  // bertentangan dengan panel Top 5 di sebelahnya yang memakai basis berbeda.
+  type SortMode = "abz" | "level" | "prediksi"
+  const [sortMode, setSortMode] = useState<SortMode>("abz")
   const [tooltip, setTooltip] = useState<TooltipState>({
     visible: false,
     x: 0,
@@ -162,38 +168,47 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
   const future = matrix[0]?.data.map((d) => d.isFuture === true) ?? []
   const firstFuture = future.indexOf(true)
 
+  // Kenaikan yang diproyeksikan: bulan prediksi terakhir dibanding bulan
+  // teramati terakhir. Ini tolok ukur yang sama dengan panel Top 5.
+  const kenaikanPrediksi = (r: HeatmapRow) => {
+    const hist = r.data.filter((c) => !c.isFuture)
+    const fut = r.data.filter((c) => c.isFuture)
+    if (!hist.length || !fut.length) return 0
+    const kini = hist[hist.length - 1].price
+    return kini ? ((fut[fut.length - 1].price - kini) / kini) * 100 : 0
+  }
+
   const sorted = [...matrix].sort((a, b) => {
-    if (sortAsc) return a.region.localeCompare(b.region, "id")
-    const maxA = Math.max(...a.data.map((d) => d.change))
-    const maxB = Math.max(...b.data.map((d) => d.change))
-    return maxB - maxA
+    if (sortMode === "abz") return a.region.localeCompare(b.region, "id")
+    if (sortMode === "prediksi") return kenaikanPrediksi(b) - kenaikanPrediksi(a)
+    return Math.max(...b.data.map((d) => d.change)) - Math.max(...a.data.map((d) => d.change))
   })
+
+  const basis = matrix[0]?.data.find((c) => !c.isFuture)?.date
 
   return (
     <div className="relative">
       {/* Sort controls */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-xs text-muted-foreground">Urutkan:</span>
-        <button
-          onClick={() => setSortAsc(true)}
-          className={`text-xs px-2 py-1 rounded border transition-colors cursor-pointer ${
-            sortAsc
-              ? "bg-[#006c4a] text-white border-[#006c4a]"
-              : "bg-white text-[#64748b] border-gray-200 hover:bg-gray-50"
-          }`}
-        >
-          A–Z Wilayah
-        </button>
-        <button
-          onClick={() => setSortAsc(false)}
-          className={`text-xs px-2 py-1 rounded border transition-colors cursor-pointer ${
-            !sortAsc
-              ? "bg-[#006c4a] text-white border-[#006c4a]"
-              : "bg-white text-[#64748b] border-gray-200 hover:bg-gray-50"
-          }`}
-        >
-          Kenaikan Tertinggi
-        </button>
+        {([
+          ["abz", "A–Z Wilayah", ""],
+          ["prediksi", "Prediksi Naik Tertinggi", "Urut dari kenaikan yang diproyeksikan 3 bulan ke depan — tolok ukur yang sama dengan panel Top 5 Wilayah Kritis"],
+          ["level", "Harga Tertinggi vs Awal Periode", "Urut dari selisih terbesar terhadap bulan basis. Wilayah yang sudah mahal bisa muncul di puncak walau harganya diproyeksikan turun."],
+        ] as [SortMode, string, string][]).map(([mode, label, hint]) => (
+          <button
+            key={mode}
+            onClick={() => setSortMode(mode)}
+            title={hint}
+            className={`text-xs px-2 py-1 rounded border transition-colors cursor-pointer ${
+              sortMode === mode
+                ? "bg-[#006c4a] text-white border-[#006c4a]"
+                : "bg-white text-[#64748b] border-gray-200 hover:bg-gray-50"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
       {/* Color legend */}
@@ -224,6 +239,15 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
         </div>
       </div>
 
+      {basis && (
+        <p className="text-[10px] text-slate-400 font-medium mb-2 leading-relaxed">
+          Angka persen di tiap sel dibandingkan terhadap <b>{formatShortDate(basis)}</b>, bulan
+          pertama pada rentang ini — bukan terhadap bulan sebelumnya. Panel <b>Top 5 Wilayah
+          Kritis</b> memakai tolok ukur berbeda: kenaikan yang diproyeksikan 3 bulan ke depan
+          dihitung dari harga saat ini.
+        </p>
+      )}
+
       <div className="overflow-x-auto rounded-xl border border-gray-200">
         <table
           className="text-xs w-full"
@@ -233,10 +257,10 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
             <tr className="bg-gray-50">
               <th
                 className="sticky left-0 z-20 bg-gray-50 text-left font-semibold text-[#1e293b] px-3 py-2.5 min-w-[160px] border-b border-r border-gray-200 cursor-pointer select-none whitespace-nowrap"
-                onClick={() => setSortAsc((v) => !v)}
+                onClick={() => setSortMode((m) => (m === "abz" ? "prediksi" : "abz"))}
               >
                 Wilayah
-                <span className="ml-1 text-[#006c4a]">{sortAsc ? "↑" : "↓"}</span>
+                <span className="ml-1 text-[#006c4a]">{sortMode === "abz" ? "↑" : "↓"}</span>
               </th>
               {dates.map((date, i) => (
                 <th
