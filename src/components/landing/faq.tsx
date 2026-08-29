@@ -7,7 +7,7 @@ import { Plus, Minus } from "lucide-react";
 const faqData = [
   {
     question: "Bagaimana SupplAi memproyeksikan harga pangan 1–3 bulan ke depan?",
-    answer: "SupplAi menggabungkan model statistik Prophet untuk menangkap pola tren musiman dengan jaringan saraf tiruan LSTM (Long Short-Term Memory) untuk memproses anomali harga jangka pendek secara real-time berdasarkan data historis multi-sektoral."
+    answer: "SupplAi menggabungkan LightGBM (gradient boosting) yang menangkap pola harga lintas wilayah dengan jaringan saraf tiruan LSTM (Long Short-Term Memory) yang mempelajari ritme pergerakan harga antarwaktu. Keduanya digabung memakai bobot per komoditas, lalu diuji melalui backtest rolling-origin pada data historis 2016–2026."
   },
   {
     question: "Dari mana saja sumber integrasi data yang diolah oleh sistem?",

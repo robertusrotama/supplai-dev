@@ -55,6 +55,7 @@ def load_artifacts(art: Path) -> dict:
         "centroids": pq("centroids"),
         "bench_final": pq("bench_final"),
         "meta": json.loads((art / "meta.json").read_text()),
+        "final_results": json.loads((art / "final_results.json").read_text()),
     }
 
 
@@ -204,14 +205,33 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
     return out
 
 
-def headline_mape_h1(bench_final: pd.DataFrame) -> float:
+# Component order of the per-commodity blend weights in final_results.json.
+# Must match bench_final.py, which scores `w[0]*lgbm + w[1]*lstm + w[2]*qnt`.
+BLEND_COLS = ("lgbm", "lstm", "qnt")
+
+
+def blend_h1(bench_final: pd.DataFrame, final_results: dict) -> pd.DataFrame:
+    """Horizon-1 rows with the tuned ensemble and its absolute % error.
+
+    Applies the per-commodity weights the benchmark actually selected. A plain
+    50/50 lgbm/lstm average was used here before; it ignored both the tuning and
+    the quantile component, and reported 4.14% where the model delivers 3.94%.
+    """
     b = bench_final[bench_final.h == 1].copy()
-    blend = (b["lstm"] + b["lgbm"]) / 2
-    return float(((blend - b["actual"]).abs() / b["actual"] * 100).mean())
+    bobot = final_results["bobot"]
+    w = b["komoditas"].map(bobot)
+    b["ens"] = [sum(wt[i] * row[BLEND_COLS[i]] for i in range(3))
+                for wt, (_, row) in zip(w, b.iterrows())]
+    b["ape"] = (b["ens"] - b["actual"]).abs() / b["actual"] * 100
+    return b
+
+
+def headline_mape_h1(bench_final: pd.DataFrame, final_results: dict) -> float:
+    return float(blend_h1(bench_final, final_results)["ape"].mean())
 
 
 def build_executive(A: dict) -> dict:
-    mape = headline_mape_h1(A["bench_final"])
+    mape = headline_mape_h1(A["bench_final"], A["final_results"])
     acc = 100 - mape
     avg_chg = float(A["forecast"]["perubahan_persen"].mean())
     n_routes = len(A["flows"])
@@ -276,12 +296,9 @@ def build_timeseries(panel: pd.DataFrame, forecast_path: pd.DataFrame,
     return out
 
 
-def build_commodity_mape(bench_final: pd.DataFrame) -> dict:
+def build_commodity_mape(bench_final: pd.DataFrame, final_results: dict) -> dict:
     """{commodityId: horizon-1 MAPE} from the rolling-origin blend."""
-    b = bench_final[bench_final.h == 1].copy()
-    b["blend"] = (b["lstm"] + b["lgbm"]) / 2
-    b["ape"] = (b["blend"] - b["actual"]).abs() / b["actual"] * 100
-    m = b.groupby("komoditas")["ape"].mean()
+    m = blend_h1(bench_final, final_results).groupby("komoditas")["ape"].mean()
     return {COMMODITY_ID[k][0]: round(float(v), 2)
             for k, v in m.items() if k in COMMODITY_ID}
 
@@ -313,7 +330,7 @@ def main(argv=None) -> int:
     redist = build_redistribution(A["flows"], A["meta"])
     executive = build_executive(A)
     timeseries = build_timeseries(A["panel"], A["forecast_path"])
-    commodity_mape = build_commodity_mape(A["bench_final"])
+    commodity_mape = build_commodity_mape(A["bench_final"], A["final_results"])
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)

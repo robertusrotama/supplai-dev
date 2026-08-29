@@ -2219,29 +2219,29 @@
   ],
   "topCritical": [
    {
-    "region": "Sulawesi Utara",
-    "commodity": "beras",
-    "change": 5.99
-   },
-   {
     "region": "Gorontalo",
     "commodity": "beras",
-    "change": 5.85
+    "change": 4.63
    },
    {
-    "region": "Nusa Tenggara Barat",
+    "region": "Sulawesi Utara",
     "commodity": "beras",
-    "change": 4.98
+    "change": 4.28
    },
    {
     "region": "Banten",
     "commodity": "beras",
-    "change": 4.3
+    "change": 3.14
    },
    {
-    "region": "Aceh",
+    "region": "Sulawesi Tenggara",
     "commodity": "beras",
-    "change": 3.74
+    "change": 2.71
+   },
+   {
+    "region": "Sulawesi Tengah",
+    "commodity": "beras",
+    "change": 2.6
    }
   ]
  },
@@ -4465,29 +4465,29 @@
   ],
   "topCritical": [
    {
-    "region": "Maluku Utara",
-    "commodity": "bawang-merah",
-    "change": 5.0
-   },
-   {
     "region": "Papua",
     "commodity": "bawang-merah",
-    "change": 4.57
+    "change": -0.2
+   },
+   {
+    "region": "Maluku Utara",
+    "commodity": "bawang-merah",
+    "change": -0.71
    },
    {
     "region": "Kalimantan Utara",
     "commodity": "bawang-merah",
-    "change": 2.33
+    "change": -1.94
    },
    {
     "region": "Kalimantan Barat",
     "commodity": "bawang-merah",
-    "change": 1.83
+    "change": -2.27
    },
    {
-    "region": "Papua Barat",
+    "region": "Nusa Tenggara Timur",
     "commodity": "bawang-merah",
-    "change": 0.56
+    "change": -2.45
    }
   ]
  },
@@ -6713,27 +6713,27 @@
    {
     "region": "DKI Jakarta",
     "commodity": "bawang-putih",
-    "change": 6.16
+    "change": 10.34
    },
    {
     "region": "Maluku Utara",
     "commodity": "bawang-putih",
-    "change": 4.02
+    "change": 8.87
    },
    {
-    "region": "DI Yogyakarta",
+    "region": "Sumatera Utara",
     "commodity": "bawang-putih",
-    "change": 2.82
+    "change": 8.86
    },
    {
-    "region": "Papua Barat",
+    "region": "Jawa Tengah",
     "commodity": "bawang-putih",
-    "change": 2.01
+    "change": 6.82
    },
    {
-    "region": "Aceh",
+    "region": "Jawa Timur",
     "commodity": "bawang-putih",
-    "change": 1.11
+    "change": 6.1
    }
   ]
  },
@@ -8959,27 +8959,27 @@
    {
     "region": "Sumatera Utara",
     "commodity": "daging-ayam",
-    "change": 6.81
-   },
-   {
-    "region": "Aceh",
-    "commodity": "daging-ayam",
-    "change": 6.14
+    "change": 6.82
    },
    {
     "region": "Nusa Tenggara Barat",
     "commodity": "daging-ayam",
-    "change": 5.27
+    "change": 6.03
    },
    {
     "region": "Jawa Timur",
     "commodity": "daging-ayam",
-    "change": 5.1
+    "change": 4.95
    },
    {
     "region": "Riau",
     "commodity": "daging-ayam",
-    "change": 4.48
+    "change": 4.7
+   },
+   {
+    "region": "Aceh",
+    "commodity": "daging-ayam",
+    "change": 4.61
    }
   ]
  },
@@ -11203,29 +11203,29 @@
   ],
   "topCritical": [
    {
-    "region": "Gorontalo",
+    "region": "DI Yogyakarta",
     "commodity": "telur-ayam",
-    "change": 8.78
+    "change": 5.69
+   },
+   {
+    "region": "Jawa Timur",
+    "commodity": "telur-ayam",
+    "change": 4.8
    },
    {
     "region": "Aceh",
     "commodity": "telur-ayam",
-    "change": 8.73
+    "change": 4.8
    },
    {
-    "region": "Sulawesi Barat",
+    "region": "Lampung",
     "commodity": "telur-ayam",
-    "change": 8.39
+    "change": 4.76
    },
    {
-    "region": "Sulawesi Tengah",
+    "region": "Kalimantan Tengah",
     "commodity": "telur-ayam",
-    "change": 8.22
-   },
-   {
-    "region": "Sulawesi Selatan",
-    "commodity": "telur-ayam",
-    "change": 7.26
+    "change": 4.64
    }
   ]
  },
@@ -13449,29 +13449,29 @@
   ],
   "topCritical": [
    {
-    "region": "Maluku Utara",
+    "region": "Maluku",
     "commodity": "minyak-goreng",
-    "change": 4.67
+    "change": 1.98
    },
    {
     "region": "Gorontalo",
     "commodity": "minyak-goreng",
-    "change": 1.6
+    "change": 1.72
    },
    {
-    "region": "Sulawesi Barat",
+    "region": "Sulawesi Utara",
     "commodity": "minyak-goreng",
-    "change": 1.31
+    "change": 1.36
    },
    {
-    "region": "Kalimantan Tengah",
+    "region": "Maluku Utara",
     "commodity": "minyak-goreng",
-    "change": 1.22
+    "change": 1.28
    },
    {
-    "region": "Sumatera Selatan",
+    "region": "Papua",
     "commodity": "minyak-goreng",
-    "change": 0.59
+    "change": 0.97
    }
   ]
  }

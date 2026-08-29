@@ -17,7 +17,7 @@ const modulesData = [
     mockupContent: (
       <div className="w-full h-full flex flex-col justify-between p-6 text-brand-textMuted font-mono text-xs bg-brand-card">
         <div className="flex items-center justify-between border-b border-brand-border pb-2">
-          <span className="font-semibold text-brand-textMain">Prophet + LSTM Engine</span>
+          <span className="font-semibold text-brand-textMain">LightGBM + LSTM Engine</span>
           <span className="text-brand-primary font-bold">● Active</span>
         </div>
         <div className="space-y-2 my-auto">
@@ -30,7 +30,7 @@ const modulesData = [
             <div className="w-full bg-brand-primary h-full rounded-t animate-pulse"></div>
           </div>
         </div>
-        <div className="text-right text-brand-primary font-bold">Akurasi: 94.8%</div>
+        <div className="text-right text-brand-primary font-bold">Akurasi: 95.2%</div>
       </div>
     )
   },
