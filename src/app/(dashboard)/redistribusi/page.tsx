@@ -240,7 +240,7 @@ export default function RedistribusiPage() {
             <Route className="w-5 h-5 text-[#006c4a]" />
             <div className="flex flex-col">
               <h3 className="text-lg font-bold text-slate-800">Matriks Rute Distribusi Direkomendasikan</h3>
-              <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp3.000/ton/km.</p>
+              <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
             </div>
           </div>
           <div className="w-full overflow-x-auto">

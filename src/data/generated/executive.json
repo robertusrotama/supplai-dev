@@ -2,7 +2,7 @@
  "topMetrics": [
   {
    "title": "AKURASI PREDIKSI",
-   "value": "95.9%",
+   "value": "96.1%",
    "statusText": "STABIL",
    "statusType": "stable",
    "chartType": "line-green"
@@ -36,8 +36,8 @@
   {
    "title": "Predict",
    "id": "AKURASI",
-   "value": "95.9%",
-   "label": "MAPE 4.1%",
+   "value": "96.1%",
+   "label": "MAPE 3.9%",
    "type": "predict",
    "color": "emerald"
   },
