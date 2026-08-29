@@ -47,12 +47,28 @@ export default function ExecutiveSummaryPage() {
     return alertResponse.alerts.filter((a) => a.severity === "kritis" || a.severity === "tinggi").length;
   }, [alertResponse]);
 
+  // The banner used to announce a national crisis unconditionally, badge and
+  // all — so a month with only watch-level alerts rendered a red "Anomali
+  // Pasokan Skala Nasional Terdeteksi" next to the words "0 Peringatan Aktif".
+  // Let the severity that is actually present pick the wording.
+  const totalAlertsCount = alertResponse?.alerts?.length ?? 0;
+  const isUrgent = activeAlertsCount > 0;
+  const topAlert = alertResponse?.alerts?.[0];
+
   // 3. OLAH DATA REAL DARI API UNTUK GRAFIK BAR CHART
   const komoditasOverviewData = useMemo(() => {
     if (!alertResponse?.alerts || alertResponse.alerts.length === 0) return [];
 
-    // Ambil 5 alert komoditas teratas untuk visualisasi grafik
-    return alertResponse.alerts.slice(0, 5).map((alertItem) => {
+    // One bar per commodity, not per alert. Taking the top 5 alerts outright
+    // drew the same commodity several times — four bars all labelled "Bawang
+    // Putih" — because alerts are ranked by severity and one commodity can
+    // hold several of the top slots. Keep each commodity's most severe alert.
+    const perCommodity = new Map<string, (typeof alertResponse.alerts)[number]>();
+    for (const a of alertResponse.alerts) {
+      if (!perCommodity.has(a.commodity)) perCommodity.set(a.commodity, a);
+    }
+
+    return Array.from(perCommodity.values()).slice(0, 6).map((alertItem) => {
       const isCritical = alertItem.severity === "kritis";
       const isWarning = alertItem.severity === "tinggi";
 
@@ -126,38 +142,42 @@ export default function ExecutiveSummaryPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={transitionSmooth}
         onClick={() => router.push("/alerts")}
-        className="bg-rose-50 border border-rose-200 rounded-[20px] p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-3xs cursor-pointer hover:bg-rose-100/60 transition-colors group"
+        className={`${isUrgent ? "bg-rose-50 border-rose-200 hover:bg-rose-100/60" : "bg-amber-50 border-amber-200 hover:bg-amber-100/60"} border rounded-[20px] p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-3xs cursor-pointer transition-colors group`}
       >
         <div className="flex items-start gap-3.5">
-          <div className="p-2.5 bg-rose-600 text-white rounded-xl shrink-0 animate-pulse">
+          <div className={`p-2.5 ${isUrgent ? "bg-rose-600 animate-pulse" : "bg-amber-500"} text-white rounded-xl shrink-0`}>
             <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-black text-rose-900 tracking-tight flex items-center gap-2">
-              Anomali Pasokan Skala Nasional Terdeteksi
-              <span className="bg-rose-600 text-white text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full uppercase">
-                {loading ? "..." : `${activeAlertsCount} Peringatan Aktif`}
+            <h4 className={`text-sm font-black ${isUrgent ? "text-rose-900" : "text-amber-900"} tracking-tight flex items-center gap-2`}>
+              {isUrgent ? "Anomali Pasokan Skala Nasional Terdeteksi" : "Pemantauan Harga Aktif"}
+              <span className={`${isUrgent ? "bg-rose-600" : "bg-amber-500"} text-white text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full uppercase`}>
+                {loading ? "..." : isUrgent ? `${activeAlertsCount} Peringatan Aktif` : `${totalAlertsCount} Wilayah Dipantau`}
               </span>
             </h4>
-            <p className="text-xs font-semibold text-rose-700/90 mt-0.5 leading-relaxed">
+            <p className={`text-xs font-semibold ${isUrgent ? "text-rose-700/90" : "text-amber-800/90"} mt-0.5 leading-relaxed`}>
               {loading ? (
-                "Memuat data peringatan dini realtime..."
-              ) : alertResponse?.alerts?.[0] ? (
+                "Memuat data peringatan dini..."
+              ) : topAlert ? (
                 <>
-                  Krisis harga komoditas{" "}
+                  {isUrgent ? "Krisis harga komoditas " : "Kenaikan harga komoditas "}
                   <span className="underline font-bold">
-                    {alertResponse.alerts[0].commodity.split("-").join(" ")} ({alertResponse.alerts[0].change >= 0 ? "+" : ""}{alertResponse.alerts[0].change.toFixed(1)}%)
+                    {topAlert.commodity.split("-").join(" ")} ({topAlert.change >= 0 ? "+" : ""}{topAlert.change.toFixed(1)}%)
                   </span>{" "}
-                  di wilayah {alertResponse.alerts[0].region} memerlukan intervensi pasar segera. Klik untuk membuka Alert Center.
+                  di wilayah {topAlert.region}{" "}
+                  {isUrgent
+                    ? "memerlukan intervensi pasar segera."
+                    : "berada di atas ambang pantau, belum mencapai tingkat kritis."}{" "}
+                  Klik untuk membuka Alert Center.
                 </>
               ) : (
-                "Sistem berjalan normal tanpa krisis pasokan kritis."
+                "Tidak ada wilayah yang melewati ambang pantau."
               )}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-1 text-xs font-bold text-rose-700 group-hover:translate-x-1 transition-transform shrink-0">
-          Tindak Lanjuti Krisis
+        <div className={`flex items-center gap-1 text-xs font-bold ${isUrgent ? "text-rose-700" : "text-amber-800"} group-hover:translate-x-1 transition-transform shrink-0`}>
+          {isUrgent ? "Tindak Lanjuti Krisis" : "Lihat Alert Center"}
           <ArrowRight className="w-4 h-4" />
         </div>
       </motion.div>

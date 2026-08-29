@@ -70,6 +70,7 @@ export default function RedistribusiPage() {
   const provinces = data?.provinces ?? [];
   const routes = data?.routes ?? [];
   const surplusProvinces = provinces.filter((p) => p.status === "surplus");
+  const deficitProvinces = provinces.filter((p) => p.status === "deficit");
 
   return (
     <motion.div
@@ -229,7 +230,7 @@ export default function RedistribusiPage() {
         </motion.div>
 
         <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-          <MethodPanel />
+          <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
         </motion.div>
       </div>
 

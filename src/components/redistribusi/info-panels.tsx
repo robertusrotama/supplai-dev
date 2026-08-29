@@ -34,7 +34,11 @@ export function SurplusPanel({ provinces }: SurplusPanelProps) {
   );
 }
 
-export function MethodPanel() {
+// Counts come from the solved plan. They were hard-coded as "8 Provinsi" and
+// "10+ Wilayah", which sat under live-looking PRODUSEN/KONSUMEN labels and kept
+// claiming both even for a commodity the solver returned no routes for.
+export function MethodPanel({ sources = 0, destinations = 0 }: { sources?: number; destinations?: number }) {
+  const label = (n: number, unit: string) => `${n} ${unit}`;
   return (
     <div className="space-y-5 h-full flex flex-col justify-between">
       <div className="space-y-3">
@@ -49,11 +53,11 @@ export function MethodPanel() {
         <div className="grid grid-cols-2 gap-2 pt-2">
           <div className="rounded-xl bg-emerald-50/70 border border-emerald-100/60 p-3 text-center">
             <span className="text-[10px] text-emerald-700 font-mono font-bold uppercase block">Produsen</span>
-            <span className="text-lg font-black text-emerald-800">8 Provinsi</span>
+            <span className="text-lg font-black text-emerald-800">{label(sources, "Provinsi")}</span>
           </div>
           <div className="rounded-xl bg-rose-50/70 border border-rose-100/60 p-3 text-center">
             <span className="text-[10px] text-rose-700 font-mono font-bold uppercase block">Konsumen</span>
-            <span className="text-lg font-black text-rose-800">10+ Wilayah</span>
+            <span className="text-lg font-black text-rose-800">{label(destinations, "Wilayah")}</span>
           </div>
         </div>
       </div>
