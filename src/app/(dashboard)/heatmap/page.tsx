@@ -209,7 +209,15 @@ export default function HeatmapPage() {
           <div>
             <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
               <MapPin className="w-4 h-4 text-rose-600" />
-              <h3 className="text-lg font-bold text-slate-800">Top 5 Wilayah Kritis</h3>
+              <div>
+                <h3 className="text-lg font-bold text-slate-800">Top 5 Wilayah Kritis</h3>
+                {/* Tolok ukurnya berbeda dari matriks di sebelah kiri — di sana
+                    persentase dibandingkan bulan basis. Tanpa keterangan ini,
+                    kedua panel tampak saling bertentangan. */}
+                <p className="text-[10px] text-slate-400 font-medium leading-tight">
+                  Kenaikan yang diproyeksikan 3 bulan ke depan, dihitung dari harga saat ini
+                </p>
+              </div>
             </div>
             <TopCritical data={data?.topCritical ?? []} loading={loading} />
           </div>
