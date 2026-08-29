@@ -152,6 +152,16 @@
    }
   ]
  },
+ "bawang-merah": {
+  "summary": {
+   "totalRoutes": 0,
+   "totalVolume": 0,
+   "activeRoutes": "0 → 0",
+   "estimatedCost": 0
+  },
+  "provinces": [],
+  "routes": []
+ },
  "bawang-putih": {
   "summary": {
    "totalRoutes": 5,
@@ -487,6 +497,16 @@
     "priority": "low"
    }
   ]
+ },
+ "minyak-goreng": {
+  "summary": {
+   "totalRoutes": 0,
+   "totalVolume": 0,
+   "activeRoutes": "0 → 0",
+   "estimatedCost": 0
+  },
+  "provinces": [],
+  "routes": []
  },
  "all": {
   "summary": {

@@ -170,12 +170,15 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
     provinces = [{"id": slug(name), "name": name,
                   "status": "surplus" if v >= 0 else "deficit", "stock": round(abs(v))}
                  for name, v in sorted(net.items(), key=lambda kv: -kv[1])]
+    def col_sum(name: str) -> float:
+        return float(sub[name].sum()) if name in getattr(sub, "columns", []) else 0.0
+
     summary = {"totalRoutes": int(plan.get("n_rute", len(routes))),
-               "totalVolume": round(float(plan.get("total_ton", sub["volume_ton"].sum()))),
+               "totalVolume": round(float(plan.get("total_ton", col_sum("volume_ton")))),
                "activeRoutes": f"{int(plan.get('n_sumber', 0))} → "
                                f"{int(plan.get('n_tujuan', 0))}",
                "estimatedCost": round(float(plan.get("total_biaya",
-                                                     sub["biaya_rp"].sum())))}
+                                                     col_sum("biaya_rp"))))}
     return {"summary": summary, "provinces": provinces, "routes": routes}
 
 
@@ -183,21 +186,24 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
     plan_meta = meta.get("plan_meta", {})
     out = {}
     for wfp, (cid, _d, _u) in COMMODITY_ID.items():
-        sub = flows[flows.komoditas == wfp]
-        if sub.empty:
-            continue
+        sub = flows[flows.komoditas == wfp] if not flows.empty else flows
+        # A commodity the solver found nothing to move still gets an entry.
+        # Skipping it let the front-end's `data[commodity] ?? data["all"]`
+        # fall through to the aggregate, so selecting Bawang Merah displayed
+        # Beras routes under a Bawang Merah heading.
         out[cid] = _response_for(sub, cid, plan_meta.get(wfp, {}))
-    all_routes = [rt for resp in out.values() for rt in resp["routes"]]
+    with_routes = [r for r in out.values() if r["routes"]]
+    all_routes = [rt for resp in with_routes for rt in resp["routes"]]
     all_net = {}
-    for resp in out.values():
+    for resp in with_routes:
         for p in resp["provinces"]:
             sign = 1 if p["status"] == "surplus" else -1
             all_net[p["name"]] = all_net.get(p["name"], 0) + sign * p["stock"]
     out["all"] = {
-        "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in out.values()),
-                    "totalVolume": sum(r["summary"]["totalVolume"] for r in out.values()),
-                    "activeRoutes": f"{len(out)} komoditas",
-                    "estimatedCost": sum(r["summary"]["estimatedCost"] for r in out.values())},
+        "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
+                    "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
+                    "activeRoutes": f"{len(with_routes)} komoditas",
+                    "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes)},
         "provinces": [{"id": slug(n), "name": n,
                        "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
                       for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],

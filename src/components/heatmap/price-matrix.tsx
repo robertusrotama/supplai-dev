@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import Link from "next/link"
 import { Skeleton } from "@/components/ui/skeleton"
 import { formatRupiah, formatPercent, formatShortDate } from "@/lib/format"
 import type { HeatmapRow } from "@/lib/types"
@@ -244,19 +243,19 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
                 key={row.region}
                 className={rowIdx % 2 === 0 ? "bg-white" : "bg-gray-50/40"}
               >
-                {/* Nama Kota Interaktif dengan Tautan Link */}
+                {/* Nama wilayah. Dulu menaut ke /heatmap/<wilayah>, rute yang
+                    belum ada — setiap baris memicu 404 saat di-prefetch, dan
+                    mengeklik nama provinsi membawa pengguna ke halaman kosong.
+                    Tautkan kembali begitu halaman detail wilayah tersedia. */}
                 <td
                   className={`sticky left-0 z-10 px-3 py-1.5 min-w-[160px] font-medium border-r border-gray-200 whitespace-nowrap ${
                     rowIdx % 2 === 0 ? "bg-white" : "bg-gray-50/40"
                   }`}
                 >
-                  <Link
-                    href={`/heatmap/${encodeURIComponent(row.region.toLowerCase())}`}
-                    className="flex items-center gap-1.5 text-slate-700 hover:text-[#006c4a] hover:underline transition-colors group cursor-pointer"
-                  >
-                    <MapPin className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#006c4a] transition-colors" />
+                  <span className="flex items-center gap-1.5 text-slate-700">
+                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
                     {row.region}
-                  </Link>
+                  </span>
                 </td>
                 {row.data.map((cell) => {
                   const bg = getHeatColor(cell.change)

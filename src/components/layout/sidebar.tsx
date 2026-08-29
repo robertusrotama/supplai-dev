@@ -140,8 +140,12 @@ export function Sidebar() {
 
       {/* FOOTER SETTINGS */}
       <div className="space-y-1">
-        <Link href="/settings" className="relative block group mb-2">
-          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium cursor-pointer text-brand-textMuted hover:text-brand-textMain transition-colors relative z-10 ${isCollapsed && !insideMobile ? "justify-center" : ""}`}>
+        {/* Rute /settings belum ada, jadi tautannya dilepas: Next.js mem-prefetch
+            href ini di setiap halaman dasbor dan selalu menerima 404, dan
+            mengekliknya membawa pengguna ke halaman tidak ditemukan. Kembalikan
+            <Link href="/settings"> begitu halamannya dibuat. */}
+        <div className="relative block group mb-2">
+          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-brand-textMuted transition-colors relative z-10 ${isCollapsed && !insideMobile ? "justify-center" : ""}`}>
             <Settings className="w-5 h-5 flex-shrink-0" />
             {(!isCollapsed || insideMobile) && <span>Settings</span>}
           </div>
@@ -152,7 +156,7 @@ export function Sidebar() {
               </div>
             </div>
           )}
-        </Link>
+        </div>
       </div>
     </div>
   );
