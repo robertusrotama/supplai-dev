@@ -32,8 +32,20 @@ export function RouteTable({ routes, loading }: RouteTableProps) {
     );
   }
 
+  // An empty plan is a result, not a gap: the solver found no province whose
+  // price is forecast to rise while already sitting above the national median,
+  // so there is nothing to redistribute. Saying that plainly beats a blank slot
+  // that reads like missing data.
   if (routes.length === 0) {
-    return <div className="py-12 text-center text-xs font-medium text-slate-400 italic">Tidak tersedia rute distribusi untuk komoditas ini.</div>;
+    return (
+      <div className="py-12 px-6 text-center space-y-1.5">
+        <p className="text-xs font-bold text-slate-500">Tidak ada rute yang perlu direkomendasikan.</p>
+        <p className="text-[11px] font-medium text-slate-400 leading-relaxed max-w-md mx-auto">
+          Model memproyeksikan harga komoditas ini stabil atau menurun di seluruh wilayah pantauan,
+          sehingga tidak ada wilayah defisit yang perlu dipasok.
+        </p>
+      </div>
+    );
   }
 
   const sorted = [...routes].sort((a, b) => {

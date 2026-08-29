@@ -2,7 +2,7 @@
  {
   "region": "Aceh",
   "price": 15350,
-  "status": "CRITICAL"
+  "status": "STABLE"
  },
  {
   "region": "Bali",
@@ -62,7 +62,7 @@
  {
   "region": "Kalimantan Selatan",
   "price": 18600,
-  "status": "SURPLUS"
+  "status": "STABLE"
  },
  {
   "region": "Kalimantan Tengah",
@@ -77,7 +77,7 @@
  {
   "region": "Kalimantan Utara",
   "price": 17000,
-  "status": "CRITICAL"
+  "status": "STABLE"
  },
  {
   "region": "Kepulauan Bangka Belitung",
@@ -107,7 +107,7 @@
  {
   "region": "Nusa Tenggara Barat",
   "price": 14000,
-  "status": "CRITICAL"
+  "status": "STABLE"
  },
  {
   "region": "Nusa Tenggara Timur",
@@ -137,7 +137,7 @@
  {
   "region": "Sulawesi Selatan",
   "price": 15000,
-  "status": "CRITICAL"
+  "status": "STABLE"
  },
  {
   "region": "Sulawesi Tengah",
@@ -167,6 +167,6 @@
  {
   "region": "Sumatera Utara",
   "price": 15000,
-  "status": "CRITICAL"
+  "status": "STABLE"
  }
 ]

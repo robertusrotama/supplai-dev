@@ -124,7 +124,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15637,
+    "price": 15547,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -132,7 +132,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15851,
+    "price": 15580,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -140,7 +140,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15924,
+    "price": 15489,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -270,7 +270,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 14989,
+    "price": 15074,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -278,7 +278,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15035,
+    "price": 15089,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -286,7 +286,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15209,
+    "price": 15165,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -416,7 +416,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15844,
+    "price": 15740,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -424,7 +424,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15975,
+    "price": 15850,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -432,7 +432,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16166,
+    "price": 15987,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -562,7 +562,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15795,
+    "price": 16114,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -570,7 +570,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15714,
+    "price": 16007,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -578,7 +578,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15779,
+    "price": 15934,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -708,7 +708,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 14967,
+    "price": 15014,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -716,7 +716,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 14889,
+    "price": 14992,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -724,7 +724,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 14892,
+    "price": 15006,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -854,7 +854,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 16137,
+    "price": 16216,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -862,7 +862,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16161,
+    "price": 16250,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -870,7 +870,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16351,
+    "price": 16274,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -1000,7 +1000,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15575,
+    "price": 15352,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -1008,7 +1008,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15714,
+    "price": 15589,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -1016,7 +1016,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15878,
+    "price": 15694,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -1146,7 +1146,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 16992,
+    "price": 16882,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -1154,7 +1154,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16979,
+    "price": 16889,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -1162,7 +1162,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 17183,
+    "price": 17000,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -1292,7 +1292,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15326,
+    "price": 15523,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -1300,7 +1300,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15255,
+    "price": 15537,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -1308,7 +1308,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15456,
+    "price": 15525,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -1438,7 +1438,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15768,
+    "price": 15918,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -1446,7 +1446,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15734,
+    "price": 15859,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -1454,7 +1454,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15934,
+    "price": 15901,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -1584,7 +1584,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15214,
+    "price": 15364,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -1592,7 +1592,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15242,
+    "price": 15335,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -1600,7 +1600,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15486,
+    "price": 15386,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -1730,7 +1730,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 17767,
+    "price": 17925,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -1738,7 +1738,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 17769,
+    "price": 17929,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -1746,7 +1746,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18012,
+    "price": 18025,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -1876,7 +1876,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 17867,
+    "price": 18705,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -1884,7 +1884,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18001,
+    "price": 18717,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -1892,7 +1892,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 17863,
+    "price": 18543,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -2022,7 +2022,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 18713,
+    "price": 18731,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -2030,7 +2030,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18739,
+    "price": 18743,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -2038,7 +2038,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18942,
+    "price": 18855,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -2168,7 +2168,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 16983,
+    "price": 17150,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -2176,7 +2176,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16921,
+    "price": 17102,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -2184,7 +2184,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 17052,
+    "price": 17159,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -2314,7 +2314,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 17291,
+    "price": 17167,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -2322,7 +2322,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 17467,
+    "price": 17302,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -2330,7 +2330,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 17585,
+    "price": 17353,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -2460,7 +2460,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15989,
+    "price": 16005,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -2468,7 +2468,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15915,
+    "price": 15962,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -2476,7 +2476,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16045,
+    "price": 15975,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -2606,7 +2606,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15619,
+    "price": 15670,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -2614,7 +2614,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15554,
+    "price": 15648,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -2622,7 +2622,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15673,
+    "price": 15723,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -2752,7 +2752,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15170,
+    "price": 15324,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -2760,7 +2760,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15221,
+    "price": 15403,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -2768,7 +2768,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15193,
+    "price": 15297,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -2898,7 +2898,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 18106,
+    "price": 18119,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -2906,7 +2906,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18218,
+    "price": 18203,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -2914,7 +2914,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18273,
+    "price": 18247,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -3044,7 +3044,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 17902,
+    "price": 18070,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -3052,7 +3052,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 17926,
+    "price": 18150,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -3060,7 +3060,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18032,
+    "price": 18150,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -3190,7 +3190,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 14082,
+    "price": 14086,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -3198,7 +3198,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 14280,
+    "price": 14179,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -3206,7 +3206,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 14697,
+    "price": 14269,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -3336,7 +3336,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 14175,
+    "price": 14360,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -3344,7 +3344,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 14102,
+    "price": 14370,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -3352,7 +3352,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 14164,
+    "price": 14431,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -3482,7 +3482,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 18470,
+    "price": 18437,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -3490,7 +3490,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18578,
+    "price": 18544,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -3498,7 +3498,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18628,
+    "price": 18571,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -3628,7 +3628,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 18011,
+    "price": 18086,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -3636,7 +3636,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18027,
+    "price": 18078,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -3644,7 +3644,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18193,
+    "price": 18123,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -3774,7 +3774,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 17010,
+    "price": 17122,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -3782,7 +3782,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16926,
+    "price": 17158,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -3790,7 +3790,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 17206,
+    "price": 17223,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -3920,7 +3920,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 14955,
+    "price": 14934,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -3928,7 +3928,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 14947,
+    "price": 14880,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -3936,7 +3936,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15067,
+    "price": 14849,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -4066,7 +4066,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15317,
+    "price": 15171,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -4074,7 +4074,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15390,
+    "price": 15173,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -4082,7 +4082,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15553,
+    "price": 15276,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -4212,7 +4212,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15813,
+    "price": 15885,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -4220,7 +4220,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15927,
+    "price": 15936,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -4228,7 +4228,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16050,
+    "price": 16031,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -4358,7 +4358,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 16016,
+    "price": 15932,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -4366,7 +4366,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16068,
+    "price": 16038,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -4374,7 +4374,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16191,
+    "price": 16151,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -4504,7 +4504,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15546,
+    "price": 15404,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -4512,7 +4512,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15743,
+    "price": 15626,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -4520,7 +4520,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15899,
+    "price": 15641,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -4650,7 +4650,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 18790,
+    "price": 18949,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -4658,7 +4658,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 18744,
+    "price": 18982,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -4666,7 +4666,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 18917,
+    "price": 18986,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -4796,7 +4796,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15994,
+    "price": 16136,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -4804,7 +4804,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 16060,
+    "price": 16176,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -4812,7 +4812,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 16291,
+    "price": 16166,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -4942,7 +4942,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 15274,
+    "price": 15150,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -4950,7 +4950,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 15298,
+    "price": 15181,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -4958,7 +4958,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 15454,
+    "price": 15241,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -5090,7 +5090,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 47558,
+    "price": 42963,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -5098,7 +5098,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 43602,
+    "price": 42448,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -5106,7 +5106,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41063,
+    "price": 40761,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -5236,7 +5236,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 43318,
+    "price": 41078,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -5244,7 +5244,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39421,
+    "price": 38940,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -5252,7 +5252,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34295,
+    "price": 36913,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -5382,7 +5382,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 59607,
+    "price": 55457,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -5390,7 +5390,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 54038,
+    "price": 52489,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -5398,7 +5398,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 48606,
+    "price": 51065,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -5528,7 +5528,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 57337,
+    "price": 50245,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -5536,7 +5536,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50848,
+    "price": 48634,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -5544,7 +5544,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 45591,
+    "price": 47981,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -5674,7 +5674,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 50469,
+    "price": 47486,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -5682,7 +5682,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 46231,
+    "price": 45880,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -5690,7 +5690,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 43545,
+    "price": 44963,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -5820,7 +5820,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 59277,
+    "price": 56130,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -5828,7 +5828,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 52527,
+    "price": 51994,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -5836,7 +5836,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 48919,
+    "price": 51895,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -5966,7 +5966,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 58980,
+    "price": 54303,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -5974,7 +5974,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 53999,
+    "price": 52730,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -5982,7 +5982,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 48658,
+    "price": 51444,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -6112,7 +6112,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 45025,
+    "price": 41105,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -6120,7 +6120,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 40621,
+    "price": 41182,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -6128,7 +6128,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36761,
+    "price": 41291,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -6258,7 +6258,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 55017,
+    "price": 50330,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -6266,7 +6266,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 48616,
+    "price": 47043,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -6274,7 +6274,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 43866,
+    "price": 46353,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -6404,7 +6404,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 52424,
+    "price": 48196,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -6412,7 +6412,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45824,
+    "price": 45913,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -6420,7 +6420,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41984,
+    "price": 42797,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -6550,7 +6550,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 51263,
+    "price": 47431,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -6558,7 +6558,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 44933,
+    "price": 44579,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -6566,7 +6566,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41444,
+    "price": 43058,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -6696,7 +6696,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 54776,
+    "price": 48403,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -6704,7 +6704,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 52325,
+    "price": 47530,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -6712,7 +6712,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 47353,
+    "price": 45442,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -6842,7 +6842,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 52535,
+    "price": 46411,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -6850,7 +6850,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 47171,
+    "price": 45453,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -6858,7 +6858,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 43008,
+    "price": 44479,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -6988,7 +6988,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 54631,
+    "price": 49021,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -6996,7 +6996,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50428,
+    "price": 48453,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -7004,7 +7004,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 45701,
+    "price": 45777,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -7134,7 +7134,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 57684,
+    "price": 51725,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -7142,7 +7142,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 51683,
+    "price": 50500,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -7150,7 +7150,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 47406,
+    "price": 49141,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -7280,7 +7280,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 59477,
+    "price": 51996,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -7288,7 +7288,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 56366,
+    "price": 53013,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -7296,7 +7296,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 51932,
+    "price": 49765,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -7426,7 +7426,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 60192,
+    "price": 56613,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -7434,7 +7434,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 52349,
+    "price": 50977,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -7442,7 +7442,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 47750,
+    "price": 52506,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -7572,7 +7572,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39252,
+    "price": 37520,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -7580,7 +7580,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37928,
+    "price": 36168,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -7588,7 +7588,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34754,
+    "price": 33742,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -7718,7 +7718,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 50808,
+    "price": 45826,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -7726,7 +7726,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45569,
+    "price": 44171,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -7734,7 +7734,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41598,
+    "price": 43777,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -7864,7 +7864,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 63067,
+    "price": 55515,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -7872,7 +7872,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 59546,
+    "price": 55367,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -7880,7 +7880,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 53933,
+    "price": 53930,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -8010,7 +8010,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 75659,
+    "price": 68420,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -8018,7 +8018,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 73634,
+    "price": 68667,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -8026,7 +8026,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 69565,
+    "price": 65779,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -8156,7 +8156,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46597,
+    "price": 44724,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -8164,7 +8164,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 43524,
+    "price": 42068,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -8172,7 +8172,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38053,
+    "price": 42333,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -8302,7 +8302,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46011,
+    "price": 44452,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -8310,7 +8310,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42945,
+    "price": 44678,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -8318,7 +8318,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38867,
+    "price": 42677,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -8448,7 +8448,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 74573,
+    "price": 67565,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -8456,7 +8456,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 71901,
+    "price": 68660,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -8464,7 +8464,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 67968,
+    "price": 64871,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -8594,7 +8594,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 67821,
+    "price": 62544,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -8602,7 +8602,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 63573,
+    "price": 61855,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -8610,7 +8610,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 60335,
+    "price": 58142,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -8740,7 +8740,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46646,
+    "price": 42511,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -8748,7 +8748,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42665,
+    "price": 41499,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -8756,7 +8756,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39660,
+    "price": 41227,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -8886,7 +8886,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 53537,
+    "price": 46136,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -8894,7 +8894,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50515,
+    "price": 45799,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -8902,7 +8902,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 47341,
+    "price": 44589,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -9032,7 +9032,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 49830,
+    "price": 44834,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -9040,7 +9040,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45045,
+    "price": 43651,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -9048,7 +9048,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 42705,
+    "price": 42130,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -9178,7 +9178,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 57928,
+    "price": 51877,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -9186,7 +9186,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 52965,
+    "price": 48781,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -9194,7 +9194,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 49722,
+    "price": 47387,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -9324,7 +9324,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 56615,
+    "price": 52005,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -9332,7 +9332,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 53304,
+    "price": 51043,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -9340,7 +9340,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 49324,
+    "price": 48833,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -9470,7 +9470,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 59343,
+    "price": 52748,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -9478,7 +9478,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 54235,
+    "price": 51505,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -9486,7 +9486,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 49947,
+    "price": 48661,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -9616,7 +9616,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46757,
+    "price": 43080,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -9624,7 +9624,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 41490,
+    "price": 41648,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -9632,7 +9632,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 37580,
+    "price": 40470,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -9762,7 +9762,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46361,
+    "price": 44445,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -9770,7 +9770,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42440,
+    "price": 44102,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -9778,7 +9778,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39524,
+    "price": 42314,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -9908,7 +9908,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46787,
+    "price": 43747,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -9916,7 +9916,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42676,
+    "price": 41981,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -9924,7 +9924,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40594,
+    "price": 40845,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -10056,7 +10056,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36447,
+    "price": 36772,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -10064,7 +10064,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 36073,
+    "price": 37143,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -10072,7 +10072,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35894,
+    "price": 37204,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -10202,7 +10202,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29913,
+    "price": 30312,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -10210,7 +10210,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29571,
+    "price": 30754,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -10218,7 +10218,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29073,
+    "price": 30987,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -10348,7 +10348,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38718,
+    "price": 40429,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -10356,7 +10356,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37965,
+    "price": 40288,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -10364,7 +10364,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36986,
+    "price": 39595,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -10494,7 +10494,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39352,
+    "price": 41430,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -10502,7 +10502,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38968,
+    "price": 40999,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -10510,7 +10510,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38267,
+    "price": 40474,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -10640,7 +10640,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 37532,
+    "price": 36518,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -10648,7 +10648,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37247,
+    "price": 36861,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -10656,7 +10656,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 37016,
+    "price": 37382,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -10786,7 +10786,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41998,
+    "price": 41691,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -10794,7 +10794,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42543,
+    "price": 43196,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -10802,7 +10802,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 42465,
+    "price": 44135,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -10932,7 +10932,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40448,
+    "price": 41225,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -10940,7 +10940,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39899,
+    "price": 41468,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -10948,7 +10948,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39143,
+    "price": 41851,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -11078,7 +11078,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31646,
+    "price": 32704,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -11086,7 +11086,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31093,
+    "price": 32912,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -11094,7 +11094,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30803,
+    "price": 33013,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -11224,7 +11224,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36979,
+    "price": 37386,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -11232,7 +11232,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 36327,
+    "price": 37238,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -11240,7 +11240,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35939,
+    "price": 37410,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -11370,7 +11370,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 32516,
+    "price": 32803,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -11378,7 +11378,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31574,
+    "price": 33339,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -11386,7 +11386,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31540,
+    "price": 33917,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -11516,7 +11516,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 27458,
+    "price": 27784,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -11524,7 +11524,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27323,
+    "price": 28274,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -11532,7 +11532,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27123,
+    "price": 28647,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -11662,7 +11662,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 33373,
+    "price": 34788,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -11670,7 +11670,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 33126,
+    "price": 34932,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -11678,7 +11678,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 32607,
+    "price": 34759,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -11808,7 +11808,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35578,
+    "price": 35925,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -11816,7 +11816,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34720,
+    "price": 35969,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -11824,7 +11824,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34241,
+    "price": 36266,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -11954,7 +11954,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 37405,
+    "price": 38359,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -11962,7 +11962,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37352,
+    "price": 38551,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -11970,7 +11970,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36975,
+    "price": 38994,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -12100,7 +12100,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38779,
+    "price": 39813,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -12108,7 +12108,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38417,
+    "price": 39800,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -12116,7 +12116,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 37735,
+    "price": 40008,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -12246,7 +12246,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41151,
+    "price": 42083,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -12254,7 +12254,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 40907,
+    "price": 42070,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -12262,7 +12262,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40163,
+    "price": 42361,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -12392,7 +12392,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35470,
+    "price": 36116,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -12400,7 +12400,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35370,
+    "price": 36447,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -12408,7 +12408,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35171,
+    "price": 36731,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -12538,7 +12538,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29586,
+    "price": 30958,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -12546,7 +12546,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27813,
+    "price": 29850,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -12554,7 +12554,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 26893,
+    "price": 29226,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -12684,7 +12684,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31893,
+    "price": 33094,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -12692,7 +12692,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31998,
+    "price": 33388,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -12700,7 +12700,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31899,
+    "price": 33806,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -12830,7 +12830,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41763,
+    "price": 42336,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -12838,7 +12838,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 41284,
+    "price": 42454,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -12846,7 +12846,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40306,
+    "price": 42780,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -12976,7 +12976,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 57650,
+    "price": 57184,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -12984,7 +12984,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 58425,
+    "price": 59105,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -12992,7 +12992,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 57209,
+    "price": 59878,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -13122,7 +13122,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35182,
+    "price": 35606,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -13130,7 +13130,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34528,
+    "price": 35812,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -13138,7 +13138,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 33966,
+    "price": 35757,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -13268,7 +13268,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39924,
+    "price": 40892,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -13276,7 +13276,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39450,
+    "price": 40817,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -13284,7 +13284,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38597,
+    "price": 40812,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -13414,7 +13414,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 55018,
+    "price": 54422,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -13422,7 +13422,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 53934,
+    "price": 54365,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -13430,7 +13430,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 53470,
+    "price": 53959,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -13560,7 +13560,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 48827,
+    "price": 48465,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -13568,7 +13568,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 48763,
+    "price": 48930,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -13576,7 +13576,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 48456,
+    "price": 49748,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -13706,7 +13706,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 33700,
+    "price": 34409,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -13714,7 +13714,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 33174,
+    "price": 34645,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -13722,7 +13722,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 33227,
+    "price": 35176,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -13852,7 +13852,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40462,
+    "price": 40308,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -13860,7 +13860,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39278,
+    "price": 40148,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -13868,7 +13868,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39186,
+    "price": 40579,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -13998,7 +13998,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38378,
+    "price": 39267,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -14006,7 +14006,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37886,
+    "price": 39055,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -14014,7 +14014,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 37046,
+    "price": 38400,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -14144,7 +14144,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40161,
+    "price": 40567,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -14152,7 +14152,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39884,
+    "price": 40651,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -14160,7 +14160,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38760,
+    "price": 40564,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -14290,7 +14290,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46767,
+    "price": 46962,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -14298,7 +14298,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45878,
+    "price": 46656,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -14306,7 +14306,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 45133,
+    "price": 46982,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -14436,7 +14436,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40055,
+    "price": 40440,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -14444,7 +14444,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38972,
+    "price": 40553,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -14452,7 +14452,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38230,
+    "price": 40942,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -14582,7 +14582,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31944,
+    "price": 33240,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -14590,7 +14590,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31315,
+    "price": 33216,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -14598,7 +14598,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31284,
+    "price": 33348,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -14728,7 +14728,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39575,
+    "price": 41164,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -14736,7 +14736,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38436,
+    "price": 40345,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -14744,7 +14744,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38276,
+    "price": 40409,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -14874,7 +14874,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31132,
+    "price": 32265,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -14882,7 +14882,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31037,
+    "price": 33142,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -14890,7 +14890,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31290,
+    "price": 33746,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -15022,7 +15022,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35901,
+    "price": 34842,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -15030,7 +15030,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35282,
+    "price": 35224,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -15038,7 +15038,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36034,
+    "price": 35514,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -15168,7 +15168,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41043,
+    "price": 40635,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -15176,7 +15176,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 41032,
+    "price": 41052,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -15184,7 +15184,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41367,
+    "price": 41396,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -15314,7 +15314,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41671,
+    "price": 42121,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -15322,7 +15322,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 41110,
+    "price": 41874,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -15330,7 +15330,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 41047,
+    "price": 41716,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -15460,7 +15460,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40579,
+    "price": 40683,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -15468,7 +15468,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39872,
+    "price": 40847,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -15476,7 +15476,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40510,
+    "price": 41079,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -15606,7 +15606,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36252,
+    "price": 35877,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -15614,7 +15614,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35846,
+    "price": 36139,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -15622,7 +15622,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36216,
+    "price": 36469,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -15752,7 +15752,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39045,
+    "price": 38119,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -15760,7 +15760,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38889,
+    "price": 38340,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -15768,7 +15768,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39180,
+    "price": 38660,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -15898,7 +15898,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31907,
+    "price": 29647,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -15906,7 +15906,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30671,
+    "price": 30263,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -15914,7 +15914,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31479,
+    "price": 30813,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -16044,7 +16044,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 37564,
+    "price": 37565,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -16052,7 +16052,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37147,
+    "price": 37834,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -16060,7 +16060,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 37687,
+    "price": 38044,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -16190,7 +16190,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38612,
+    "price": 38509,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -16198,7 +16198,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38285,
+    "price": 38755,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -16206,7 +16206,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38573,
+    "price": 39018,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -16336,7 +16336,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36454,
+    "price": 35665,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -16344,7 +16344,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 36064,
+    "price": 36022,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -16352,7 +16352,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36408,
+    "price": 36404,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -16482,7 +16482,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35558,
+    "price": 34744,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -16490,7 +16490,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35126,
+    "price": 35228,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -16498,7 +16498,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35732,
+    "price": 35682,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -16628,7 +16628,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36483,
+    "price": 36618,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -16636,7 +16636,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34920,
+    "price": 36441,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -16644,7 +16644,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34850,
+    "price": 36501,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -16774,7 +16774,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 40889,
+    "price": 40524,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -16782,7 +16782,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 40437,
+    "price": 40878,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -16790,7 +16790,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40411,
+    "price": 41157,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -16920,7 +16920,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35868,
+    "price": 36005,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -16928,7 +16928,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35211,
+    "price": 36365,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -16936,7 +16936,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35361,
+    "price": 36739,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -17066,7 +17066,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39796,
+    "price": 39901,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -17074,7 +17074,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39260,
+    "price": 40124,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -17082,7 +17082,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38858,
+    "price": 40335,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -17212,7 +17212,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 46842,
+    "price": 46492,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -17220,7 +17220,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45389,
+    "price": 46744,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -17228,7 +17228,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 45418,
+    "price": 46777,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -17358,7 +17358,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41270,
+    "price": 41264,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -17366,7 +17366,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39808,
+    "price": 41221,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -17374,7 +17374,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40541,
+    "price": 40786,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -17504,7 +17504,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 41832,
+    "price": 42215,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -17512,7 +17512,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 41799,
+    "price": 42194,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -17520,7 +17520,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 42083,
+    "price": 42367,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -17650,7 +17650,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35229,
+    "price": 35151,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -17658,7 +17658,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34737,
+    "price": 35206,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -17666,7 +17666,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35046,
+    "price": 35397,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -17796,7 +17796,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 47944,
+    "price": 47968,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -17804,7 +17804,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 47499,
+    "price": 47980,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -17812,7 +17812,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 47938,
+    "price": 47814,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -17942,7 +17942,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 45291,
+    "price": 45654,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -17950,7 +17950,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 45416,
+    "price": 45785,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -17958,7 +17958,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 44928,
+    "price": 45747,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -18088,7 +18088,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38935,
+    "price": 39384,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -18096,7 +18096,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38952,
+    "price": 40085,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -18104,7 +18104,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 40001,
+    "price": 40293,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -18234,7 +18234,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 49306,
+    "price": 50058,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -18242,7 +18242,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50097,
+    "price": 50180,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -18250,7 +18250,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 50579,
+    "price": 50457,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -18380,7 +18380,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 50458,
+    "price": 50269,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -18388,7 +18388,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50495,
+    "price": 50227,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -18396,7 +18396,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 50505,
+    "price": 50117,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -18526,7 +18526,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 50329,
+    "price": 52560,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -18534,7 +18534,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 50388,
+    "price": 52482,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -18542,7 +18542,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 50699,
+    "price": 52488,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -18672,7 +18672,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31030,
+    "price": 30176,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -18680,7 +18680,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30587,
+    "price": 30428,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -18688,7 +18688,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30821,
+    "price": 30886,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -18818,7 +18818,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29987,
+    "price": 29066,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -18826,7 +18826,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29201,
+    "price": 29476,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -18834,7 +18834,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29250,
+    "price": 29540,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -18964,7 +18964,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30409,
+    "price": 30017,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -18972,7 +18972,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29239,
+    "price": 30105,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -18980,7 +18980,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29949,
+    "price": 30528,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -19110,7 +19110,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36391,
+    "price": 36766,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -19118,7 +19118,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35385,
+    "price": 36766,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -19126,7 +19126,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36358,
+    "price": 37230,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -19256,7 +19256,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35854,
+    "price": 35157,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -19264,7 +19264,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35030,
+    "price": 35304,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -19272,7 +19272,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34784,
+    "price": 35558,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -19402,7 +19402,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 39862,
+    "price": 38883,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -19410,7 +19410,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 39489,
+    "price": 39174,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -19418,7 +19418,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 39178,
+    "price": 39373,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -19548,7 +19548,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 49681,
+    "price": 49682,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -19556,7 +19556,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 48894,
+    "price": 49898,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -19564,7 +19564,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 49886,
+    "price": 50250,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -19694,7 +19694,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36776,
+    "price": 37089,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -19702,7 +19702,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 36011,
+    "price": 37090,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -19710,7 +19710,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36086,
+    "price": 36792,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -19840,7 +19840,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 36123,
+    "price": 35843,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -19848,7 +19848,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35903,
+    "price": 36394,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -19856,7 +19856,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36850,
+    "price": 36853,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -19988,7 +19988,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31570,
+    "price": 29954,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -19996,7 +19996,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 32050,
+    "price": 30312,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -20004,7 +20004,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31693,
+    "price": 30548,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -20134,7 +20134,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29379,
+    "price": 29309,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -20142,7 +20142,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29867,
+    "price": 29249,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -20150,7 +20150,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29243,
+    "price": 29354,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -20280,7 +20280,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29208,
+    "price": 28183,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -20288,7 +20288,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29274,
+    "price": 28397,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -20296,7 +20296,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 28411,
+    "price": 28675,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -20426,7 +20426,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29447,
+    "price": 28756,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -20434,7 +20434,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29701,
+    "price": 28799,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -20442,7 +20442,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29581,
+    "price": 29214,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -20572,7 +20572,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 27853,
+    "price": 26623,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -20580,7 +20580,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27774,
+    "price": 27022,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -20588,7 +20588,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27270,
+    "price": 27479,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -20718,7 +20718,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29669,
+    "price": 28423,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -20726,7 +20726,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30056,
+    "price": 28694,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -20734,7 +20734,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29186,
+    "price": 29121,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -20864,7 +20864,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 34394,
+    "price": 32985,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -20872,7 +20872,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35389,
+    "price": 33344,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -20880,7 +20880,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 36060,
+    "price": 33777,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -21010,7 +21010,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 27288,
+    "price": 26374,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -21018,7 +21018,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27234,
+    "price": 26500,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -21026,7 +21026,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27152,
+    "price": 26840,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -21156,7 +21156,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 28957,
+    "price": 27784,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -21164,7 +21164,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29231,
+    "price": 28171,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -21172,7 +21172,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 28397,
+    "price": 28537,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -21302,7 +21302,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 28045,
+    "price": 26897,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -21310,7 +21310,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27874,
+    "price": 27196,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -21318,7 +21318,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27138,
+    "price": 27526,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -21448,7 +21448,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 27708,
+    "price": 26567,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -21456,7 +21456,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27700,
+    "price": 26936,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -21464,7 +21464,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 26928,
+    "price": 27247,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -21594,7 +21594,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 33874,
+    "price": 32695,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -21602,7 +21602,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34160,
+    "price": 33040,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -21610,7 +21610,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 33575,
+    "price": 32969,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -21740,7 +21740,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30052,
+    "price": 28872,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -21748,7 +21748,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30461,
+    "price": 29170,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -21756,7 +21756,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30040,
+    "price": 29580,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -21886,7 +21886,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 32406,
+    "price": 31383,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -21894,7 +21894,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 32727,
+    "price": 31709,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -21902,7 +21902,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 32231,
+    "price": 32229,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -22032,7 +22032,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31636,
+    "price": 30725,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -22040,7 +22040,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31868,
+    "price": 30947,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -22048,7 +22048,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31838,
+    "price": 31297,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -22178,7 +22178,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 32547,
+    "price": 31863,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -22186,7 +22186,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 32847,
+    "price": 32147,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -22194,7 +22194,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 32935,
+    "price": 32570,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -22324,7 +22324,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 34367,
+    "price": 34065,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -22332,7 +22332,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34346,
+    "price": 34027,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -22340,7 +22340,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34279,
+    "price": 34039,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -22470,7 +22470,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30881,
+    "price": 30336,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -22478,7 +22478,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30939,
+    "price": 30543,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -22486,7 +22486,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31037,
+    "price": 30813,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -22616,7 +22616,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 28177,
+    "price": 27002,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -22624,7 +22624,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 28581,
+    "price": 27401,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -22632,7 +22632,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27965,
+    "price": 27762,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -22762,7 +22762,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 37327,
+    "price": 36794,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -22770,7 +22770,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 37622,
+    "price": 36997,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -22778,7 +22778,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38048,
+    "price": 37450,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -22908,7 +22908,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 42102,
+    "price": 42912,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -22916,7 +22916,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 42636,
+    "price": 42714,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -22924,7 +22924,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 42793,
+    "price": 42611,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -23054,7 +23054,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29595,
+    "price": 29458,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -23062,7 +23062,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29994,
+    "price": 29634,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -23070,7 +23070,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29855,
+    "price": 29956,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -23200,7 +23200,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 34046,
+    "price": 33445,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -23208,7 +23208,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 34146,
+    "price": 33441,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -23216,7 +23216,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 34283,
+    "price": 33855,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -23346,7 +23346,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 38145,
+    "price": 38629,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -23354,7 +23354,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 38254,
+    "price": 38461,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -23362,7 +23362,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 38119,
+    "price": 38324,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -23492,7 +23492,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 35850,
+    "price": 35743,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -23500,7 +23500,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 35622,
+    "price": 35909,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -23508,7 +23508,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 35382,
+    "price": 36369,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -23638,7 +23638,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30966,
+    "price": 29986,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -23646,7 +23646,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31569,
+    "price": 30257,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -23654,7 +23654,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31299,
+    "price": 30652,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -23784,7 +23784,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 25989,
+    "price": 23719,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -23792,7 +23792,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 26076,
+    "price": 24140,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -23800,7 +23800,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 25879,
+    "price": 24475,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -23930,7 +23930,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 26317,
+    "price": 24824,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -23938,7 +23938,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 26725,
+    "price": 25149,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -23946,7 +23946,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 26680,
+    "price": 25398,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -24076,7 +24076,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29680,
+    "price": 28274,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -24084,7 +24084,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30421,
+    "price": 28777,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -24092,7 +24092,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30679,
+    "price": 29112,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -24222,7 +24222,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 31091,
+    "price": 29956,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -24230,7 +24230,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 31453,
+    "price": 30218,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -24238,7 +24238,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 31560,
+    "price": 30653,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -24368,7 +24368,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 32706,
+    "price": 32918,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -24376,7 +24376,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 32902,
+    "price": 32897,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -24384,7 +24384,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 32901,
+    "price": 32869,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -24514,7 +24514,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30202,
+    "price": 29806,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -24522,7 +24522,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30569,
+    "price": 29960,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -24530,7 +24530,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30543,
+    "price": 30301,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -24660,7 +24660,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 28236,
+    "price": 27120,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -24668,7 +24668,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 28200,
+    "price": 27353,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -24676,7 +24676,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27463,
+    "price": 27512,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -24806,7 +24806,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 30360,
+    "price": 29518,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -24814,7 +24814,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 30301,
+    "price": 29751,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -24822,7 +24822,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 30309,
+    "price": 30040,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -24954,7 +24954,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23742,
+    "price": 23917,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -24962,7 +24962,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23767,
+    "price": 24035,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -24970,7 +24970,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23732,
+    "price": 23890,
     "isFuture": true,
     "isToday": false,
     "region": "Aceh"
@@ -25100,7 +25100,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23466,
+    "price": 23537,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -25108,7 +25108,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23379,
+    "price": 23557,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -25116,7 +25116,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23253,
+    "price": 23338,
     "isFuture": true,
     "isToday": false,
     "region": "Bali"
@@ -25246,7 +25246,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 20122,
+    "price": 20996,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -25254,7 +25254,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 20253,
+    "price": 21104,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -25262,7 +25262,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 20261,
+    "price": 20814,
     "isFuture": true,
     "isToday": false,
     "region": "Banten"
@@ -25392,7 +25392,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23555,
+    "price": 24023,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -25400,7 +25400,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23396,
+    "price": 23836,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -25408,7 +25408,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23270,
+    "price": 23561,
     "isFuture": true,
     "isToday": false,
     "region": "Bengkulu"
@@ -25538,7 +25538,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23010,
+    "price": 23227,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -25546,7 +25546,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22903,
+    "price": 23292,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -25554,7 +25554,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22834,
+    "price": 23160,
     "isFuture": true,
     "isToday": false,
     "region": "DI Yogyakarta"
@@ -25684,7 +25684,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23545,
+    "price": 24046,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -25692,7 +25692,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23373,
+    "price": 23898,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -25700,7 +25700,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23298,
+    "price": 23615,
     "isFuture": true,
     "isToday": false,
     "region": "DKI Jakarta"
@@ -25830,7 +25830,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 29010,
+    "price": 28861,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -25838,7 +25838,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 29083,
+    "price": 29037,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -25846,7 +25846,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 29211,
+    "price": 29244,
     "isFuture": true,
     "isToday": false,
     "region": "Gorontalo"
@@ -25976,7 +25976,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24060,
+    "price": 24278,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -25984,7 +25984,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23965,
+    "price": 24406,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -25992,7 +25992,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23898,
+    "price": 24172,
     "isFuture": true,
     "isToday": false,
     "region": "Jambi"
@@ -26122,7 +26122,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22997,
+    "price": 23054,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -26130,7 +26130,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23030,
+    "price": 23166,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -26138,7 +26138,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23055,
+    "price": 23084,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Barat"
@@ -26268,7 +26268,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22669,
+    "price": 23030,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -26276,7 +26276,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22645,
+    "price": 22976,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -26284,7 +26284,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22585,
+    "price": 22765,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Tengah"
@@ -26414,7 +26414,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22336,
+    "price": 22569,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -26422,7 +26422,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22234,
+    "price": 22661,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -26430,7 +26430,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22141,
+    "price": 22464,
     "isFuture": true,
     "isToday": false,
     "region": "Jawa Timur"
@@ -26560,7 +26560,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24449,
+    "price": 25002,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -26568,7 +26568,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24399,
+    "price": 24929,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -26576,7 +26576,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24313,
+    "price": 24896,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Barat"
@@ -26706,7 +26706,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24469,
+    "price": 24722,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -26714,7 +26714,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24219,
+    "price": 24678,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -26722,7 +26722,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24108,
+    "price": 24475,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Selatan"
@@ -26852,7 +26852,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 25014,
+    "price": 24841,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -26860,7 +26860,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24830,
+    "price": 25085,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -26868,7 +26868,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 25051,
+    "price": 24921,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Tengah"
@@ -26998,7 +26998,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24275,
+    "price": 24755,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -27006,7 +27006,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24068,
+    "price": 24660,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -27014,7 +27014,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23907,
+    "price": 24524,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Timur"
@@ -27144,7 +27144,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23556,
+    "price": 23737,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -27152,7 +27152,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23351,
+    "price": 23877,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -27160,7 +27160,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23197,
+    "price": 23636,
     "isFuture": true,
     "isToday": false,
     "region": "Kalimantan Utara"
@@ -27290,7 +27290,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 21867,
+    "price": 21997,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -27298,7 +27298,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 21732,
+    "price": 22177,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -27306,7 +27306,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 21628,
+    "price": 22112,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Bangka Belitung"
@@ -27436,7 +27436,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 21173,
+    "price": 21264,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -27444,7 +27444,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 20966,
+    "price": 21351,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -27452,7 +27452,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 20926,
+    "price": 21277,
     "isFuture": true,
     "isToday": false,
     "region": "Kepulauan Riau"
@@ -27582,7 +27582,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22698,
+    "price": 22913,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -27590,7 +27590,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22497,
+    "price": 22838,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -27598,7 +27598,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22523,
+    "price": 22547,
     "isFuture": true,
     "isToday": false,
     "region": "Lampung"
@@ -27728,7 +27728,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24402,
+    "price": 24319,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -27736,7 +27736,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24473,
+    "price": 24581,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -27744,7 +27744,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24381,
+    "price": 24729,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku"
@@ -27874,7 +27874,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 25016,
+    "price": 24575,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -27882,7 +27882,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 25292,
+    "price": 24782,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -27890,7 +27890,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 25645,
+    "price": 24813,
     "isFuture": true,
     "isToday": false,
     "region": "Maluku Utara"
@@ -28020,7 +28020,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24460,
+    "price": 24544,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -28028,7 +28028,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24278,
+    "price": 24543,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -28036,7 +28036,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24273,
+    "price": 24510,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Barat"
@@ -28166,7 +28166,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24880,
+    "price": 24834,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -28174,7 +28174,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24709,
+    "price": 25018,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -28182,7 +28182,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24620,
+    "price": 24967,
     "isFuture": true,
     "isToday": false,
     "region": "Nusa Tenggara Timur"
@@ -28312,7 +28312,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 27220,
+    "price": 27330,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -28320,7 +28320,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 27282,
+    "price": 27434,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -28328,7 +28328,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 27259,
+    "price": 27513,
     "isFuture": true,
     "isToday": false,
     "region": "Papua"
@@ -28458,7 +28458,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 26735,
+    "price": 27432,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -28466,7 +28466,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 26561,
+    "price": 27301,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -28474,7 +28474,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 26293,
+    "price": 27130,
     "isFuture": true,
     "isToday": false,
     "region": "Papua Barat"
@@ -28604,7 +28604,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22787,
+    "price": 22990,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -28612,7 +28612,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22892,
+    "price": 22946,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -28620,7 +28620,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22687,
+    "price": 22870,
     "isFuture": true,
     "isToday": false,
     "region": "Riau"
@@ -28750,7 +28750,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24287,
+    "price": 24136,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -28758,7 +28758,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24083,
+    "price": 24176,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -28766,7 +28766,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24314,
+    "price": 24191,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Barat"
@@ -28896,7 +28896,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23072,
+    "price": 23038,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -28904,7 +28904,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22841,
+    "price": 23042,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -28912,7 +28912,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22655,
+    "price": 22895,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Selatan"
@@ -29042,7 +29042,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 24490,
+    "price": 24814,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -29050,7 +29050,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 24443,
+    "price": 24875,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -29058,7 +29058,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 24412,
+    "price": 24651,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tengah"
@@ -29188,7 +29188,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 26948,
+    "price": 27383,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -29196,7 +29196,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 26434,
+    "price": 27830,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -29204,7 +29204,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 26382,
+    "price": 27398,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Tenggara"
@@ -29334,7 +29334,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22366,
+    "price": 22684,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -29342,7 +29342,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22311,
+    "price": 22763,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -29350,7 +29350,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22265,
+    "price": 22807,
     "isFuture": true,
     "isToday": false,
     "region": "Sulawesi Utara"
@@ -29480,7 +29480,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 23639,
+    "price": 23971,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -29488,7 +29488,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 23552,
+    "price": 24014,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -29496,7 +29496,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 23649,
+    "price": 23931,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Barat"
@@ -29626,7 +29626,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 21343,
+    "price": 21587,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -29634,7 +29634,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 21460,
+    "price": 21705,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -29642,7 +29642,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 21627,
+    "price": 21634,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Selatan"
@@ -29772,7 +29772,7 @@
    {
     "date": "2026-07-01",
     "displayDate": "Jul 26",
-    "price": 22801,
+    "price": 23033,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -29780,7 +29780,7 @@
    {
     "date": "2026-08-01",
     "displayDate": "Agu 26",
-    "price": 22688,
+    "price": 23064,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"
@@ -29788,7 +29788,7 @@
    {
     "date": "2026-09-01",
     "displayDate": "Sep 26",
-    "price": 22789,
+    "price": 22891,
     "isFuture": true,
     "isToday": false,
     "region": "Sumatera Utara"

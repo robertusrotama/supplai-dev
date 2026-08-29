@@ -9,8 +9,8 @@
   },
   {
    "title": "PERUBAHAN HARGA 3 BLN",
-   "value": "1.0%",
-   "statusText": "TURUN",
+   "value": "0.2%",
+   "statusText": "NAIK",
    "statusType": "neutral",
    "subtext": "rata-rata 6 komoditas",
    "chartType": "line-red"
@@ -25,7 +25,7 @@
   },
   {
    "title": "VOL. REDISTRIBUSI",
-   "value": "4800",
+   "value": "3200",
    "statusText": "REKOMENDASI",
    "statusType": "surplus",
    "subtext": "Ton",
@@ -52,7 +52,7 @@
   {
    "title": "Match",
    "id": "RUTE AKTIF",
-   "value": "65",
+   "value": "27",
    "label": "ROUTES",
    "type": "match",
    "color": "rose"
@@ -60,7 +60,7 @@
   {
    "title": "Alert Center",
    "id": "PERINGATAN",
-   "value": "23",
+   "value": "11",
    "label": "AKTIF",
    "type": "alerts",
    "color": "amber"
