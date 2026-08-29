@@ -167,24 +167,41 @@ export default function PricePredictionEnginePage() {
     return commodities.find(c => c.id === commodityId)?.name || "Beras Medium";
   }, [commodityId]);
 
-  const chartData = useMemo(() => {
+  // Sumbu waktu memakai IRISAN bulan, bukan gabungan.
+  //
+  // Sumber data tidak lengkap merata: Januari 2026, misalnya, hanya tercatat di
+  // 8 dari 34 provinsi. Dengan sumbu gabungan, bulan itu tetap muncul lalu
+  // wilayah yang tidak memilikinya bernilai undefined — dan Recharts memutus
+  // garisnya di sana, sehingga terlihat seperti kerusakan tampilan. Menyambung
+  // paksa lewat connectNulls juga bukan jawaban: itu menggambar nilai yang tidak
+  // pernah ada. Membandingkan wilayah hanya sah pada bulan yang semuanya punya,
+  // jadi bulan yang tidak dimiliki seluruh wilayah terpilih dikeluarkan — dan
+  // disebutkan di bawah grafik supaya tidak hilang diam-diam.
+  const { chartData, bulanDilewati } = useMemo(() => {
     const activeGroup = generatedTimeSeriesMaster[commodityId];
-    if (!activeGroup) return [];
+    if (!activeGroup) return { chartData: [] as any[], bulanDilewati: [] as string[] };
 
-    const datePointsSet = new Set<string>();
-    selectedRegions.forEach(reg => {
-      activeGroup[reg]?.forEach(pt => {
-        if (pt.date >= startDate && pt.date <= endDate) datePointsSet.add(pt.date);
-      });
-    });
+    const inRange = (reg: string) =>
+      (activeGroup[reg] ?? []).filter(pt => pt.date >= startDate && pt.date <= endDate);
 
-    const sortedDates = Array.from(datePointsSet).sort();
-    return sortedDates.map(dStr => {
-      const row: any = { date: dStr };
+    const perRegion = selectedRegions.map(reg => new Set(inRange(reg).map(pt => pt.date)));
+    const union = Array.from(new Set(perRegion.flatMap(set => Array.from(set)))).sort();
+    const shared = union.filter(d => perRegion.every(set => set.has(d)));
+    const dropped = union.filter(d => !perRegion.every(set => set.has(d)));
+
+    const labelOf = (dStr: string) => {
+      for (const reg of selectedRegions) {
+        const hit = activeGroup[reg]?.find(pt => pt.date === dStr);
+        if (hit) return hit.displayDate;
+      }
+      return dStr.slice(0, 7);
+    };
+
+    const rows = shared.map(dStr => {
+      const row: any = { date: dStr, displayDate: labelOf(dStr) };
       selectedRegions.forEach(reg => {
         const found = activeGroup[reg]?.find(pt => pt.date === dStr);
         if (found) {
-          row.displayDate = found.displayDate;
           row[reg] = found.price;
           if (found.isToday) row.isToday = true;
           if (found.isFuture) row.isFuture = true;
@@ -192,6 +209,8 @@ export default function PricePredictionEnginePage() {
       });
       return row;
     });
+
+    return { chartData: rows, bulanDilewati: dropped.map(labelOf) };
   }, [commodityId, selectedRegions, startDate, endDate]);
 
   const { currentPrice, predictedPrice, priceChange, isPriceDown, avgMape } = useMemo(() => {
@@ -503,6 +522,13 @@ export default function PricePredictionEnginePage() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
+
+            {bulanDilewati.length > 0 && (
+              <p className="text-[10px] text-slate-400 font-medium pt-1.5 leading-relaxed">
+                {bulanDilewati.join(", ")} tidak ditampilkan — bulan tersebut tidak tercatat di
+                seluruh wilayah yang dibandingkan, sehingga tidak dapat diperbandingkan.
+              </p>
+            )}
           </motion.div>
         </div>
       </div>

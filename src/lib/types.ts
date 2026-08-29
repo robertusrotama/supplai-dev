@@ -37,6 +37,8 @@ export interface HeatmapCell {
   date: string
   price: number
   change: number
+  /** true = bulan proyeksi, bukan harga yang teramati */
+  isFuture?: boolean
 }
 
 export interface HeatmapRow {
