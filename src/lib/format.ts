@@ -19,6 +19,17 @@ export function formatDate(dateStr: string): string {
   return new Date(dateStr).toLocaleDateString("id-ID", { day: "numeric", month: "short" })
 }
 
+const BULAN_SINGKAT = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+                       "Jul", "Agu", "Sep", "Okt", "Nov", "Des"]
+
+/** Label kolom bulanan, mis. "Jun 25".
+ *
+ * Sebelumnya memakai hari+bulan ("01/06"). Setiap titik data bertanggal 1, jadi
+ * seluruh kolom diawali "01" dan angka bulannya terbaca sebagai tahun — deretnya
+ * jadi "01/06 01/07 ... 01/12 01/02" yang mustahil dibaca. Data ini bulanan,
+ * maka labelnya pun bulan dan tahun. */
 export function formatShortDate(dateStr: string): string {
-  return new Date(dateStr).toLocaleDateString("id-ID", { day: "2-digit", month: "2-digit" })
+  const d = new Date(dateStr)
+  if (Number.isNaN(d.getTime())) return dateStr
+  return `${BULAN_SINGKAT[d.getMonth()]} ${String(d.getFullYear() % 100).padStart(2, "0")}`
 }
