@@ -87,10 +87,20 @@ def build_regional(forecast: pd.DataFrame, cent: pd.DataFrame) -> list:
     return out
 
 
-def build_heatmap(panel: pd.DataFrame, forecast: pd.DataFrame, months: int = 12) -> dict:
+def build_heatmap(panel: pd.DataFrame, forecast: pd.DataFrame,
+                  forecast_path: pd.DataFrame, months: int = 12) -> dict:
+    """Per-commodity matrix of monthly prices, history followed by the forecast.
+
+    The matrix used to stop at the last observed month, which left the whole
+    grid descriptive and pushed the only forward-looking figures into a
+    separate Top-5 panel. Every monitored province now carries its three
+    forecast months in the same row, flagged `isFuture` so the table can draw
+    the boundary rather than blur it.
+    """
     out = {}
     for wfp, (cid, _disp, _unit) in COMMODITY_ID.items():
         p = panel[panel.komoditas == wfp]
+        fp = forecast_path[forecast_path.komoditas == wfp]
         matrix = []
         for prov, g in p.groupby("provinsi"):
             g = g.sort_values("bulan").tail(months)
@@ -98,15 +108,24 @@ def build_heatmap(panel: pd.DataFrame, forecast: pd.DataFrame, months: int = 12)
                 continue
             base = float(g["harga"].iloc[0]) or 1.0
             data = [{"date": f"{b:%Y-%m-01}", "price": round(float(h)),
-                     "change": round((float(h) - base) / base * 100, 2)}
+                     "change": round((float(h) - base) / base * 100, 2),
+                     "isFuture": False}
                     for b, h in zip(g["bulan"], g["harga"])]
+            # Same base as the history, so one colour scale spans the whole row.
+            for b, e in zip(*[fp[fp.provinsi == prov].sort_values("h")[c]
+                              for c in ("bulan", "ensemble")]):
+                data.append({"date": f"{b:%Y-%m-01}", "price": round(float(e)),
+                             "change": round((float(e) - base) / base * 100, 2),
+                             "isFuture": True})
             matrix.append({"region": prov, "data": data})
-        last = [row["data"][-1]["change"] for row in matrix if row["data"]]
+        # Summary stats describe what has actually happened, so they ignore the
+        # forecast cells appended above.
+        hist = [[c for c in row["data"] if not c["isFuture"]] for row in matrix]
+        last = [h[-1]["change"] for h in hist if h]
         avg_inc = round(sum(last) / len(last), 2) if last else 0.0
-        alert_cnt = sum(1 for row in matrix
-                        if len(row["data"]) >= 2
-                        and (row["data"][-1]["price"] - row["data"][0]["price"])
-                        / max(row["data"][0]["price"], 1) * 100 > 10)
+        alert_cnt = sum(1 for h in hist
+                        if len(h) >= 2
+                        and (h[-1]["price"] - h[0]["price"]) / max(h[0]["price"], 1) * 100 > 10)
         fc = forecast[forecast.komoditas == wfp].sort_values("perubahan_persen",
                                                              ascending=False)
         top = [{"region": r.provinsi, "commodity": cid,
@@ -331,7 +350,7 @@ def main(argv=None) -> int:
     commodities = build_commodities()
     regions = build_regions(A["centroids"])
     regional = build_regional(A["forecast"], A["centroids"])
-    heatmap = build_heatmap(A["panel"], A["forecast"])
+    heatmap = build_heatmap(A["panel"], A["forecast"], A["forecast_path"])
     alerts = build_alerts(A["alerts"], A["meta"])
     redist = build_redistribution(A["flows"], A["meta"])
     executive = build_executive(A)

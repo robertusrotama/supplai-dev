@@ -87,25 +87,36 @@ export function getHeatmapData(commodityId: string, range: number = 12): Heatmap
   const all = heatmapGenerated as Record<string, HeatmapResponse>
   const src = all[commodityId] ?? all["beras"]
 
+  // `range` memilih berapa bulan RIWAYAT yang ditampilkan. Bulan proyeksi selalu
+  // ikut disertakan di ujung kanan — kalau ikut dipotong bersama riwayat, jendela
+  // 12 bulan akan termakan 3 bulan prediksi dan riwayatnya tinggal 9.
   const matrix: HeatmapRow[] = src.matrix.map((row) => {
-    const slice = row.data.slice(-range)
-    const base = slice[0]?.price ?? 1
-    const data: HeatmapCell[] = slice.map((c) => ({
+    const hist = row.data.filter((c) => !c.isFuture).slice(-range)
+    const future = row.data.filter((c) => c.isFuture)
+    const base = hist[0]?.price ?? 1
+    const rebase = (c: HeatmapCell): HeatmapCell => ({
       date: c.date,
       price: c.price,
       change: base ? parseFloat((((c.price - base) / base) * 100).toFixed(2)) : 0,
-    }))
-    return { region: row.region, data }
+      isFuture: c.isFuture === true,
+    })
+    return { region: row.region, data: [...hist, ...future].map(rebase) }
   })
 
-  const lastChanges = matrix.map((r) => r.data[r.data.length - 1]?.change ?? 0)
+  // Ringkasan menggambarkan apa yang sudah terjadi, jadi sel proyeksi diabaikan.
+  const histOf = (r: HeatmapRow) => r.data.filter((c) => !c.isFuture)
+  const lastChanges = matrix.map((r) => {
+    const h = histOf(r)
+    return h[h.length - 1]?.change ?? 0
+  })
   const avgIncrease = lastChanges.length
     ? parseFloat((lastChanges.reduce((s, v) => s + v, 0) / lastChanges.length).toFixed(2))
     : 0
   const alertCount = matrix.filter((r) => {
-    if (r.data.length < 2) return false
-    const first = r.data[0].price
-    const last = r.data[r.data.length - 1].price
+    const h = histOf(r)
+    if (h.length < 2) return false
+    const first = h[0].price
+    const last = h[h.length - 1].price
     return first > 0 && ((last - first) / first) * 100 > 10
   }).length
 

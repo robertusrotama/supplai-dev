@@ -157,6 +157,10 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
   }
 
   const dates = matrix[0]?.data.map((d) => d.date) ?? []
+  // Kolom proyeksi ditandai dari data, bukan ditebak dari posisi — kalau suatu
+  // wilayah kekurangan bulan historis, batasnya tetap jatuh di tempat benar.
+  const future = matrix[0]?.data.map((d) => d.isFuture === true) ?? []
+  const firstFuture = future.indexOf(true)
 
   const sorted = [...matrix].sort((a, b) => {
     if (sortAsc) return a.region.localeCompare(b.region, "id")
@@ -211,6 +215,13 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
           <div className="w-4 h-4 rounded" style={{ backgroundColor: "#ef4444" }} />
           <span>+15%+</span>
         </div>
+        <div className="flex items-center gap-1 pl-3 ml-1 border-l-2 border-dashed border-[#006c4a]">
+          <div
+            className="w-4 h-4 rounded border border-gray-300"
+            style={{ backgroundImage: "repeating-linear-gradient(45deg, #cbd5e1 0 3px, #f1f5f9 3px 7px)" }}
+          />
+          <span>Kolom berarsir = <b className="text-[#006c4a]">prediksi</b>, bukan harga teramati</span>
+        </div>
       </div>
 
       <div className="overflow-x-auto rounded-xl border border-gray-200">
@@ -227,12 +238,21 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
                 Wilayah
                 <span className="ml-1 text-[#006c4a]">{sortAsc ? "↑" : "↓"}</span>
               </th>
-              {dates.map((date) => (
+              {dates.map((date, i) => (
                 <th
                   key={date}
-                  className="min-w-[70px] text-center font-semibold text-[#1e293b] py-2.5 px-1 border-b border-gray-200 whitespace-nowrap"
+                  className={`min-w-[70px] text-center font-semibold py-2.5 px-1 border-b border-gray-200 whitespace-nowrap ${
+                    future[i]
+                      ? "text-[#006c4a] bg-emerald-50/70 italic"
+                      : "text-[#1e293b]"
+                  } ${i === firstFuture ? "border-l-2 border-l-dashed border-l-[#006c4a]" : ""}`}
                 >
                   {formatShortDate(date)}
+                  {future[i] && (
+                    <span className="block text-[9px] font-bold not-italic tracking-wide opacity-70">
+                      PREDIKSI
+                    </span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -248,8 +268,11 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
                     mengeklik nama provinsi membawa pengguna ke halaman kosong.
                     Tautkan kembali begitu halaman detail wilayah tersedia. */}
                 <td
+                  // Latar wajib pekat. Sebelumnya "bg-gray-50/40" — 40% tembus
+                  // pandang — sehingga sel yang tergulir di baliknya menembus
+                  // di belakang nama wilayah saat tabel digeser mendatar.
                   className={`sticky left-0 z-10 px-3 py-1.5 min-w-[160px] font-medium border-r border-gray-200 whitespace-nowrap ${
-                    rowIdx % 2 === 0 ? "bg-white" : "bg-gray-50/40"
+                    rowIdx % 2 === 0 ? "bg-white" : "bg-[#f8fafc]"
                   }`}
                 >
                   <span className="flex items-center gap-1.5 text-slate-700">
@@ -257,14 +280,24 @@ export function PriceMatrix({ matrix, loading }: PriceMatrixProps) {
                     {row.region}
                   </span>
                 </td>
-                {row.data.map((cell) => {
+                {row.data.map((cell, i) => {
                   const bg = getHeatColor(cell.change)
                   const fg = getTextColor(bg)
                   return (
                     <td
                       key={cell.date}
-                      className="min-w-[70px] text-center py-2 px-1 cursor-default transition-opacity hover:opacity-80"
-                      style={{ backgroundColor: bg, color: fg }}
+                      className={`min-w-[70px] text-center py-2 px-1 cursor-default transition-opacity hover:opacity-80 ${
+                        cell.isFuture ? "italic" : ""
+                      } ${i === firstFuture ? "border-l-2 border-l-dashed border-l-[#006c4a]" : ""}`}
+                      style={{
+                        backgroundColor: bg,
+                        color: fg,
+                        // Sel proyeksi sengaja diberi arsir samar supaya tidak
+                        // terbaca setara dengan harga yang benar-benar teramati.
+                        ...(cell.isFuture
+                          ? { backgroundImage: "repeating-linear-gradient(45deg, rgba(255,255,255,.32) 0 3px, transparent 3px 7px)" }
+                          : {}),
+                      }}
                       onMouseEnter={(e) =>
                         handleMouseEnter(e, row.region, cell.date, cell.price, cell.change)
                       }
