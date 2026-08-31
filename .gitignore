@@ -44,3 +44,20 @@ next-env.d.ts
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# ssh keys / credentials — an SSH private key was committed here once. It was
+# generated with `ssh-keygen -f id_ed25519.pub`, and -f names the PRIVATE key
+# file, so the secret was written to a path whose .pub name looked harmless.
+# Match on the id_* stem, not on the suffix.
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+*.ppk
+*.p12
+*.pfx
+*.jks
+*.keystore
+*credentials*.json
+*service-account*.json
+*serviceaccount*.json
