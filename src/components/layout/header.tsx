@@ -192,7 +192,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
                 <button
                     onClick={triggerGlobalRefresh}
                     className="p-2 text-slate-500 hover:text-emerald-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer flex items-center justify-center"
-                    title="Universal System Refresh"
+                    title="Perbarui data"
                 >
                     <RefreshCw className={`w-4 h-4 ${isGlobalRefreshing ? "animate-spin text-emerald-600" : ""}`} />
                 </button>
@@ -383,7 +383,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
                                     ) : (
                                         <>
                                             <LogIn className="w-4 h-4 text-emerald-500" />
-                                            <span className="text-emerald-600 font-medium">Masuk / Login</span>
+                                            <span className="text-emerald-600 font-medium">Masuk</span>
                                         </>
                                     )}
                                 </button>

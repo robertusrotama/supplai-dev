@@ -86,7 +86,7 @@ export default function AuthPage() {
               onClick={() => setIsRedirecting(true)} // Tombol Google juga bisa masuk langsung
               whileHover={{ scale: 1.01, backgroundColor: "#f8fafc" }}
               whileTap={{ scale: 0.99 }}
-              className="w-full flex items-center justify-center gap-3 bg-white border border-brand-border h-12 px-4 rounded-full text-xs font-bold text-brand-textMain shadow-sm cursor-pointer transition-colors"
+              className="w-full flex items-center justify-center gap-3 bg-white border border-brand-border h-12 px-4 rounded-xl text-xs font-bold text-brand-textMain shadow-sm cursor-pointer transition-colors"
             >
               <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24">
                 <path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.866-3.577-7.866-8s3.536-8 7.866-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.227C18.29 1.414 15.56 0 12.24 0 5.58 0 0 5.37 0 12s5.58 12 12.24 12c6.96 0 11.57-4.89 11.57-11.79 0-.795-.085-1.4-.195-1.925H12.24z"/>
@@ -157,7 +157,7 @@ export default function AuthPage() {
                 type="submit"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full h-12 bg-brand-textMain text-white font-bold text-xs tracking-wider rounded-full shadow-md hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2"
+                className="w-full h-12 bg-brand-textMain text-white font-bold text-xs tracking-wider rounded-xl shadow-md hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2"
               >
                 {isLogin ? "LOG IN" : "SIGN UP"}
                 <ArrowRight className="w-3.5 h-3.5" />
