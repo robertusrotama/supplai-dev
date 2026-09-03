@@ -183,6 +183,9 @@
   },
   "active": "bf17d21583190c40",
   "lastOpenFiles": [
+    "public/images/login-background.webp",
+    "public/videos/login-background.mp4",
+    "scripts/check_secrets.sh",
     "node_modules/eslint-plugin-react/README.md",
     "src/components/landing/language.tsx",
     "src/components/landing/translations.ts",
@@ -193,8 +196,6 @@
     "src/app/api/prediction-report/route.ts",
     "src/lib/prediction/report.ts",
     "src/app/api/prediction-report",
-    "src/lib/prediction/analysis.ts",
-    "src/lib/prediction",
     "docs/superpowers/specs/2026-03-18-supplai-prototype-design.md",
     "docs/Home.md",
     "node_modules/yallist/README.md",

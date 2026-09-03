@@ -40,7 +40,9 @@ export function Header({ onToggleAgent }: HeaderProps) {
 
     useEffect(() => {
         const savedEmail = sessionStorage.getItem("userEmail") || localStorage.getItem("userEmail");
-        if (savedEmail) {
+        if (sessionStorage.getItem("authMode") === "guest") {
+            setUserDisplay({ name: "Tamu", email: "Akses tamu" });
+        } else if (savedEmail) {
             const namePart = savedEmail.includes("@") ? savedEmail.split("@")[0] : savedEmail;
             const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
             setUserDisplay({
@@ -149,6 +151,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
 
     const handleAuthAction = () => {
         if (isLoggedIn) {
+            sessionStorage.removeItem("authMode");
             sessionStorage.removeItem("userEmail");
             localStorage.removeItem("userEmail");
             setIsLoggedIn(false);
